@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations software for growing manufacturers</title>
+<meta name="description" content="We build custom ERP, production, quality, inventory and dispatch systems around how your plant actually works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ THEME TOKENS ============ */
+:root, :root[data-theme="dark"]{
+  --bg:#0A0B10;
+  --bg-alt:#0D0E15;
+  --surface:#12131D;
+  --surface-2:#171827;
+  --border:rgba(255,255,255,.09);
+  --border-strong:rgba(255,255,255,.16);
+  --ink:#F2F3F8;
+  --ink-body:#B9BDCC;
+  --muted:#868B9F;
+  --accent:#8B7BFF;
+  --accent-2:#4D7CFE;
+  --grad:linear-gradient(92deg,#9B8AFF 0%,#6E5CF6 45%,#4D7CFE 100%);
+  --glow:rgba(124,107,250,.35);
+  --glow-soft:rgba(124,107,250,.16);
+  --header-bg:rgba(10,11,16,.78);
+  --input-bg:#101120;
+  --ph-a:#10111A;
+  --ph-b:#151626;
+  --focus:#9B8AFF;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#FFFFFF;
+  --bg-alt:#F6F6FB;
+  --surface:#FFFFFF;
+  --surface-2:#F2F2F9;
+  --border:#E5E6F0;
+  --border-strong:#D4D6E4;
+  --ink:#14151D;
+  --ink-body:#3C3F4E;
+  --muted:#6E7288;
+  --accent:#6C59F5;
+  --accent-2:#3D6DF5;
+  --grad:linear-gradient(92deg,#7C6BFA 0%,#5B47EE 45%,#3D6DF5 100%);
+  --glow:rgba(108,89,245,.25);
+  --glow-soft:rgba(108,89,245,.10);
+  --header-bg:rgba(255,255,255,.82);
+  --input-bg:#FFFFFF;
+  --ph-a:#F6F6FB;
+  --ph-b:#EDEDF6;
+  --focus:#5B47EE;
+  color-scheme:light;
+}
+:root{
+  --font-head:"Inter Tight",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --maxw:1140px;
+  --pad-desk:104px;
+  --pad-mob:60px;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:var(--font-body);
+  font-size:17.5px;
+  line-height:1.65;
+  color:var(--ink-body);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s ease,color .2s ease;
+}
+img,svg{display:block;max-width:100%}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--focus);outline-offset:2px;border-radius:6px;
+}
+h1,h2,h3,h4{font-family:var(--font-head);color:var(--ink);line-height:1.12;font-weight:700;letter-spacing:-0.015em}
+h1{font-size:clamp(2.2rem,5.2vw,3.5rem)}
+h2{font-size:clamp(1.75rem,3.6vw,2.45rem)}
+h3{font-size:1.25rem;line-height:1.3}
+p{max-width:68ch}
+
+/* Gradient highlight — the signature Astra device */
+em.grad{
+  font-style:italic;
+  background:var(--grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  padding-right:.06em;
+}
+
+/* ============ LAYOUT ============ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:24px;padding-right:24px}
+.section{padding:var(--pad-desk) 0;position:relative}
+.section.alt{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-head{max-width:760px;margin-bottom:52px}
+.eyebrow{
+  font-family:var(--font-head);font-size:.8rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;
+  border:1px solid var(--border-strong);border-radius:999px;padding:7px 16px;
+  background:var(--glow-soft);
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--grad);flex:none}
+.lede{font-size:1.15rem;color:var(--ink-body);margin-top:16px}
+@media (max-width:760px){
+  .section{padding:var(--pad-mob) 0}
+  .section-head{margin-bottom:38px}
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:52px;padding:14px 28px;border-radius:10px;border:1px solid transparent;
+  font-family:var(--font-head);font-weight:600;font-size:1.02rem;cursor:pointer;
+  background:var(--grad);color:#fff;text-decoration:none;
+  box-shadow:0 0 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.22);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+.btn:hover{box-shadow:0 0 36px var(--glow), inset 0 1px 0 rgba(255,255,255,.22);text-decoration:none;transform:translateY(-1px)}
+.btn.secondary{background:var(--surface);color:var(--ink);border-color:var(--border-strong);box-shadow:none}
+.btn.secondary:hover{border-color:var(--accent);box-shadow:0 0 18px var(--glow-soft)}
+.textlink{font-weight:600;font-size:1.02rem;display:inline-flex;align-items:center;min-height:48px;color:var(--accent)}
+
+/* ============ HEADER ============ */
+.site-header{
+  position:sticky;top:0;z-index:60;background:var(--header-bg);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:700;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.logo:hover{text-decoration:none}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:var(--grad);position:relative;flex:none;box-shadow:0 0 16px var(--glow)}
+.logo-mark::after{content:"";position:absolute;left:8px;top:15px;width:16px;height:2px;background:#fff}
+.logo-mark::before{content:"";position:absolute;left:8px;top:10px;width:10px;height:2px;background:#fff}
+.header-actions{display:flex;align-items:center;gap:10px}
+.theme-btn{
+  width:48px;height:48px;border-radius:10px;border:1px solid var(--border-strong);
+  background:var(--surface);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);
+}
+.theme-btn:hover{border-color:var(--accent)}
+.theme-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+:root[data-theme="light"] .icon-sun{display:none}
+:root:not([data-theme="light"]) .icon-moon{display:none}
+.main-nav{display:flex;align-items:center;gap:26px}
+.main-nav a.navlink{color:var(--ink-body);font-weight:500;font-size:.98rem;padding:12px 2px;min-height:48px;display:inline-flex;align-items:center}
+.main-nav a.navlink:hover{color:var(--ink);text-decoration:none}
+.main-nav a.navlink[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+.nav-cta{min-height:46px;padding:10px 20px;font-size:.95rem}
+.menu-btn{display:none;background:var(--surface);border:1px solid var(--border-strong);border-radius:10px;width:48px;height:48px;cursor:pointer;align-items:center;justify-content:center}
+.menu-btn svg{width:24px;height:24px;stroke:var(--ink)}
+@media (max-width:1020px){
+  .menu-btn{display:inline-flex}
+  .main-nav{
+    display:none;position:absolute;top:74px;left:0;right:0;background:var(--bg);
+    border-bottom:1px solid var(--border);flex-direction:column;align-items:stretch;
+    gap:0;padding:8px 24px 20px;
+  }
+  .main-nav.open{display:flex}
+  .main-nav a.navlink{min-height:52px;border-bottom:1px solid var(--border);width:100%}
+  .main-nav a.navlink[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent);padding-left:12px}
+  .nav-cta{margin-top:16px;width:100%}
+}
+
+/* ============ CARDS / GRIDS ============ */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;transition:border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover{border-color:var(--border-strong);box-shadow:0 0 28px var(--glow-soft)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media (min-width:961px){.grid-4{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:760px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* ============ PLACEHOLDER FRAMES ============ */
+.ph{
+  border:1px dashed var(--border-strong);border-radius:var(--radius);
+  background:repeating-linear-gradient(-45deg,var(--ph-a),var(--ph-a) 12px,var(--ph-b) 12px,var(--ph-b) 24px);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  color:var(--muted);font-size:.92rem;font-weight:500;padding:18px;
+}
+.ph .tag{background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;padding:6px 12px;max-width:90%}
+
+/* Browser frame */
+.browser{
+  border:1px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;
+  background:var(--surface);box-shadow:0 12px 60px rgba(0,0,0,.35),0 0 50px var(--glow-soft);
+}
+:root[data-theme="light"] .browser{box-shadow:0 12px 44px rgba(20,21,29,.10),0 0 50px var(--glow-soft)}
+.browser-bar{height:36px;background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;padding:0 12px}
+.browser-bar i{width:9px;height:9px;border-radius:50%;background:var(--border-strong);display:block}
+.browser-body{position:relative}
+
+/* Paper→screen device (paper stays paper in both themes) */
+.paper-screen{display:grid;grid-template-columns:1fr 56px 1fr;align-items:stretch;gap:0}
+.paper-panel{border:1px solid var(--border-strong);border-radius:var(--radius);background:#FBFAF7;overflow:hidden;position:relative}
+.paper-lines{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(#E8E4DA 1px,transparent 1px) 0 26px/100% 30px,
+    linear-gradient(90deg,transparent 44px,#D8B4A8 44px,#D8B4A8 45px,transparent 45px);
+}
+.paper-label{position:absolute;left:0;right:0;bottom:0;padding:12px;display:flex;justify-content:center}
+.paper-label .tag{background:#fff;border-color:#D9D5CA;color:#5C6770}
+.ps-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.ps-arrow svg{width:34px;height:34px;filter:drop-shadow(0 0 8px var(--glow))}
+@media (max-width:760px){
+  .paper-screen{grid-template-columns:1fr;gap:8px}
+  .ps-arrow{transform:rotate(90deg);height:40px}
+}
+
+/* Mock dashboard — neon */
+.mockdash{padding:16px;display:grid;grid-template-columns:1.1fr 1fr;gap:14px;background:var(--surface)}
+.mock-block{border:1px solid var(--border);border-radius:10px;padding:12px;background:var(--surface-2)}
+.mock-title{height:9px;width:55%;background:var(--border-strong);border-radius:3px;margin-bottom:12px}
+.mock-bars{display:flex;align-items:flex-end;gap:8px;height:86px}
+.mock-bars i{flex:1;background:var(--grad);border-radius:3px 3px 0 0;display:block;box-shadow:0 0 12px var(--glow)}
+.mock-rows .r{display:flex;gap:8px;margin-bottom:9px}
+.mock-rows .r b{height:8px;border-radius:3px;background:var(--border-strong);display:block}
+.mock-kpis{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mock-kpi{border:1px solid var(--border);border-radius:10px;padding:10px;background:var(--surface-2)}
+.mock-kpi em{display:block;font-style:normal;font-family:var(--font-head);font-weight:700;color:var(--ink);font-size:1.05rem}
+.mock-kpi span{font-size:.72rem;color:var(--muted)}
+@media (max-width:520px){.mockdash{grid-template-columns:1fr}.mock-kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ HOME ============ */
+.hero{padding:96px 0 var(--pad-desk);position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);
+  width:1000px;height:640px;pointer-events:none;
+  background:radial-gradient(closest-side,var(--glow),transparent 72%);
+  opacity:.8;
+}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative}
+.hero-copy p.sub{font-size:1.18rem;margin:22px 0 32px;color:var(--ink-body)}
+.hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+@media (max-width:960px){
+  .hero{padding-top:60px}
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+}
+
+.problem-card h3{margin-bottom:10px}
+.problem-card .glyph{
+  width:46px;height:46px;margin-bottom:18px;color:var(--accent);
+  border:1px solid var(--border-strong);border-radius:12px;padding:10px;
+  background:var(--glow-soft);
+}
+.problem-card .glyph svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.6}
+.closing-line{margin-top:40px;font-size:1.12rem;font-weight:500;color:var(--ink);max-width:760px}
+
+.outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:40px 0 48px}
+.outcome{border:1px solid var(--border);border-radius:var(--radius);padding:24px;background:var(--surface)}
+.outcome b{display:block;font-family:var(--font-head);font-size:1.08rem;color:var(--ink);margin-bottom:8px}
+@media (max-width:760px){.outcomes{grid-template-columns:1fr}}
+
+.annotated{position:relative}
+.annot{
+  position:absolute;background:var(--surface);border:1px solid var(--accent);color:var(--accent);
+  font-size:.78rem;font-weight:600;border-radius:999px;padding:5px 12px;white-space:nowrap;
+  box-shadow:0 0 14px var(--glow-soft);
+}
+@media (max-width:600px){.annot{display:none}}
+
+.case-card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:44px;box-shadow:0 0 60px var(--glow-soft)}
+.case-meta{font-size:.92rem;color:var(--muted);font-weight:600;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:36px 0}
+.stat{position:relative;padding-top:16px}
+.stat::before{content:"";position:absolute;top:0;left:0;width:52px;height:3px;border-radius:3px;background:var(--grad);box-shadow:0 0 10px var(--glow)}
+.stat b{display:block;font-family:var(--font-head);font-size:1.5rem;color:var(--ink);line-height:1.2;margin-bottom:6px}
+.stat span{font-size:.95rem;color:var(--ink-body)}
+@media (max-width:760px){.stats{grid-template-columns:1fr;gap:18px}}
+.pullquote{border-left:3px solid var(--accent);padding:6px 0 6px 22px;margin:28px 0;font-size:1.12rem;color:var(--ink)}
+.pullquote cite{display:block;font-style:normal;font-size:.95rem;color:var(--muted);margin-top:10px}
+
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px}
+.contrast .card h3{margin-bottom:12px}
+.contrast .card .label{font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+@media (max-width:760px){.contrast{grid-template-columns:1fr}}
+.resolution{border-left:3px solid var(--accent);padding-left:22px;font-size:1.12rem;color:var(--ink);max-width:800px}
+
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;counter-reset:step;margin-bottom:40px}
+.step{position:relative;padding-top:22px}
+.step::before{
+  counter-increment:step;content:counter(step,decimal-leading-zero);
+  font-family:var(--font-head);font-weight:700;font-size:1rem;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  display:inline-block;margin-bottom:12px;
+}
+.step::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px;background:var(--border-strong)}
+.step:first-child::after{background:var(--grad);box-shadow:0 0 10px var(--glow)}
+.step b{display:block;font-family:var(--font-head);font-size:1.06rem;color:var(--ink);margin-bottom:8px}
+.step p{font-size:.98rem}
+@media (max-width:960px){
+  .timeline{grid-template-columns:1fr;gap:0}
+  .step{padding:20px 0 20px 56px}
+  .step::after{width:2px;height:100%;right:auto;left:16px}
+  .step::before{
+    position:absolute;left:0;top:22px;width:34px;height:34px;background:var(--surface);
+    border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:.85rem;margin:0;-webkit-background-clip:border-box;background-clip:border-box;color:var(--accent);
+  }
+}
+.trust-line{font-weight:500;color:var(--ink)}
+
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 28px}
+.chip{
+  border:1px solid var(--border-strong);border-radius:999px;padding:12px 20px;
+  font-size:.98rem;font-weight:500;color:var(--ink);background:var(--surface);
+  min-height:48px;display:inline-flex;align-items:center;
+}
+.chip:hover{border-color:var(--accent)}
+.callout{
+  border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);
+  background:var(--surface);padding:18px 22px;max-width:760px;font-size:1.02rem;
+}
+
+.founder-cards{margin-top:40px}
+.founder .ph{aspect-ratio:4/5;margin-bottom:18px}
+.founder b{display:block;font-family:var(--font-head);font-size:1.08rem;color:var(--ink)}
+.founder span{color:var(--muted);font-size:.96rem}
+
+/* Final CTA — glowing panel */
+.final-cta{background:transparent;padding:var(--pad-desk) 0}
+.final-cta .wrap{
+  display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:center;
+  background:var(--surface);border:1px solid var(--border-strong);border-radius:22px;
+  padding:64px;max-width:calc(var(--maxw) - 0px);
+  box-shadow:0 0 90px var(--glow), inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;overflow:hidden;
+}
+.final-cta .wrap::before{
+  content:"";position:absolute;top:-140px;left:50%;transform:translateX(-50%);
+  width:640px;height:300px;background:radial-gradient(closest-side,var(--glow),transparent 70%);
+  pointer-events:none;
+}
+.final-cta .wrap > *{position:relative}
+.contact-big{
+  font-family:var(--font-head);font-weight:700;font-size:1.35rem;color:var(--ink);
+  margin-bottom:6px;min-height:48px;display:inline-flex;align-items:center;
+}
+@media (max-width:860px){
+  .final-cta .wrap{grid-template-columns:1fr;gap:36px;padding:44px 28px}
+}
+
+/* ============ INNER PAGES ============ */
+.page-head{padding:80px 0 0;position:relative;overflow:hidden}
+.page-head::before{
+  content:"";position:absolute;top:-240px;left:50%;transform:translateX(-50%);
+  width:900px;height:520px;background:radial-gradient(closest-side,var(--glow-soft),transparent 72%);
+  pointer-events:none;
+}
+.page-head .wrap{max-width:820px;margin:0 auto;position:relative}
+.prose{max-width:760px}
+.prose h2{margin:56px 0 18px}
+.prose h3{margin:36px 0 12px}
+.prose p{margin-bottom:18px}
+.prose ul{margin:0 0 18px 22px}
+.prose li{margin-bottom:10px}
+.prose strong{color:var(--ink)}
+
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0}
+@media (max-width:760px){.module-grid{grid-template-columns:1fr}}
+.module .num{
+  font-family:var(--font-head);font-weight:700;font-size:.85rem;display:block;margin-bottom:8px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.module h3{margin-bottom:8px;font-size:1.1rem}
+.module p{font-size:.98rem}
+
+.problem-links{margin-top:48px}
+.plink{
+  display:block;border:1px solid var(--border);border-radius:var(--radius);padding:22px;
+  background:var(--surface);color:var(--ink);font-weight:600;font-family:var(--font-head);min-height:48px;
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.plink:hover{border-color:var(--accent);text-decoration:none;box-shadow:0 0 24px var(--glow-soft)}
+.plink span{display:block;font-family:var(--font-body);font-weight:400;color:var(--ink-body);font-size:.95rem;margin-top:6px}
+
+.faq{border:1px solid var(--border);border-radius:var(--radius);max-width:800px;background:var(--surface);overflow:hidden}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  font-family:var(--font-head);font-weight:600;font-size:1.06rem;color:var(--ink);
+  padding:22px 56px 22px 24px;position:relative;min-height:48px;line-height:1.4;
+}
+.faq-q::after{
+  content:"";position:absolute;right:24px;top:50%;width:11px;height:11px;
+  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
+  transform:translateY(-70%) rotate(45deg);transition:transform .15s ease;
+}
+.faq-item.open .faq-q::after{transform:translateY(-30%) rotate(-135deg)}
+.faq-a{display:none;padding:0 24px 24px;max-width:70ch}
+.faq-item.open .faq-a{display:block}
+.faq-item.open{background:var(--surface-2)}
+
+.ps-list{margin:40px 0}
+.ps-row{
+  display:grid;grid-template-columns:1fr 44px 1fr;gap:18px;align-items:center;
+  border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;margin-bottom:16px;
+  background:var(--surface);transition:border-color .18s ease,box-shadow .18s ease;
+}
+.ps-row:hover{border-color:var(--border-strong);box-shadow:0 0 24px var(--glow-soft)}
+.ps-row .prob{font-family:var(--font-head);font-weight:600;color:var(--ink);font-size:1.06rem}
+.ps-row .sol{color:var(--ink-body)}
+.ps-row .sol strong{color:var(--ink)}
+.ps-row .arr{color:var(--accent)}
+.ps-row .arr svg{width:26px;height:26px;filter:drop-shadow(0 0 6px var(--glow))}
+@media (max-width:700px){
+  .ps-row{grid-template-columns:1fr}
+  .ps-row .arr{transform:rotate(90deg);height:28px}
+}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.field{margin-bottom:20px}
+.field label{display:block;font-weight:600;font-family:var(--font-head);color:var(--ink);margin-bottom:8px;font-size:.98rem}
+.field input,.field textarea{
+  width:100%;border:1px solid var(--border-strong);border-radius:10px;padding:13px 14px;
+  font-family:var(--font-body);font-size:1.02rem;color:var(--ink);background:var(--input-bg);min-height:50px;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:0}
+.form-note{font-size:.95rem;color:var(--muted);margin-top:14px}
+.form-success{
+  display:none;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);
+  padding:18px 22px;background:var(--surface);color:var(--ink-body);
+}
+.form-success strong{color:var(--ink)}
+
+/* ============ FOOTER ============ */
+.site-footer{border-top:1px solid var(--border);background:var(--bg-alt);padding:64px 0 48px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
+@media (max-width:860px){.footer-grid{grid-template-columns:1fr;gap:36px}}
+.site-footer .tagline{margin-top:14px;color:var(--ink-body);max-width:32ch}
+.site-footer h4{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.site-footer ul{list-style:none}
+.site-footer li{margin-bottom:10px}
+.site-footer a{color:var(--ink-body);min-height:32px;display:inline-flex;align-items:center}
+.site-footer a:hover{color:var(--accent)}
+address{font-style:normal;color:var(--ink-body)}
+.footer-bottom{border-top:1px solid var(--border);margin-top:48px;padding-top:24px;font-size:.9rem;color:var(--muted)}
+
+/* ============ MOTION ============ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .2s ease,transform .2s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .faq-q::after{transition:none}
+  .btn{transition:none}
+  body{transition:none}
+}
+
+/* Page routing */
+.page{display:none}
+.page.active{display:block}
+
+</style>
+</head>
+<body>
+<a href="#main" class="btn" style="position:absolute;left:-9999px;top:8px;z-index:100" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#/" data-route="home" aria-label="[REPLACE: Company name] — home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span>[Company]</span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Main">
+      <a class="navlink" href="#/" data-route="home">Home</a>
+      <a class="navlink" href="#/how-we-work" data-route="how">How We Work</a>
+      <a class="navlink" href="#/what-we-build" data-route="build">What We Build</a>
+      <a class="navlink" href="#/about" data-route="about">About</a>
+      <a class="navlink" href="#/contact" data-route="contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Switch to light theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================================================
+     PAGE 1 — HOME
+============================================================ -->
+<div class="page" id="page-home">
+
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy reveal">
+        <h1>Your factory runs. <em class="grad">Your&nbsp;systems don't.</em></h1>
+        <p class="sub">Production updates on WhatsApp. Quality records in registers. Inventory that's only accurate on audit day. We build software around how your plant actually works — one connected system from inquiry to dispatch.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="#/contact">Book an Operations Walkthrough</a>
+          <a class="textlink" href="#/work">See how Mass Polymers did it →</a>
+        </div>
+      </div>
+      <div class="reveal" aria-label="Before and after: a handwritten factory register replaced by a live production dashboard">
+        <div class="paper-screen">
+          <div class="paper-panel">
+            <div class="paper-lines" aria-hidden="true"></div>
+            <div class="paper-label"><span class="ph" style="border:none;background:none;padding:0"><span class="tag">[REPLACE: photo — handwritten production register]</span></span></div>
+          </div>
+          <div class="ps-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="browser-body">
+              <div class="mockdash" aria-hidden="true">
+                <div class="mock-kpis">
+                  <div class="mock-kpi"><em>96.2%</em><span>Plan vs actual</span></div>
+                  <div class="mock-kpi"><em>14</em><span>Machines running</span></div>
+                  <div class="mock-kpi"><em>3</em><span>QC holds</span></div>
+                  <div class="mock-kpi"><em>8</em><span>Dispatches today</span></div>
+                </div>
+                <div class="mock-block">
+                  <div class="mock-title"></div>
+                  <div class="mock-bars"><i style="height:45%"></i><i style="height:70%"></i><i style="height:58%"></i><i style="height:88%"></i><i style="height:64%"></i><i style="height:76%"></i></div>
+                </div>
+                <div class="mock-block mock-rows">
+                  <div class="mock-title"></div>
+                  <div class="r"><b style="width:30%"></b><b style="width:45%"></b><b style="width:15%"></b></div>
+                  <div class="r"><b style="width:25%"></b><b style="width:50%"></b><b style="width:15%"></b></div>
+                  <div class="r"><b style="width:35%"></b><b style="width:38%"></b><b style="width:17%"></b></div>
+                  <div class="r"><b style="width:28%"></b><b style="width:46%"></b><b style="width:16%"></b></div>
+                </div>
+              </div>
+              <p class="ph" style="border:none;margin:0 16px 16px;padding:10px"><span class="tag">[REPLACE: real product screenshot]</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. THE PROBLEM -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>The business grew. <em class="grad">The spreadsheets didn't.</em></h2>
+        <p class="lede">Every growing manufacturer hits the same wall. The order book is healthy, the machines are running — but the information holding it all together lives in a dozen disconnected places.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card problem-card reveal">
+          <div class="glyph"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div>
+          <h3>"What's our actual stock?"</h3>
+          <p>Inventory lives in a register, an Excel sheet, and the storekeeper's head. The three never agree. You find out the truth during the annual audit — or when a dispatch gets delayed.</p>
+        </div>
+        <div class="card problem-card reveal">
+          <div class="glyph"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z"/><path d="M8 11h8M8 14h5"/></svg></div>
+          <h3>"Check the WhatsApp group."</h3>
+          <p>Production status is a chain of photos and voice notes. By the time numbers reach a review meeting, they're two days old and nobody can verify them.</p>
+        </div>
+        <div class="card problem-card reveal">
+          <div class="glyph"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9zM7 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1"/><path d="M8 12h8M8 16h6"/></svg></div>
+          <h3>"The QC file is with Ramesh."</h3>
+          <p>Quality inspections live on paper. When a customer complaint comes in, tracing which batch, which machine, which shift takes days — if it's possible at all.</p>
+        </div>
+        <div class="card problem-card reveal">
+          <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4M12 13v5M9.5 15.5L12 18l2.5-2.5"/></svg></div>
+          <h3>"We'll confirm delivery by tomorrow."</h3>
+          <p>Sales can't promise dates because they can't see production. Production can't plan because they can't see material.</p>
+        </div>
+      </div>
+      <p class="closing-line reveal">None of this is a people problem. Your team is working hard — inside systems that were never designed to talk to each other.</p>
+    </div>
+  </section>
+
+  <!-- 3. THE SHIFT -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>One system. <em class="grad">One version of the truth.</em></h2>
+        <p class="lede">Imagine walking into Monday's review meeting and every number on the screen is live. An inquiry becomes a sales order, a production plan, a machine schedule, a QC record, and a dispatch note — in one flow, with nothing re-typed and nothing lost.</p>
+      </div>
+      <div class="outcomes">
+        <div class="outcome reveal"><b>You see the plant in real time.</b><p>Production, quality, inventory, and dispatch on one screen — from the floor or from your phone.</p></div>
+        <div class="outcome reveal"><b>Every product is traceable.</b><p>Batch to machine to shift to operator to raw-material lot. A complaint becomes a ten-minute lookup, not a ten-day investigation.</p></div>
+        <div class="outcome reveal"><b>Decisions stop waiting for data.</b><p>Month-end reports become live dashboards. Gut-feel planning becomes plan-versus-actual.</p></div>
+      </div>
+      <div class="annotated reveal" style="max-width:860px">
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="browser-body">
+            <div class="ph" style="border:none;min-height:300px"><span class="tag">[REPLACE: annotated product screenshot — live plant dashboard]</span></div>
+          </div>
+        </div>
+        <span class="annot" style="top:22%;left:-14px">Live machine status</span>
+        <span class="annot" style="top:52%;right:-14px">Batch trace in one click</span>
+        <span class="annot" style="bottom:14%;left:8%">Plan vs actual, today</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. HOW WE'RE DIFFERENT -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Software shaped to your process — <em class="grad">not your process contorted to software.</em></h2>
+      </div>
+      <div class="contrast">
+        <div class="card reveal">
+          <span class="label">Option one</span>
+          <h3>Packaged ERP</h3>
+          <p>Forces your plant to work the way the software was designed. "Six months of implementation" is really six months of changing how your people work — and paying consultants to configure screens nobody asked for.</p>
+        </div>
+        <div class="card reveal">
+          <span class="label">Option two</span>
+          <h3>Generic dev shop</h3>
+          <p>Will build whatever you specify — but they're learning manufacturing on your invoice. They don't know what a CAPA is, why a GRN matters, or what an auditor will ask for.</p>
+        </div>
+      </div>
+      <p class="resolution reveal">We sit in the middle, deliberately. We already know how mid-size plants run — production planning, quality systems, traceability, dispatch. And we build custom, so the system fits your workflow on day one.</p>
+    </div>
+  </section>
+  <!-- 6. HOW WE WORK -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>From factory walkthrough to live system — <em class="grad">in stages, not one giant leap.</em></h2>
+      </div>
+      <div class="timeline">
+        <div class="step reveal"><b>Walk the floor</b><p>We start in your plant, not a conference room, and map how work actually flows.</p></div>
+        <div class="step reveal"><b>Blueprint</b><p>Workflows, screens, phases, timeline, cost. Before any code, you know exactly what you're getting.</p></div>
+        <div class="step reveal"><b>Build the first module</b><p>The highest-pain module ships first; working software in weeks.</p></div>
+        <div class="step reveal"><b>Roll out in stages</b><p>Training on the floor; each phase proves itself before the next.</p></div>
+        <div class="step reveal"><b>Stay</b><p>We support, refine, and extend the system as you grow.</p></div>
+      </div>
+      <p class="trust-line reveal">Fixed-scope phases. No lock-in — you own your data and your system.</p>
+    </div>
+  </section>
+
+  <!-- 7. WHAT WE BUILD — CAPABILITY BAND -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Whatever the operational problem, <em class="grad">we build the system that solves it.</em></h2>
+      </div>
+      <div class="chips reveal">
+        <span class="chip">Custom ERP</span>
+        <span class="chip">Production &amp; Quality Systems</span>
+        <span class="chip">Inventory &amp; Dispatch</span>
+        <span class="chip">Dashboards &amp; MIS</span>
+        <span class="chip">Workflow Automation</span>
+        <span class="chip">Mobile Apps for the Floor</span>
+        <span class="chip">Integrations (Tally, weighbridges, machines)</span>
+        <span class="chip">Applied AI (where it earns its keep)</span>
+      </div>
+      <div class="callout reveal">We recommend AI and automation only where they pay for themselves. If a simpler system solves it, that's what we'll tell you.</div>
+    </div>
+  </section>
+
+  <!-- 8. WHO WE ARE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>The people who'll actually be in your plant.</h2>
+        <p class="lede">[REPLACE: Company] is a [REPLACE: city]-based software firm founded by [REPLACE: names]. We're engineers who like factories. Small team, senior people, no hand-offs to juniors you've never met.</p>
+      </div>
+      <div class="grid-3 founder-cards">
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role]</span>
+        </div>
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role]</span>
+        </div>
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FINAL CTA -->
+  <section class="section final-cta">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Start with a walkthrough, <em class="grad">not a contract.</em></h2>
+        <p class="lede">Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation.</p>
+        <div class="hero-ctas" style="margin-top:32px">
+          <a class="btn" href="#/contact">Book an Operations Walkthrough</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+        <a class="contact-big" href="mailto:hello@company.example">[REPLACE: hello@company.com]</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE 2 — WORK / MASS POLYMERS CASE STUDY
+============================================================ -->
+<div class="page" id="page-work">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">Case study</span>
+      <h1 class="reveal">Mass Polymers: from paper registers to <em class="grad">one connected plant.</em></h1>
+      <p class="lede reveal" style="margin-top:20px">Plastic extrusion · [REPLACE: City] · Scope: 11 modules, inquiry to dispatch, rolled out in phases.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:48px">
+    <div class="wrap">
+      <div class="ph reveal" style="min-height:320px;margin-bottom:56px"><span class="tag">[REPLACE: wide plant photo — extrusion lines at Mass Polymers]</span></div>
+
+      <div class="prose">
+        <h2 style="margin-top:0">The company</h2>
+        <p>Mass Polymers is a mid-size plastic extrusion manufacturer. [REPLACE: two to three sentences on products, customers, and plant size — machines, shifts, headcount.] The order book had been growing steadily for years, and the plant had grown with it: more machines, more shifts, more people.</p>
+        <p>What hadn't grown was the way information moved. The systems that had comfortably run a smaller operation — registers, spreadsheets, phone calls — were now holding a much larger one together.</p>
+
+        <h2>Life before</h2>
+        <p>A production day started with a supervisor writing the plan into a register. Machine operators logged output on paper sheets at the end of each shift. Somebody photographed the sheets and posted them to a WhatsApp group. Somebody else typed selected numbers into Excel for the weekly review.</p>
+        <p>Quality inspections were recorded in a separate register kept by the QC in-charge. Stores maintained its own stock register, updated when time allowed. When a customer asked "where's my order?", the answer required two phone calls and a walk to the floor. When a complaint arrived, tracing the batch back through machine, shift, and raw-material lot meant paging through months of paper — days of work, sometimes with no clear answer at the end.</p>
+        <p>Nobody was careless. Everybody was busy. The information simply lived in too many places, in formats that couldn't be checked against each other.</p>
+
+        <h2>The turning point</h2>
+        <p>[REPLACE: the specific trigger — e.g. a delayed dispatch, an audit finding, or a customer complaint that took too long to trace.] Management knew the plant needed one system. What held them back was what holds most manufacturers back: stories of ERP projects that ran for a year, cost more than quoted, and ended with the team working around the software instead of in it.</p>
+        <p>The condition they set was simple: the system had to match how the plant already worked, and it had to prove itself in stages — working software early, not a big reveal at the end.</p>
+
+        <h2>What we built</h2>
+        <p>We spent the first weeks on the floor, mapping every workflow from inquiry to dispatch. Then we built a single connected platform, module by module:</p>
+      </div>
+
+      <div class="module-grid">
+        <div class="card module reveal"><span class="num">01</span><h3>Sales &amp; inquiry</h3><p>Every inquiry logged, quoted, and tracked in one place. Nothing lives in a personal inbox; nothing goes quiet without someone noticing.</p></div>
+        <div class="card module reveal"><span class="num">02</span><h3>Sales orders</h3><p>A confirmed order carries its specs, quantities, and dates straight into planning. No re-typing, no version confusion.</p></div>
+        <div class="card module reveal"><span class="num">03</span><h3>Production planning</h3><p>Orders become machine-wise, shift-wise plans against real capacity. Sales can finally see when a delivery date is realistic.</p></div>
+        <div class="card module reveal"><span class="num">04</span><h3>Machine logs</h3><p>Operators log output, downtime, and rejections at the machine. The paper shift-sheet and the WhatsApp photo chain are gone.</p></div>
+        <div class="card module reveal"><span class="num">05</span><h3>Quality inspection</h3><p>Incoming, in-process, and final inspections recorded digitally against the batch. Every result is attributable and searchable.</p></div>
+        <div class="card module reveal"><span class="num">06</span><h3>Inventory &amp; stores</h3><p>Live stock by item, lot, and location. Issues and returns update the numbers the moment they happen — not at month-end.</p></div>
+        <div class="card module reveal"><span class="num">07</span><h3>Material inward (GRN)</h3><p>Every receipt checked against its purchase order, inspected, and lot-tagged at the gate — so traceability starts before production does.</p></div>
+        <div class="card module reveal"><span class="num">08</span><h3>Dispatch</h3><p>Packing, loading, and dispatch documents generated from the order itself. What left the gate matches what was ordered and what was billed.</p></div>
+        <div class="card module reveal"><span class="num">09</span><h3>Customer complaints</h3><p>Complaints logged against the exact batch and dispatch. The ten-day paper hunt became a ten-minute lookup.</p></div>
+        <div class="card module reveal"><span class="num">10</span><h3>CAPA</h3><p>Corrective and preventive actions tracked to closure, linked to the complaint or inspection that raised them — audit-ready by default.</p></div>
+        <div class="card module reveal"><span class="num">11</span><h3>Dashboards &amp; MIS</h3><p>Production, quality, inventory, and dispatch on one live screen for management — on a desktop in the office or a phone on the road.</p></div>
+      </div>
+      <div class="ph reveal" style="min-height:260px;margin:16px 0 56px"><span class="tag">[REPLACE: annotated screenshots — 2–3 key module screens]</span></div>
+
+      <div class="prose">
+        <h2 style="margin-top:0">How we rolled it out</h2>
+        <p>The highest-pain module shipped first. Each phase went live on the floor with hands-on training — supervisors and operators using the real system on real orders before the next phase began. [REPLACE: phase sequence and rough timeline.] No big-bang cutover, no parallel-running paper for months.</p>
+
+        <h2>Life after</h2>
+        <p>Management now sees the entire operation in real time. Every batch is fully traceable — machine, shift, operator, raw-material lot. Reporting that took [REPLACE: X hours/days] now takes [REPLACE: Y minutes]. Review meetings argue about decisions, not about whose numbers are right.</p>
+      </div>
+      <div class="stats reveal" style="max-width:860px">
+        <div class="stat"><b>11 modules</b><span>one connected platform</span></div>
+        <div class="stat"><b>[REPLACE: X hrs → Y min]</b><span>management reporting time</span></div>
+        <div class="stat"><b>100%</b><span>batch traceability</span></div>
+      </div>
+      <blockquote class="pullquote reveal" style="max-width:760px">
+        "[REPLACE: Client quote]"
+        <cite>[REPLACE: Name, Title], Mass Polymers</cite>
+      </blockquote>
+      <div class="ph reveal" style="min-height:200px;max-width:760px;margin-bottom:24px"><span class="tag">[OPTIONAL — REPLACE: short client video]</span></div>
+
+      <div class="problem-links">
+        <h3 style="margin-bottom:20px">The problems this story solves, one by one</h3>
+        <div class="grid-4">
+          <a class="plink reveal" href="#/what-we-build">Batch traceability<span>From complaint to root cause in minutes.</span></a>
+          <a class="plink reveal" href="#/what-we-build">Real-time production visibility<span>The floor, live, on any screen.</span></a>
+          <a class="plink reveal" href="#/what-we-build">Inventory accuracy<span>Stock you can trust between audits.</span></a>
+          <a class="plink reveal" href="#/what-we-build">Digitizing quality &amp; CAPA<span>Paper QC files, retired.</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section final-cta">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Your plant is different. The starting point isn't.</h2>
+        <p class="lede">Tell us how your operation runs today. We'll tell you honestly where software would help — and where it wouldn't.</p>
+        <div class="hero-ctas" style="margin-top:32px"><a class="btn" href="#/contact">Book an Operations Walkthrough</a></div>
+      </div>
+      <div class="reveal">
+        <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+        <a class="contact-big" href="mailto:hello@company.example">[REPLACE: hello@company.com]</a>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ============================================================
+     PAGE 3 — HOW WE WORK
+============================================================ -->
+<div class="page" id="page-how">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">How we work</span>
+      <h1 class="reveal">From factory walkthrough to live system — <em class="grad">in stages, not one giant leap.</em></h1>
+      <p class="lede reveal" style="margin-top:20px">You should never sign for a year of work and hope. Here's exactly what happens, in what order, and what you hold in your hands at each stage.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:56px">
+    <div class="wrap">
+      <div class="prose">
+        <h2 style="margin-top:0">1. Walk the floor</h2>
+        <p>We start in your plant, not a conference room. We follow an order through its whole life — inquiry, planning, production, QC, stores, dispatch — and talk to the people who actually do the work: supervisors, operators, storekeepers, the QC in-charge. We map how work actually flows, including the workarounds nobody wrote down.</p>
+        <p>What you get: a shared, honest picture of how your operation runs today. Most owners tell us this alone was worth the visit.</p>
+
+        <h2>2. Blueprint</h2>
+        <p>Before any code, we put the whole system on paper. The Blueprint is a fixed document you can read, question, and approve:</p>
+        <ul>
+          <li><strong>Workflow maps</strong> — every process the system will cover, drawn as it will work, step by step.</li>
+          <li><strong>Screen designs</strong> — the actual screens your team will use, so an operator can react to them before they're built.</li>
+          <li><strong>Phase plan</strong> — which module ships first, second, third, and why.</li>
+          <li><strong>Timeline and cost</strong> — per phase, fixed scope. No open-ended billing.</li>
+        </ul>
+        <div class="ph" style="min-height:240px;margin:8px 0 32px"><span class="tag">[REPLACE: redacted sample Blueprint pages]</span></div>
+
+        <h2>3. Build the first module</h2>
+        <p>The highest-pain module ships first — usually the one that came up most on the floor walk. Working software in weeks, used by your team on real orders. If we're wrong about something, we find out early, when it's cheap to fix.</p>
+
+        <h2>4. Roll out in stages</h2>
+        <p>Each phase goes live with training on the floor — not a manual sent by email. Supervisors and operators use the system on real work before the next phase starts. Each phase proves itself before the next begins, and you decide whether to continue at every stage.</p>
+
+        <h2>5. Stay</h2>
+        <p>Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow. The people who built it are the people who answer the phone.</p>
+
+        <h2>Engagement model</h2>
+        <p><strong>Fixed-scope phases.</strong> Every phase has a defined scope, timeline, and price agreed in the Blueprint. You pay for outcomes, not hours.</p>
+        <p><strong>Ongoing support.</strong> After go-live, a simple monthly arrangement covers support, fixes, and small refinements. Larger extensions get their own fixed-scope phase.</p>
+        <p><strong>No lock-in.</strong> You own your data and your system. If we ever part ways, you keep everything — code, database, documentation.</p>
+      </div>
+
+      <h2 style="margin:64px 0 24px">Questions owners ask us</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How long until something is live?</button>
+          <div class="faq-a"><p>Weeks, not quarters. The first module — usually the highest-pain one — goes live on the floor within [REPLACE: X–Y weeks] of the Blueprint being approved. You'll be using real software on real orders while later phases are still being built.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What happens to our existing data?</button>
+          <div class="faq-a"><p>We migrate it. Item masters, customer lists, opening stock, open orders — whatever lives in your registers, Excel sheets, or Tally comes into the new system as part of the rollout, checked with your team before go-live. You don't start from a blank screen.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What if we already use Tally?</button>
+          <div class="faq-a"><p>Keep it. Most of our clients run Tally for accounts and statutory work. We integrate with it — sales, purchases, and inventory flow across without re-typing — so accounts stays in the tool your accountant knows and operations gets the system it never had.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Do we need our own IT team?</button>
+          <div class="faq-a"><p>No. The system runs without a server room or a full-time IT person. We handle hosting, backups, and updates. If someone on your team can use WhatsApp and Excel, they can use this.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Who owns the code and data?</button>
+          <div class="faq-a"><p>You do.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Start with a walkthrough, <em class="grad">not a contract.</em></h2>
+        <p class="lede">45 minutes, your team and ours. No deck, no obligation.</p>
+        <div class="hero-ctas" style="margin-top:32px"><a class="btn" href="#/contact">Book an Operations Walkthrough</a></div>
+      </div>
+      <div class="reveal">
+        <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+        <a class="contact-big" href="mailto:hello@company.example">[REPLACE: hello@company.com]</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE 4 — WHAT WE BUILD
+============================================================ -->
+<div class="page" id="page-build">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">What we build</span>
+      <h1 class="reveal">Start from the problem. <em class="grad">The system follows.</em></h1>
+      <p class="lede reveal" style="margin-top:20px">We don't lead with technology. Tell us what's slowing the plant down — these are the problems we're asked to solve most, and what we build to solve them.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:56px">
+    <div class="wrap">
+      <div class="ps-list">
+        <div class="ps-row reveal">
+          <span class="prob">"We can't see production in real time."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Production monitoring &amp; machine-log systems.</strong> Operators log output, downtime, and rejections at the machine; management sees the floor live.</span>
+        </div>
+        <div class="ps-row reveal">
+          <span class="prob">"Inventory is never accurate."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Stores, inventory &amp; material-flow systems.</strong> Live stock by item, lot, and location — GRN to issue to dispatch — so the register, the sheet, and reality finally agree.</span>
+        </div>
+        <div class="ps-row reveal">
+          <span class="prob">"Quality lives on paper."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Digital QC, inspection &amp; CAPA systems.</strong> Inspections recorded against the batch, complaints traced in minutes, CAPA tracked to closure — audit-ready by default.</span>
+        </div>
+        <div class="ps-row reveal">
+          <span class="prob">"Sales and plant don't talk."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Inquiry-to-dispatch ERP.</strong> One flow from inquiry to sales order to plan to dispatch, so sales promises dates production can keep.</span>
+        </div>
+        <div class="ps-row reveal">
+          <span class="prob">"Reports take days."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Dashboards &amp; MIS.</strong> The numbers management waits for at month-end, live every day — on a desktop or a phone.</span>
+        </div>
+        <div class="ps-row reveal">
+          <span class="prob">"People re-type data between systems."</span>
+          <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sol"><strong>Integration &amp; workflow automation.</strong> Tally, weighbridges, machines, Excel — connected so data is entered once and flows everywhere it's needed.</span>
+        </div>
+      </div>
+
+      <div class="callout reveal" style="margin-bottom:40px">We recommend AI and automation only where they pay for themselves. If a simpler system solves it, that's what we'll tell you.</div>
+
+      <div class="prose">
+        <p><strong>Beyond manufacturing</strong> — the same operational DNA (inventory, dispatch, traceability, workflow) applies to logistics, distribution, and other operations-heavy businesses. If that's you, talk to us.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Not sure which of these is your problem?</h2>
+        <p class="lede">That's what the walkthrough is for. Tell us how your operation runs — we'll tell you where software would help, and where it wouldn't.</p>
+        <div class="hero-ctas" style="margin-top:32px"><a class="btn" href="#/contact">Book an Operations Walkthrough</a></div>
+      </div>
+      <div class="reveal">
+        <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+        <a class="contact-big" href="mailto:hello@company.example">[REPLACE: hello@company.com]</a>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ============================================================
+     PAGE 5 — ABOUT
+============================================================ -->
+<div class="page" id="page-about">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">About</span>
+      <h1 class="reveal"><em class="grad">Engineers who like factories.</em></h1>
+    </div>
+  </section>
+  <section class="section" style="padding-top:56px">
+    <div class="wrap">
+      <div class="prose">
+        <h2 style="margin-top:0">How this firm started</h2>
+        <p>[REPLACE: Company] began on a factory floor, not in a pitch meeting. [REPLACE: founding story — how the founders came to the Mass Polymers engagement: e.g. a personal connection, an introduction, a first small project.]</p>
+        <p>Mass Polymers ran a growing extrusion business on registers, spreadsheets, and WhatsApp. Instead of proposing a package, we spent weeks on their floor mapping how the plant actually worked — then built the system around it, one module at a time, until the whole operation ran on one connected platform. That engagement taught us what we now believe about this work: the software isn't the hard part. Understanding the plant is.</p>
+        <p>We're a [REPLACE: city]-based team, founded by [REPLACE: names]. Small team, senior people, no hand-offs to juniors you've never met. The people who walk your floor are the people who build your system and the people who answer when something breaks.</p>
+      </div>
+
+      <h2 style="margin:64px 0 8px">The founders</h2>
+      <div class="grid-3 founder-cards">
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: real founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role — one line on background]</span>
+        </div>
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: real founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role — one line on background]</span>
+        </div>
+        <div class="founder reveal">
+          <div class="ph"><span class="tag">[REPLACE: real founder photo]</span></div>
+          <b>[REPLACE: Founder name]</b>
+          <span>[REPLACE: Role — one line on background]</span>
+        </div>
+      </div>
+
+      <h2 style="margin:72px 0 24px">How we operate</h2>
+      <div class="grid-2">
+        <div class="card reveal"><h3>We ship working software every few weeks.</h3><p style="margin-top:10px">Not documents about software. If a phase can't produce something your team uses, we've scoped it wrong.</p></div>
+        <div class="card reveal"><h3>We say no to work we shouldn't do.</h3><p style="margin-top:10px">If a spreadsheet or an off-the-shelf tool solves your problem, we'll tell you — before you've spent anything.</p></div>
+        <div class="card reveal"><h3>We put senior people on the floor.</h3><p style="margin-top:10px">The person who maps your workflows has done it before, in plants like yours.</p></div>
+        <div class="card reveal"><h3>We leave you owning everything.</h3><p style="margin-top:10px">Your data, your code, your system. Lock-in is a business model; it isn't ours.</p></div>
+      </div>
+
+      <div class="prose" style="margin-top:64px">
+        <h3 style="margin-top:0">Where we are</h3>
+        <address>[REPLACE: Full office address]<br>[REPLACE: City, State, PIN]</address>
+      </div>
+    </div>
+  </section>
+  <section class="section final-cta">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Come see how we work — or let us come see how you do.</h2>
+        <div class="hero-ctas" style="margin-top:32px"><a class="btn" href="#/contact">Book an Operations Walkthrough</a></div>
+      </div>
+      <div class="reveal">
+        <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+        <a class="contact-big" href="mailto:hello@company.example">[REPLACE: hello@company.com]</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE 6 — CONTACT
+============================================================ -->
+<div class="page" id="page-contact">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">Contact</span>
+      <h1 class="reveal">Start with a walkthrough, <em class="grad">not a contract.</em></h1>
+      <p class="lede reveal" style="margin-top:20px">Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:56px">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="reveal">
+          <div id="walkForm">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-company">Company</label>
+              <input id="f-company" name="company" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="f-role">Role</label>
+              <input id="f-role" name="role" type="text" autocomplete="organization-title">
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+            </div>
+            <div class="field">
+              <label for="f-headache">Your biggest operational headache</label>
+              <textarea id="f-headache" name="headache" placeholder="e.g. We never know our real stock until audit day."></textarea>
+            </div>
+            <button class="btn" id="formSubmit" type="button" style="width:100%">Book an Operations Walkthrough</button>
+            <p class="form-note">We reply within one business day — a person, not an autoresponder.</p>
+          </div>
+          <div class="form-success" id="formSuccess" role="status">
+            <strong>Thanks — we've got it.</strong>
+            <p style="margin-top:6px">A person (not an autoresponder) will call or write back within one business day. [REPLACE: connect this form to your email/CRM before launch.]</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <h3 style="margin-bottom:16px">Prefer to just call?</h3>
+          <a class="contact-big" href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+          <a class="contact-big" href="mailto:hello@company.example" style="margin-bottom:28px">[REPLACE: hello@company.com]</a>
+          <address style="margin:20px 0 28px">[REPLACE: Full office address]<br>[REPLACE: City, State, PIN]</address>
+          <div class="ph" style="min-height:260px"><span class="tag">[REPLACE: map embed — office location]</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="#/"><span class="logo-mark" aria-hidden="true"></span><span>[Company]</span></a>
+        <p class="tagline">Operations software for growing manufacturers.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/work">Work</a></li>
+          <li><a href="#/how-we-work">How We Work</a></li>
+          <li><a href="#/what-we-build">What We Build</a></li>
+          <li><a href="#/about">About</a></li>
+          <li><a href="#/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <address>
+          [REPLACE: Full office address]<br>
+          [REPLACE: City, State, PIN]<br><br>
+          <a href="tel:+910000000000">[REPLACE: +91 00000 00000]</a><br>
+          <a href="mailto:hello@company.example">[REPLACE: hello@company.com]</a><br>
+          <a href="https://www.linkedin.com" rel="noopener">LinkedIn</a>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 [REPLACE: Company legal name]. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var routes={
+    '':'home','/':'home','/work':'work','/how-we-work':'how',
+    '/what-we-build':'build','/about':'about','/contact':'contact'
+  };
+  var pages=document.querySelectorAll('.page');
+  var navlinks=document.querySelectorAll('.navlink');
+  var nav=document.getElementById('mainNav');
+  var menuBtn=document.getElementById('menuBtn');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var io=null;
+  if('IntersectionObserver' in window && !reduced){
+    io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  }
+
+  function watchReveals(page){
+    var els=page.querySelectorAll('.reveal');
+    els.forEach(function(el){
+      if(reduced||!io){el.classList.add('in');return;}
+      if(!el.classList.contains('in')) io.observe(el);
+    });
+  }
+
+  function route(){
+    var hash=location.hash.replace(/^#/,'');
+    var key=routes.hasOwnProperty(hash)?routes[hash]:'home';
+    pages.forEach(function(p){p.classList.remove('active');});
+    var page=document.getElementById('page-'+key);
+    page.classList.add('active');
+    navlinks.forEach(function(a){
+      if(a.getAttribute('data-route')===key){a.setAttribute('aria-current','page');}
+      else{a.removeAttribute('aria-current');}
+    });
+    nav.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded','false');
+    window.scrollTo(0,0);
+    watchReveals(page);
+  }
+  window.addEventListener('hashchange',route);
+  route();
+
+  var themeBtn=document.getElementById('themeBtn');
+  var rootEl=document.documentElement;
+  function setTheme(t){
+    rootEl.setAttribute('data-theme',t);
+    themeBtn.setAttribute('aria-label', t==='dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  themeBtn.addEventListener('click',function(){
+    setTheme(rootEl.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+  });
+
+  menuBtn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  });
+
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=btn.parentNode;
+      var open=item.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+
+  var submit=document.getElementById('formSubmit');
+  if(submit){
+    submit.addEventListener('click',function(){
+      var required=['f-name','f-company','f-phone'];
+      var ok=true;
+      required.forEach(function(id){
+        var el=document.getElementById(id);
+        if(!el.value.trim()){el.style.borderColor='#B4443C';ok=false;}
+        else{el.style.borderColor='';}
+      });
+      if(!ok) return;
+      document.getElementById('walkForm').style.display='none';
+      var s=document.getElementById('formSuccess');
+      s.style.display='block';
+      s.focus&&s.setAttribute('tabindex','-1');
+      s.focus();
+    });
+  }
+})();
+</script>
+</body>
+</html>
