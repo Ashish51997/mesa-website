@@ -1788,6 +1788,7 @@ address {
   align-items: center;
   justify-content: center;
   text-decoration: none !important;
+  z-index: 1;
 }
 
 .tubelight-nav-link:hover {

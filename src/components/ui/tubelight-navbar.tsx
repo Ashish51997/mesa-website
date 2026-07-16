@@ -75,7 +75,9 @@ export function NavBar({ items, className }: NavBarProps) {
                     stiffness: 300,
                     damping: 30,
                   }}
-                />
+                >
+                  <div className="tubelight-lamp-line" />
+                </motion.div>
               )}
             </a>
           )
