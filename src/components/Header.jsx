@@ -14,18 +14,9 @@ export default function Header({ theme, toggleTheme }) {
   ];
 
   return (
+
     <header className="site-header">
-      <div
-        className="wrap"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
-          alignItems: 'center',
-          height: '74px',
-          gap: '16px'
-        }}
-      >
-        {/* Left: Brand Logo */}
+      <div className="grid grid-cols-[1fr_auto_1fr] w-full h-full" style={{ paddingTop: "16px" }}>
         <a href="#/" className="logo">
           <div
             style={{
@@ -77,6 +68,8 @@ export default function Header({ theme, toggleTheme }) {
           </motion.button>
         </div>
       </div>
-    </header>
+      {/* Left: Brand Logo */}
+    </header >
+
   );
 }

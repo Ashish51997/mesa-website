@@ -278,11 +278,13 @@ em.grad {
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 60;
-    background: var(--header-bg);
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
+    left: 0;
+    right: 0;
+    z-index: 40;
+    height: 0;
+    background: transparent;
+    width: var(--maxw);
+    align-self: center;
 }
 
 .site-header .wrap {
@@ -784,7 +786,7 @@ em.grad {
 .hero {
     position: relative;
     overflow: hidden;
-    min-height: calc(100vh - 74px);
+    min-height: 100vh;
     display: flex;
     align-items: center;
 }
@@ -1876,8 +1878,10 @@ address {
 /* How-page hero section – NOT the home hero */
 .how-hero {
     position: relative;
-    padding: var(--pad-desk) 0;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
 .how-hero::before,
@@ -3532,13 +3536,13 @@ body.no-scroll {
 .contact-hero {
     position: relative;
     overflow: hidden;
-    min-height: 56vh;
     display: flex;
     align-items: center;
     padding-top: 108px;
     padding-bottom: 56px;
     box-sizing: border-box;
     border-bottom: 1px solid var(--border);
+    min-height: 100vh;
 }
 
 .contact-hero-glow {
