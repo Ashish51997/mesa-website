@@ -6,10 +6,90 @@ export default function Build() {
       {/* ============ HERO ============ */}
       <header className="build-hero">
         <div className="build-hero-glow" aria-hidden="true"></div>
-        <div className="wrap build-hero-inner">
-          <span className="eyebrow">What We Build</span>
-          <h1>Start from the problem. <span className="blue">The system follows.</span></h1>
-          <p className="lede">We don't lead with technology. Tell us what's slowing the plant down — these are the problems we're asked to solve most, and what we build to solve them.</p>
+        <div className="wrap">
+          <div className="build-hero-grid">
+            {/* Left Column: Copy & Actions */}
+            <div className="build-hero-copy reveal">
+              <span className="build-eyebrow-accent">What We Build</span>
+              <h1>
+                You bring the operational problem.<br />
+                <span className="blue">We build the system that solves it.</span>
+              </h1>
+              <p className="lede">
+                Not modules off a shelf. Every system below started as a complaint on a factory floor — a register that didn't match reality, a report that arrived too late, a WhatsApp group doing the work of software.
+              </p>
+              <div className="build-hero-ctas">
+                <a href="#/contact" className="btn-primary-glow">Book an Operations Walkthrough</a>
+                <button
+                  className="btn-secondary-arrow"
+                  onClick={() => {
+                    const el = document.querySelector('.build-systems');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  See what we build ↓
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: One Connected Flow Card */}
+            <div className="build-hero-card reveal">
+              <div className="card-header">One Connected Flow</div>
+              <div className="timeline-flow">
+                <div className="timeline-line"></div>
+                
+                <div className="timeline-step">
+                  <div className="timeline-num">1</div>
+                  <div className="timeline-content">
+                    <h3>Inquiry &amp; order</h3>
+                    <p>Sales enters it once. It never gets re-typed.</p>
+                  </div>
+                </div>
+
+                <div className="timeline-step">
+                  <div className="timeline-num">2</div>
+                  <div className="timeline-content">
+                    <h3>Production plan <span className="live-tag">live</span></h3>
+                    <p>Plan vs actual, visible per machine.</p>
+                  </div>
+                </div>
+
+                <div className="timeline-step">
+                  <div className="timeline-num">3</div>
+                  <div className="timeline-content">
+                    <h3>Quality checks</h3>
+                    <p>QC recorded at the station, with photos.</p>
+                  </div>
+                </div>
+
+                <div className="timeline-step">
+                  <div className="timeline-num">4</div>
+                  <div className="timeline-content">
+                    <h3>Inventory &amp; stores</h3>
+                    <p>Stock moves when material moves. No register.</p>
+                  </div>
+                </div>
+
+                <div className="timeline-step">
+                  <div className="timeline-num">5</div>
+                  <div className="timeline-content">
+                    <h3>Dispatch</h3>
+                    <p>Batch-traceable, weighbridge-linked, invoiced.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Categories Pill Row */}
+          <div className="build-categories-row reveal">
+            <span>Operations ERP</span>
+            <span>Dashboards &amp; Reporting</span>
+            <span>Mobile Apps for the Floor</span>
+            <span>Integrations</span>
+            <span>Applied AI &amp; Automation</span>
+            <span>Custom Software</span>
+          </div>
         </div>
       </header>
 
