@@ -21,7 +21,7 @@ export default function Header({ theme, toggleTheme }) {
           display: 'grid',
           gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          height: '108px',
+          height: '74px',
           gap: '16px'
         }}
       >
