@@ -288,8 +288,13 @@ em.grad {
     align-self: center;
 }
 
-/* Header inner grid — give it side padding so content never touches the screen edge */
+/* Header row for the whole site: logo on the left, theme toggle on the right.
+   The nav is out of flow (a floating bottom bar), so the top bar only ever
+   holds these two, at every screen size. */
 .site-header>div {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
     padding-left: 24px;
     padding-right: 24px;
 }
@@ -1887,15 +1892,14 @@ address {
     box-shadow: 0 0 8px var(--accent);
 }
 
-/* ── Navbar as a floating bottom bar on mobile & tablet ──
-   Below 1024px the tubelight nav is lifted out of the header row and
-   floats, centered, near the bottom of the viewport (app-style tab bar).
-   The header row is then just logo + theme, so it can never overflow —
-   which is what was causing the horizontal scroll. On desktop the nav
-   drops back into the header, centered. */
+/* ── Navbar as a floating bottom bar across the whole site ──
+   The tubelight nav is lifted out of the header row and floats, centered,
+   near the bottom of the viewport (app-style tab bar) at every screen size.
+   The header row therefore only ever holds the logo (left) and the theme
+   toggle (right). Icons show on phones, text labels on tablet/desktop. */
 .header-nav {
     position: fixed;
-    bottom: 16px;
+    bottom: 18px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 50;
@@ -1906,19 +1910,9 @@ address {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
-@media (max-width: 1023px) {
-
-    /* header row: logo left, theme right (nav is floating, out of flow) */
-    .site-header>div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    /* keep the last footer content clear of the floating nav */
-    .site-footer {
-        padding-bottom: 96px;
-    }
+/* keep the last footer content clear of the floating nav on every page */
+.site-footer {
+    padding-bottom: 104px;
 }
 
 @media (max-width: 767px) {
@@ -1926,23 +1920,6 @@ address {
     /* icon-only pill below md — comfortably tappable, stays under 320px wide */
     .tubelight-nav-link {
         padding: 10px 15px;
-    }
-}
-
-@media (min-width: 1024px) {
-
-    /* desktop: nav sits back inside the header, centered */
-    .header-nav {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        justify-self: center;
-        max-width: none;
-    }
-
-    .header-nav .tubelight-nav-container {
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 }
 
