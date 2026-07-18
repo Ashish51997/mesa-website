@@ -12,7 +12,7 @@ export function FloatingGradient({ children }: FloatingGradientProps) {
     <div className="relative w-full h-screen overflow-hidden">
       {/* Circle 1: Royal Blue to Indigo */}
       <motion.div
-        className="absolute h-96 w-96 rounded-full bg-gradient-to-r from-[#2734FF] to-indigo-500 opacity-20 blur-3xl"
+        className="absolute h-96 w-96 rounded-full bg-gradient-to-r from-[#0050FB] to-indigo-500 opacity-20 blur-3xl"
         animate={{
           x: [0, 120, 0],
           y: [0, 60, 0],
@@ -44,7 +44,7 @@ export function FloatingGradient({ children }: FloatingGradientProps) {
       
       {/* Circle 3: Cyan to Royal Blue */}
       <motion.div
-        className="absolute h-96 w-96 rounded-full bg-gradient-to-r from-cyan-500 to-[#2734FF] opacity-20 blur-3xl"
+        className="absolute h-96 w-96 rounded-full bg-gradient-to-r from-cyan-500 to-[#0050FB] opacity-20 blur-3xl"
         animate={{
           x: [0, 60, 0],
           y: [0, -120, 0],

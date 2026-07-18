@@ -20,21 +20,21 @@
     --ink: #F2F3F8;
     --ink-body: #B9BDCC;
     --muted: #868B9F;
-    --accent: #2734FF;
-    --accent-2: #5C67FF;
-    --grad: linear-gradient(92deg, #5C67FF 0%, #2734FF 50%, #000EBF 100%);
-    --glow: rgba(39, 52, 255, 0.35);
-    --glow-soft: rgba(39, 52, 255, 0.16);
+    --accent: #0050FB;
+    --accent-2: #4077FF;
+    --grad: linear-gradient(92deg, #4077FF 0%, #0050FB 50%, #0033C4 100%);
+    --glow: rgba(0, 80, 251, 0.35);
+    --glow-soft: rgba(0, 80, 251, 0.16);
     --header-bg: rgba(10, 11, 16, .78);
     --input-bg: #101120;
     --ph-a: #10111A;
     --ph-b: #151626;
-    --focus: #2734FF;
+    --focus: #0050FB;
     --card-bg: var(--card, #0a0a0a);
-    --build-glow-a: rgba(39, 52, 255, 0.15);
-    --build-glow-b: rgba(92, 103, 255, 0.10);
-    --about-glow-a: rgba(39, 52, 255, 0.15);
-    --about-glow-b: rgba(92, 103, 255, 0.10);
+    --build-glow-a: rgba(0, 80, 251, 0.15);
+    --build-glow-b: rgba(64, 119, 255, 0.10);
+    --about-glow-a: rgba(0, 80, 251, 0.15);
+    --about-glow-b: rgba(64, 119, 255, 0.10);
     color-scheme: dark;
 }
 
@@ -48,21 +48,21 @@
     --ink: #14151D;
     --ink-body: #3C3F4E;
     --muted: #6E7288;
-    --accent: #2734FF;
-    --accent-2: #5C67FF;
-    --grad: linear-gradient(92deg, #5C67FF 0%, #2734FF 50%, #000EBF 100%);
-    --glow: rgba(39, 52, 255, 0.25);
-    --glow-soft: rgba(39, 52, 255, 0.10);
+    --accent: #0050FB;
+    --accent-2: #4077FF;
+    --grad: linear-gradient(92deg, #4077FF 0%, #0050FB 50%, #0033C4 100%);
+    --glow: rgba(0, 80, 251, 0.25);
+    --glow-soft: rgba(0, 80, 251, 0.10);
     --header-bg: rgba(255, 255, 255, .82);
     --input-bg: #FFFFFF;
     --ph-a: #F6F6FB;
     --ph-b: #EDEDF6;
-    --focus: #2734FF;
+    --focus: #0050FB;
     --card-bg: var(--card, #ffffff);
-    --build-glow-a: rgba(220, 212, 255, 0.6);
-    --build-glow-b: rgba(207, 224, 255, 0.6);
-    --about-glow-a: rgba(220, 212, 255, 0.6);
-    --about-glow-b: rgba(207, 224, 255, 0.6);
+    --build-glow-a: rgba(209, 220, 255, 0.65);
+    --build-glow-b: rgba(200, 218, 255, 0.65);
+    --about-glow-a: rgba(209, 220, 255, 0.65);
+    --about-glow-b: rgba(200, 218, 255, 0.65);
     color-scheme: light;
 }
 
@@ -615,7 +615,7 @@ em.grad {
     background: var(--surface);
     padding: 8px 18px;
     border-radius: 9999px;
-    box-shadow: 0 2px 10px rgba(39, 52, 255, 0.08);
+    box-shadow: 0 2px 10px rgba(0, 80, 251, 0.08);
     white-space: nowrap;
 }
 

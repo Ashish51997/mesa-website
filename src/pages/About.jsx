@@ -6,29 +6,28 @@ import founder3 from '../assets/founder_3.jpg';
 export default function About() {
   return (
     <div className="page-content" id="page-about">
-      {/* ============ HERO ============ */}
+      {/* ============ HERO + STORY (merged) ============ */}
       <header className="about-hero">
         <div className="about-hero-glow" aria-hidden="true"></div>
-        <div className="wrap about-hero-inner">
-          <span className="eyebrow">About</span>
-          <h1>Engineers who like factories.</h1>
+        <div className="wrap" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
+          <div className="about-story-grid">
+            {/* Left: headline */}
+            <div className="reveal">
+              <span className="eyebrow">About</span>
+              <h1 style={{ marginTop: '18px' }}>Engineers who like factories.</h1>
+              <span className="about-kicker" style={{ marginTop: '32px', display: 'block' }}>Our story</span>
+              <h2 style={{ marginTop: '8px', fontSize: 'clamp(20px, 2.4vw, 26px)' }}>How this firm started</h2>
+            </div>
+            {/* Right: copy */}
+            <div className="about-story-copy reveal">
+              <p>Astra Systems began on a factory floor, not in a pitch meeting. In 2024, our founders met during a factory floor mapping project. Seeing how plants struggled with generic tools led them to create Astra Systems.</p>
+              <p>Mass Polymers ran a growing extrusion business on registers, spreadsheets, and WhatsApp. Instead of proposing a package, we spent weeks on their floor mapping how the plant actually worked — then built the system around it, one module at a time, until the whole operation ran on one connected platform. That engagement taught us what we now believe about this work: <span className="belief">the software isn't the hard part. <span className="blue">Understanding the plant is.</span></span></p>
+              <p>We're a Mumbai-based team, founded by Aravind Nair, Priya Sharma, and Marc Dupont. Small team, senior people, no hand-offs to juniors you've never met. The people who walk your floor are the people who build your system and the people who answer when something breaks.</p>
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* ============ STORY ============ */}
-      <section className="about-section">
-        <div className="wrap about-story-grid">
-          <div className="reveal">
-            <span className="about-kicker">Our story</span>
-            <h2>How this firm started</h2>
-          </div>
-          <div className="about-story-copy reveal">
-            <p>Astra Systems began on a factory floor, not in a pitch meeting. In 2024, our founders met during a factory floor mapping project. Seeing how plants struggled with generic tools led them to create Astra Systems.</p>
-            <p>Mass Polymers ran a growing extrusion business on registers, spreadsheets, and WhatsApp. Instead of proposing a package, we spent weeks on their floor mapping how the plant actually worked — then built the system around it, one module at a time, until the whole operation ran on one connected platform. That engagement taught us what we now believe about this work: <span className="belief">the software isn't the hard part. <span className="blue">Understanding the plant is.</span></span></p>
-            <p>We're a Mumbai-based team, founded by Aravind Nair, Priya Sharma, and Marc Dupont. Small team, senior people, no hand-offs to juniors you've never met. The people who walk your floor are the people who build your system and the people who answer when something breaks.</p>
-          </div>
-        </div>
-      </section>
 
       {/* ============ FOUNDERS ============ */}
       <section className="about-section-alt">
