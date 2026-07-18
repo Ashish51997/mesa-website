@@ -118,11 +118,11 @@ function App() {
   return (
     <>
       <Preloader onComplete={() => setIsPreloading(false)} />
-      
-      <div 
-        style={{ 
-          opacity: isPreloading ? 0 : 1, 
-          transition: 'opacity 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)', 
+
+      <div
+        style={{
+          opacity: isPreloading ? 0 : 1,
+          transition: 'opacity 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)',
           visibility: isPreloading ? 'hidden' : 'visible',
           minHeight: '100vh',
           display: 'flex',
@@ -145,7 +145,7 @@ function App() {
         </a>
 
         <Header currentRoute={route} theme={theme} toggleTheme={toggleTheme} />
-        <main id="main" style={{ flex: '1 0 auto' }}>
+        <main id="main">
           {renderPage()}
         </main>
         <Footer />

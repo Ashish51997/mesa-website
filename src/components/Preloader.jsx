@@ -2,13 +2,52 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import loadingImage from '../assets/loading.png';
 
+// Hook to calculate the rendered dimensions of the background image (object-fit: cover)
+function useImageDimensions() {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0, left: 0, top: 0 });
+
+  useEffect(() => {
+    const calculate = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const imageAspect = 4862 / 2721;
+      const viewportAspect = vw / vh;
+
+      let width, height, left, top;
+
+      if (viewportAspect > imageAspect) {
+        // Viewport is wider than image aspect ratio: image fills width, height scales up
+        width = vw;
+        height = vw / imageAspect;
+        left = 0;
+        top = (vh - height) / 2;
+      } else {
+        // Viewport is taller than image aspect ratio: image fills height, width scales up
+        height = vh;
+        width = vh * imageAspect;
+        left = (vw - width) / 2;
+        top = 0;
+      }
+
+      setDimensions({ width, height, left, top });
+    };
+
+    calculate();
+    window.addEventListener('resize', calculate);
+    return () => window.removeEventListener('resize', calculate);
+  }, []);
+
+  return dimensions;
+}
+
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const imgDim = useImageDimensions();
 
   useEffect(() => {
     // Animate progress bar from 0 to 100
-    const duration = 2000; // 2 seconds total loading time
+    const duration = 2000; // 2 seconds loading duration
     const intervalTime = 30;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
@@ -18,7 +57,6 @@ export default function Preloader({ onComplete }) {
         const next = prev + increment;
         if (next >= 100) {
           clearInterval(timer);
-          // Allow progress bar to sit at 100% for a brief moment before hiding
           setTimeout(() => {
             setIsVisible(false);
           }, 300);
@@ -31,6 +69,14 @@ export default function Preloader({ onComplete }) {
     return () => clearInterval(timer);
   }, []);
 
+  // Compute precise positions matching the logo and text in Loading.png
+  const containerStyle = {
+    position: 'absolute',
+    left: `${imgDim.left + imgDim.width * 0.2678}px`,
+    top: `${imgDim.top + imgDim.height * 0.640}px`,
+    width: `${imgDim.width * 0.433}px`,
+  };
+
   return (
     <AnimatePresence onExitComplete={onComplete}>
       {isVisible && (
@@ -40,39 +86,21 @@ export default function Preloader({ onComplete }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
         >
-          {/* Subtle background glow effect matching brand */}
-          <div className="preloader-glow" />
-
-          <div className="preloader-content">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="preloader-logo-container"
-            >
-              <img
-                src={loadingImage}
-                alt="Loading logo"
-                className="preloader-logo"
-              />
-            </motion.div>
-
-            {/* Premium, sleek loader progress indicator */}
+          <img
+            src={loadingImage}
+            alt="Loading"
+            className="preloader-image"
+          />
+          
+          {/* Progress bar container and status text aligned exactly below the My Desk logo */}
+          <div className="preloader-loader-container" style={containerStyle}>
             <div className="preloader-bar-container">
-              <motion.div
+              <div
                 className="preloader-bar-fill"
                 style={{ width: `${progress}%` }}
-                layout
               />
             </div>
-            
-            <motion.span 
-              className="preloader-text"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              Initializing Systems {Math.round(progress)}%
-            </motion.span>
+            <span className="preloader-loader-text">Loading {Math.round(progress)}%</span>
           </div>
         </motion.div>
       )}

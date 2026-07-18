@@ -2,6 +2,7 @@ import React from 'react';
 import { Home, Users, Cpu, Mail, BookOpen, Sun, Moon } from 'lucide-react';
 import { NavBar } from './ui/tubelight-navbar';
 import { motion } from 'framer-motion';
+import LogoSvg from '../assets/logo.tsx';
 
 export default function Header({ theme, toggleTheme }) {
   const navItems = [
@@ -14,18 +15,44 @@ export default function Header({ theme, toggleTheme }) {
 
   return (
     <header className="site-header">
-      <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Left spacer to perfectly center the menu capsule in the header */}
-        <div style={{ width: '48px', flexShrink: 0 }}></div>
-        
-        {/* Centered tubelight menu */}
-        <NavBar 
-          items={navItems} 
-          className="relative top-auto bottom-auto left-auto translate-x-0 mb-0 sm:pt-0 z-10" 
+      <div
+        className="wrap"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
+          alignItems: 'center',
+          height: '108px',
+          gap: '16px'
+        }}
+      >
+        {/* Left: Brand Logo */}
+        <a href="#/" className="logo">
+          <div
+            style={{
+              background: 'white',
+              borderRadius: '8px',
+              filter: 'drop-shadow(12px 24px 32px rgba(0, 0, 0, 0.250))',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: "56px",
+              height: "56px"
+            }}
+          >
+
+            <LogoSvg />
+
+          </div>
+        </a>
+
+        {/* Center: Centered tubelight menu */}
+        <NavBar
+          items={navItems}
+          className="relative top-auto bottom-auto left-auto translate-x-0 mb-0 sm:pt-0 z-10"
         />
-        
-        {/* Right action theme button */}
-        <div className="header-actions" style={{ flexShrink: 0 }}>
+
+        {/* Right: Theme action button */}
+        <div className="header-actions" style={{ justifySelf: 'end', flexShrink: 0 }}>
           <motion.button
             className="theme-btn"
             id="themeBtn"
