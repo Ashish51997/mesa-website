@@ -10,7 +10,6 @@ export default function Build() {
           <div className="build-hero-grid">
             {/* Left Column: Copy & Actions */}
             <div className="build-hero-copy reveal">
-              <span className="build-eyebrow-accent">What We Build</span>
               <h1>
                 You bring the operational problem.<br />
                 <span className="blue">We build the system that solves it.</span>
@@ -37,7 +36,7 @@ export default function Build() {
               <div className="card-header">One Connected Flow</div>
               <div className="timeline-flow">
                 <div className="timeline-line"></div>
-                
+
                 <div className="timeline-step">
                   <div className="timeline-num">1</div>
                   <div className="timeline-content">
@@ -81,15 +80,7 @@ export default function Build() {
             </div>
           </div>
 
-          {/* Categories Pill Row */}
-          <div className="build-categories-row reveal">
-            <span>Operations ERP</span>
-            <span>Dashboards &amp; Reporting</span>
-            <span>Mobile Apps for the Floor</span>
-            <span>Integrations</span>
-            <span>Applied AI &amp; Automation</span>
-            <span>Custom Software</span>
-          </div>
+
         </div>
       </header>
 
@@ -105,7 +96,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
@@ -120,7 +111,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
@@ -135,7 +126,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
@@ -150,7 +141,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
@@ -165,7 +156,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
@@ -180,7 +171,7 @@ export default function Build() {
               </div>
               <div className="build-arrow" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="build-sol">
