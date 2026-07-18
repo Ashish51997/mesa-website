@@ -31,6 +31,8 @@
     --ph-b: #151626;
     --focus: #2734FF;
     --card-bg: var(--card, #0a0a0a);
+    --build-glow-a: rgba(39, 52, 255, 0.15);
+    --build-glow-b: rgba(92, 103, 255, 0.10);
     color-scheme: dark;
 }
 
@@ -55,6 +57,8 @@
     --ph-b: #EDEDF6;
     --focus: #2734FF;
     --card-bg: var(--card, #ffffff);
+    --build-glow-a: rgba(220, 212, 255, 0.6);
+    --build-glow-b: rgba(207, 224, 255, 0.6);
     color-scheme: light;
 }
 
@@ -2690,4 +2694,287 @@ body.no-scroll {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ==========================================================================
+   WHAT WE BUILD PAGE STYLES
+   ========================================================================== */
+
+.build-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0 96px;
+}
+
+.build-hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .8;
+    background:
+      radial-gradient(600px 420px at 22% 18%, var(--build-glow-a), transparent 65%),
+      radial-gradient(640px 460px at 82% 70%, var(--build-glow-b), transparent 65%);
+}
+
+.build-hero-inner {
+    position: relative;
+    max-width: 680px;
+}
+
+.build-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.06;
+    letter-spacing: -.02em;
+    font-weight: 700;
+}
+
+.build-hero h1 span.blue {
+    color: var(--accent);
+}
+
+.build-hero p.lede {
+    margin-top: 24px;
+    max-width: 52ch;
+    color: var(--ink-body);
+    font-size: 16px;
+}
+
+.build-systems {
+    background: var(--bg-alt);
+    padding: 88px 0 72px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.build-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.build-row {
+    display: grid;
+    grid-template-columns: .85fr 56px 1.3fr;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.build-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px var(--glow-soft);
+    border-color: var(--accent-2);
+}
+
+.build-prob {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.build-qmark {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--accent);
+    padding-top: 6px;
+}
+
+.build-prob blockquote {
+    font-family: var(--font-head);
+    font-size: 17.5px;
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+}
+
+.build-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    transition: transform .18s ease;
+}
+
+.build-row:hover .build-arrow {
+    transform: translateX(5px);
+}
+
+.build-sol {
+    font-size: 14.5px;
+    color: var(--ink-body);
+    line-height: 1.62;
+}
+
+.build-sol b {
+    display: block;
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 15.5px;
+    margin-bottom: 3px;
+    letter-spacing: -.005em;
+}
+
+.build-honesty {
+    margin-top: 44px;
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 26px;
+    font-size: 14.5px;
+    color: var(--ink-body);
+    max-width: 820px;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.build-honesty b {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.build-beyond {
+    padding: 88px 0;
+}
+
+.build-beyond-inner {
+    max-width: 720px;
+}
+
+.build-beyond h2 {
+    font-family: var(--font-head);
+    font-size: clamp(22px, 2.8vw, 28px);
+    letter-spacing: -.015em;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.build-beyond h2 span.blue {
+    color: var(--accent);
+}
+
+.build-beyond p {
+    margin-top: 12px;
+    color: var(--ink-body);
+    font-size: 15px;
+    max-width: 60ch;
+}
+
+.build-cta {
+    padding: 16px 0 96px;
+    position: relative;
+}
+
+.build-cta-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 60px 56px;
+    background: var(--surface);
+    box-shadow: 0 30px 80px var(--glow-soft);
+    display: grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 44px;
+    align-items: center;
+}
+
+.build-cta-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .8;
+    background:
+      radial-gradient(460px 300px at 10% 0%, var(--build-glow-a), transparent 62%),
+      radial-gradient(520px 340px at 95% 100%, var(--build-glow-b), transparent 62%);
+}
+
+.build-cta-card h2 {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 3.4vw, 38px);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    font-weight: 700;
+    max-width: 15ch;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+}
+
+.build-cta-card h2 span.blue {
+    color: var(--accent);
+}
+
+.build-cta-card p {
+    margin-top: 16px;
+    color: var(--ink-body);
+    max-width: 46ch;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.build-cta-card .btn {
+    margin-top: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.build-cta-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.build-cta-contact b {
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+}
+
+@media (max-width: 860px) {
+    .build-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 24px;
+    }
+    .build-arrow {
+        justify-content: flex-start;
+        transform: rotate(90deg);
+        width: 38px;
+    }
+    .build-row:hover .build-arrow {
+        transform: rotate(90deg) translateX(4px);
+    }
+    .build-cta-card {
+        grid-template-columns: 1fr;
+        padding: 40px 28px;
+    }
+    .build-hero {
+        padding: 80px 0 68px;
+    }
+    .build-systems {
+        padding: 64px 0 56px;
+    }
 }
