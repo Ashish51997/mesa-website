@@ -36,10 +36,10 @@ export default function Header({ theme, toggleTheme }) {
           </div>
         </a>
 
-        {/* Center: Centered tubelight menu */}
+        {/* Center on desktop, floating bottom bar on mobile/tablet */}
         <NavBar
           items={navItems}
-          className="relative top-auto bottom-auto left-auto translate-x-0 mb-0 sm:pt-0 z-10"
+          className="header-nav"
         />
 
         {/* Right: Theme action button */}
