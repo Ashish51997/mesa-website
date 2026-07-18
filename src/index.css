@@ -283,8 +283,15 @@ em.grad {
     z-index: 40;
     height: 0;
     background: transparent;
-    width: var(--maxw);
+    width: 100%;
+    max-width: var(--maxw);
     align-self: center;
+}
+
+/* Header inner grid — give it side padding so content never touches the screen edge */
+.site-header>div {
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .site-header .wrap {
@@ -1869,6 +1876,34 @@ address {
     box-shadow: 0 0 8px var(--accent);
 }
 
+/* Tubelight navbar — tighten on mobile so 5 icons + logo + theme fit narrow screens */
+@media (max-width: 600px) {
+    .site-header>div {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .tubelight-nav-container {
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .tubelight-nav-link {
+        padding: 9px 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .site-header>div {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .tubelight-nav-link {
+        padding: 8px 7px;
+    }
+}
+
 /* ============ HOW WE WORK PAGE (MATCHED TO how-we-work.html) ============ */
 .how-page {
     background: var(--bg);
@@ -1917,7 +1952,7 @@ address {
 
 .how-hero h1 {
     font-family: var(--font-head);
-    font-size: 56px;
+    font-size: clamp(32px, 7vw, 56px);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.025em;
@@ -5245,5 +5280,81 @@ body.no-scroll {
 @media (max-width: 560px) {
     .ab3-op-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   CONSOLIDATED MOBILE SPACING OVERRIDES
+   Several sections use large hardcoded vertical paddings (88–128px)
+   or lock to --pad-desk / min-height:100vh and never relax on phones,
+   which produces oversized gaps and empty full-screen sections.
+   Tighten them so mobile pages read as continuous content.
+   ============================================================ */
+@media (max-width: 860px) {
+
+    /* Shared final CTA (Home, Work) — was pinned to --pad-desk (200px) */
+    .final-cta {
+        padding: 64px 0;
+    }
+
+    /* How We Work */
+    .how-hero {
+        min-height: auto;
+        display: block;
+        padding: 104px 0 56px;
+    }
+
+    .stages-section {
+        padding: 64px 0;
+    }
+
+    .rail-layout .stage-list {
+        gap: 56px;
+    }
+
+    .engage-section {
+        padding: 64px 0;
+    }
+
+    .faq-section {
+        padding: 64px 0;
+    }
+
+    .cta-sec {
+        padding: 64px 0;
+    }
+
+    /* What We Build */
+    .build-beyond {
+        padding: 56px 0;
+    }
+
+    .build-cta {
+        padding: 8px 0 64px;
+    }
+
+    /* About */
+    .ab3-belief {
+        padding: 64px 0;
+    }
+
+    .ab3-founders {
+        padding: 64px 0;
+    }
+
+    .ab3-where {
+        padding: 0 0 56px;
+    }
+
+    .ab3-cta {
+        padding: 0 0 56px;
+    }
+
+    /* These two rely on min-height:100vh + flex centering with no padding;
+       relax to normal padded flow so they don't waste a full screen each */
+    .ab3-story,
+    .ab3-operate {
+        min-height: auto;
+        padding: 64px 0;
     }
 }
