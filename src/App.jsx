@@ -7,6 +7,8 @@ import How from './pages/How';
 import Build from './pages/Build';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Preloader from './components/Preloader';
+
 
 const routes = {
   '': 'home',
@@ -26,6 +28,17 @@ function getRouteFromHash() {
 function App() {
   const [route, setRoute] = useState(getRouteFromHash());
   const [theme, setTheme] = useState('light');
+  const [isPreloading, setIsPreloading] = useState(true);
+
+  // Prevent scroll during preload
+  useEffect(() => {
+    if (isPreloading) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+    return () => document.body.classList.remove('no-scroll');
+  }, [isPreloading]);
 
   // Handle Hash Routing
   useEffect(() => {
@@ -104,26 +117,39 @@ function App() {
 
   return (
     <>
-      <a
-        href="#main"
-        className="btn"
-        style={{
-          position: 'absolute',
-          left: '-9999px',
-          top: '8px',
-          zIndex: 100,
+      <Preloader onComplete={() => setIsPreloading(false)} />
+      
+      <div 
+        style={{ 
+          opacity: isPreloading ? 0 : 1, 
+          transition: 'opacity 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)', 
+          visibility: isPreloading ? 'hidden' : 'visible',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
         }}
-        onFocus={(e) => (e.target.style.left = '8px')}
-        onBlur={(e) => (e.target.style.left = '-9999px')}
       >
-        Skip to content
-      </a>
+        <a
+          href="#main"
+          className="btn"
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            top: '8px',
+            zIndex: 100,
+          }}
+          onFocus={(e) => (e.target.style.left = '8px')}
+          onBlur={(e) => (e.target.style.left = '-9999px')}
+        >
+          Skip to content
+        </a>
 
-      <Header currentRoute={route} theme={theme} toggleTheme={toggleTheme} />
-      <main id="main">
-        {renderPage()}
-      </main>
-      <Footer />
+        <Header currentRoute={route} theme={theme} toggleTheme={toggleTheme} />
+        <main id="main" style={{ flex: '1 0 auto' }}>
+          {renderPage()}
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
