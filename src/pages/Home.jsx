@@ -4,33 +4,46 @@ import founder1 from '../assets/founder_1.jpg';
 import founder2 from '../assets/founder_2.jpg';
 import founder3 from '../assets/founder_3.jpg';
 import heroProvided from '../assets/hero_provided.png';
-import { FloatingGradient } from '../components/ui/floating-gradient-shadcnui';
-
-// Lazy-loaded so three.js is code-split out of the main bundle
+// Lazy-loaded so their WebGL libraries (three / ogl) are code-split out of the main bundle
 const GLSLHills = lazy(() =>
   import('../components/ui/glsl-hills').then((m) => ({ default: m.GLSLHills }))
 );
+const Prism = lazy(() => import('../components/ui/Prism'));
 
 export default function Home() {
   return (
     <div className="page-content" id="page-home">
       {/* 1. HERO */}
-      <FloatingGradient>
-        <section className="hero" style={{ background: 'transparent' }}>
-          <div className="wrap">
-            <div className="hero-copy reveal">
-              <h1>Your factory runs. <em className="grad">Your&nbsp;systems don't.</em></h1>
-              <p className="sub">Production updates on WhatsApp. Quality records in registers. Inventory that's only accurate on audit day. We build software around how your plant actually works — one connected system from inquiry to dispatch.</p>
-              <div className="hero-ctas">
-                <a className="btn" href="#/contact">Book an Operations Walkthrough</a>
-              </div>
-            </div>
-            <div className="reveal" aria-label="Astra operations dashboard preview">
-              <img src={heroProvided} alt="Astra Operations Dashboard" className="hero-image" />
+      <section className="hero">
+        <div className="hero-bg" aria-hidden="true">
+          <Suspense fallback={null}>
+            <Prism
+              animationType="rotate"
+              timeScale={0.5}
+              height={3.5}
+              baseWidth={5.5}
+              scale={3.6}
+              hueShift={0}
+              colorFrequency={1}
+              noise={0.5}
+              glow={1}
+              suspendWhenOffscreen
+            />
+          </Suspense>
+        </div>
+        <div className="wrap">
+          <div className="hero-copy reveal">
+            <h1>Your factory runs. <em className="grad">Your&nbsp;systems don't.</em></h1>
+            <p className="sub">Production updates on WhatsApp. Quality records in registers. Inventory that's only accurate on audit day. We build software around how your plant actually works — one connected system from inquiry to dispatch.</p>
+            <div className="hero-ctas">
+              <a className="btn" href="#/contact">Book an Operations Walkthrough</a>
             </div>
           </div>
-        </section>
-      </FloatingGradient>
+          <div className="reveal" aria-label="Astra operations dashboard preview">
+            <img src={heroProvided} alt="Astra Operations Dashboard" className="hero-image" />
+          </div>
+        </div>
+      </section>
 
       {/* 2. THE PROBLEM */}
       <section className="section alt">

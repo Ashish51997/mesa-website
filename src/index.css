@@ -800,6 +800,26 @@ em.grad {
     align-items: center;
 }
 
+/* Prism WebGL animation, full-bleed behind the hero content */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Scrim so the hero copy stays legible over the animation, in both themes */
+.hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            var(--bg) 0%,
+            color-mix(in srgb, var(--bg) 55%, transparent) 42%,
+            transparent 70%);
+    pointer-events: none;
+}
+
 .hero h1 {
     font-size: 56px;
     line-height: 1.1
@@ -811,6 +831,7 @@ em.grad {
     gap: 56px;
     align-items: center;
     position: relative;
+    z-index: 1;
     width: 100%
 }
 
