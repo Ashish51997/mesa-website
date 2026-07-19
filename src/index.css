@@ -1786,10 +1786,12 @@ address {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--surface);
+    /* translucent so the backdrop-filter actually frosts the content that
+       scrolls behind the nav — keeps the nav legible over anything */
+    background: var(--header-bg);
     border: 1px solid var(--border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
     padding: 4px;
     border-radius: 9999px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
