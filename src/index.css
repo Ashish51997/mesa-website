@@ -296,6 +296,48 @@ em.grad {
     padding-right: 24px;
 }
 
+/* ── Frosted blur bands behind the navbar ──
+   Blur whatever page content scrolls beneath the navbar. The top band spans
+   the header on every screen; the bottom band appears only below 1024px,
+   where the nav floats at the bottom. They sit above page content but below
+   the navbar/logo/theme (z 40/50), and a gradient mask fades the blur out so
+   content eases into focus rather than cutting off with a hard edge. */
+.nav-blur {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--bg) 32%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+}
+
+.nav-blur--top {
+    top: 0;
+    height: 108px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
+.nav-blur--bottom {
+    display: none;
+    bottom: 0;
+    height: 120px;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 0%, #000 55%, transparent 100%);
+}
+
+@media (max-width: 1023px) {
+    .nav-blur--bottom {
+        display: block;
+    }
+
+    .nav-blur--top {
+        height: 88px;
+    }
+}
+
 .site-header .wrap {
     display: flex;
     align-items: center;
