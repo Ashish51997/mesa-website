@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import oneSystemProvided from '../assets/one_system_provided.png';
 import founder1 from '../assets/founder_1.jpg';
 import founder2 from '../assets/founder_2.jpg';
 import founder3 from '../assets/founder_3.jpg';
 import heroProvided from '../assets/hero_provided.png';
 import { FloatingGradient } from '../components/ui/floating-gradient-shadcnui';
+
+// Lazy-loaded so three.js is code-split out of the main bundle
+const GLSLHills = lazy(() =>
+  import('../components/ui/glsl-hills').then((m) => ({ default: m.GLSLHills }))
+);
 
 export default function Home() {
   return (
@@ -220,6 +225,9 @@ export default function Home() {
 
       {/* 9. FINAL CTA */}
       <section className="section final-cta">
+        <Suspense fallback={null}>
+          <GLSLHills />
+        </Suspense>
         <div className="wrap">
           <div className="reveal">
             <h2>Start with a walkthrough, <em class="grad">not a contract.</em></h2>
