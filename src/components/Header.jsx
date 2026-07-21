@@ -22,7 +22,7 @@ export default function Header({ theme, toggleTheme }) {
       <div className="nav-blur nav-blur--bottom" aria-hidden="true" />
 
       <header className="site-header">
-      <div className="grid grid-cols-[1fr_auto_1fr] w-full h-full" style={{ paddingTop: "16px" }}>
+      <div className="grid grid-cols-[1fr_auto_1fr] w-full h-full" style={{ paddingTop: "24px" }}>
         <a href="#/" className="logo">
           <div
             style={{
