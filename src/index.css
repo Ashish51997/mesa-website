@@ -283,8 +283,59 @@ em.grad {
     z-index: 40;
     height: 0;
     background: transparent;
-    width: var(--maxw);
+    width: 100%;
+    max-width: var(--maxw);
     align-self: center;
+}
+
+/* Header inner row — side padding so content never touches the screen edge.
+   Layout is Tailwind grid (logo | nav | theme) on desktop; below 1024px it
+   becomes flex space-between (logo left, theme right) since the nav floats. */
+.site-header>div {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* ── Frosted blur bands behind the navbar ──
+   Blur whatever page content scrolls beneath the navbar. The top band spans
+   the header on every screen; the bottom band appears only below 1024px,
+   where the nav floats at the bottom. They sit above page content but below
+   the navbar/logo/theme (z 40/50), and a gradient mask fades the blur out so
+   content eases into focus rather than cutting off with a hard edge. */
+.nav-blur {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--bg) 32%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+}
+
+.nav-blur--top {
+    top: 0;
+    height: 108px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
+.nav-blur--bottom {
+    display: none;
+    bottom: 0;
+    height: 120px;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 0%, #000 55%, transparent 100%);
+}
+
+@media (max-width: 1023px) {
+    .nav-blur--bottom {
+        display: block;
+    }
+
+    .nav-blur--top {
+        height: 88px;
+    }
 }
 
 .site-header .wrap {
@@ -791,6 +842,26 @@ em.grad {
     align-items: center;
 }
 
+/* Prism WebGL animation, full-bleed behind the hero content */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Scrim so the hero copy stays legible over the animation, in both themes */
+.hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            var(--bg) 0%,
+            color-mix(in srgb, var(--bg) 55%, transparent) 42%,
+            transparent 70%);
+    pointer-events: none;
+}
+
 .hero h1 {
     font-size: 56px;
     line-height: 1.1
@@ -802,6 +873,7 @@ em.grad {
     gap: 56px;
     align-items: center;
     position: relative;
+    z-index: 1;
     width: 100%
 }
 
@@ -1185,7 +1257,8 @@ em.grad {
 /* Final CTA — glowing panel */
 .final-cta {
     background: transparent;
-    padding: var(--pad-desk) 0
+    padding: var(--pad-desk) 0;
+    position: relative;
 }
 
 .final-cta .wrap {
@@ -1193,13 +1266,18 @@ em.grad {
     grid-template-columns: 1.3fr 1fr;
     gap: 56px;
     align-items: center;
-    background: var(--surface);
+    /* frosted glass so the animated hills behind read through the card
+       while the copy stays legible */
+    background: var(--header-bg);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
     border: 1px solid var(--border-strong);
     border-radius: 22px;
     padding: 64px;
     max-width: calc(var(--maxw) - 0px);
     box-shadow: 0 0 90px var(--glow), inset 0 1px 0 rgba(255, 255, 255, .06);
     position: relative;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -1777,10 +1855,12 @@ address {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--surface);
+    /* translucent so the backdrop-filter actually frosts the content that
+       scrolls behind the nav — keeps the nav legible over anything */
+    background: var(--header-bg);
     border: 1px solid var(--border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
     padding: 4px;
     border-radius: 9999px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
@@ -1833,6 +1913,7 @@ address {
     padding: 10px 24px;
     border-radius: 9999px;
     transition: color 0.2s ease;
+    white-space: nowrap;
     color: var(--ink-body) !important;
     display: inline-flex;
     align-items: center;
@@ -1846,6 +1927,16 @@ address {
 
 .tubelight-nav-link.active {
     color: var(--accent) !important;
+}
+
+/* Icon (mobile/tablet bottom-bar view): pin an explicit size and clear the
+   global `svg { max-width:100% }` rule, which otherwise resolves against the
+   collapsed flex item and squashes the icon to 1px wide */
+.tubelight-nav-link svg {
+    width: 18px;
+    height: 18px;
+    max-width: none;
+    flex: none;
 }
 
 .tubelight-lamp {
@@ -1867,6 +1958,61 @@ address {
     background: var(--accent);
     border-radius: 999px;
     box-shadow: 0 0 8px var(--accent);
+}
+
+/* ── Navbar: centered in the header on desktop, floating bottom bar on
+   mobile & tablet (below 1024px). Icons on phones, text labels above. ── */
+.header-nav {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    max-width: calc(100vw - 20px);
+}
+
+.header-nav .tubelight-nav-container {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+@media (max-width: 1023px) {
+
+    /* header row: logo left, theme right (nav is floating, out of flow) */
+    .site-header>div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* keep the last footer content clear of the floating nav */
+    .site-footer {
+        padding-bottom: 104px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    /* icon-only pill below md — comfortably tappable, stays under 320px wide */
+    .tubelight-nav-link {
+        padding: 10px 15px;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* desktop: nav sits back inside the header, centered */
+    .header-nav {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        justify-self: center;
+        max-width: none;
+    }
+
+    .header-nav .tubelight-nav-container {
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    }
 }
 
 /* ============ HOW WE WORK PAGE (MATCHED TO how-we-work.html) ============ */
@@ -1917,7 +2063,7 @@ address {
 
 .how-hero h1 {
     font-family: var(--font-head);
-    font-size: 56px;
+    font-size: clamp(32px, 7vw, 56px);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.025em;
@@ -5245,5 +5391,81 @@ body.no-scroll {
 @media (max-width: 560px) {
     .ab3-op-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   CONSOLIDATED MOBILE SPACING OVERRIDES
+   Several sections use large hardcoded vertical paddings (88–128px)
+   or lock to --pad-desk / min-height:100vh and never relax on phones,
+   which produces oversized gaps and empty full-screen sections.
+   Tighten them so mobile pages read as continuous content.
+   ============================================================ */
+@media (max-width: 860px) {
+
+    /* Shared final CTA (Home, Work) — was pinned to --pad-desk (200px) */
+    .final-cta {
+        padding: 64px 0;
+    }
+
+    /* How We Work */
+    .how-hero {
+        min-height: auto;
+        display: block;
+        padding: 104px 0 56px;
+    }
+
+    .stages-section {
+        padding: 64px 0;
+    }
+
+    .rail-layout .stage-list {
+        gap: 56px;
+    }
+
+    .engage-section {
+        padding: 64px 0;
+    }
+
+    .faq-section {
+        padding: 64px 0;
+    }
+
+    .cta-sec {
+        padding: 64px 0;
+    }
+
+    /* What We Build */
+    .build-beyond {
+        padding: 56px 0;
+    }
+
+    .build-cta {
+        padding: 8px 0 64px;
+    }
+
+    /* About */
+    .ab3-belief {
+        padding: 64px 0;
+    }
+
+    .ab3-founders {
+        padding: 64px 0;
+    }
+
+    .ab3-where {
+        padding: 0 0 56px;
+    }
+
+    .ab3-cta {
+        padding: 0 0 56px;
+    }
+
+    /* These two rely on min-height:100vh + flex centering with no padding;
+       relax to normal padded flow so they don't waste a full screen each */
+    .ab3-story,
+    .ab3-operate {
+        min-height: auto;
+        padding: 64px 0;
     }
 }

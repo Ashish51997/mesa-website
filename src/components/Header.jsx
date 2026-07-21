@@ -14,8 +14,14 @@ export default function Header({ theme, toggleTheme }) {
   ];
 
   return (
+    <>
+      {/* Frosted backdrop bands that blur whatever content scrolls beneath the
+          navbar. Top band covers the header on every screen; bottom band shows
+          only on mobile/tablet, where the nav floats at the bottom. */}
+      <div className="nav-blur nav-blur--top" aria-hidden="true" />
+      <div className="nav-blur nav-blur--bottom" aria-hidden="true" />
 
-    <header className="site-header">
+      <header className="site-header">
       <div className="grid grid-cols-[1fr_auto_1fr] w-full h-full" style={{ paddingTop: "16px" }}>
         <a href="#/" className="logo">
           <div
@@ -36,10 +42,10 @@ export default function Header({ theme, toggleTheme }) {
           </div>
         </a>
 
-        {/* Center: Centered tubelight menu */}
+        {/* Center on desktop, floating bottom bar on mobile/tablet */}
         <NavBar
           items={navItems}
-          className="relative top-auto bottom-auto left-auto translate-x-0 mb-0 sm:pt-0 z-10"
+          className="header-nav"
         />
 
         {/* Right: Theme action button */}
@@ -69,7 +75,7 @@ export default function Header({ theme, toggleTheme }) {
         </div>
       </div>
       {/* Left: Brand Logo */}
-    </header >
-
+      </header>
+    </>
   );
 }

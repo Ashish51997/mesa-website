@@ -9,7 +9,7 @@ interface FloatingGradientProps {
 
 export function FloatingGradient({ children }: FloatingGradientProps) {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden">
       {/* Circle 1: Royal Blue to Indigo */}
       <motion.div
         className="absolute h-96 w-96 rounded-full bg-gradient-to-r from-[#0050FB] to-indigo-500 opacity-20 blur-3xl"
