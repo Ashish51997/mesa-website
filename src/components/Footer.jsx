@@ -1,4 +1,6 @@
 import React from 'react';
+import brandDisplayRowFooter from '../assets/brand-display-row-footer.svg';
+import logoRowFooter from '../assets/logo-row-footer.svg';
 
 export default function Footer() {
   return (
@@ -10,10 +12,9 @@ export default function Footer() {
           {/* Brand column */}
           <div className="footer-brand">
             <a className="logo" href="#/">
-              <span className="logo-mark" aria-hidden="true"></span>
-              <span>Astra Systems</span>
+              <img src={logoRowFooter} alt="MesaOrigins Logo" style={{ height: '48px', width: 'auto' }} />
             </a>
-            <p className="tagline">Operations software for growing manufacturers — built around how your plant actually works.</p>
+            <p className="tagline" style={{ marginTop: '24px' }}>Operations software for growing manufacturers —<br />built around how your plant actually works.</p>
           </div>
 
           {/* Nav columns */}
@@ -49,16 +50,13 @@ export default function Footer() {
         </div>
 
         {/* ── Large logo banner ── */}
-        <div className="footer-logo-banner">
-          <div className="footer-logo-placeholder" aria-label="Astra Systems logo">
-            {/* Grey placeholder box for logo */}
-          </div>
-          <span className="footer-logo-wordmark">Astra Systems</span>
+        <div className="footer-logo-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 0' }}>
+          <img src={brandDisplayRowFooter} alt="MesaOrigins" style={{ maxWidth: '100%', height: 'auto' }} />
         </div>
 
         {/* ── Bottom bar ── */}
         <div className="footer-bottom">
-          <span className="footer-copyright">© 2026 Astra Systems Private Limited. All rights reserved.</span>
+          <span className="footer-copyright">© 2026 MesaOrigins Private Limited. All rights reserved.</span>
           <div className="footer-legal">
             <a href="#/privacy">Privacy Policy</a>
             <a href="#/terms">Terms of Use</a>

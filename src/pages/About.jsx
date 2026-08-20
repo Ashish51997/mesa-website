@@ -18,9 +18,9 @@ export default function About() {
               Engineers who <span className="ab3-blue">like factories.</span>
             </h1>
             <p className="ab3-lede">
-              Astra Systems began on a factory floor, not in a pitch meeting. In 2024, our founders
+              MesaOrigins began on a factory floor, not in a pitch meeting. In 2024, our founders
               met during a factory floor mapping project. Seeing how plants struggled with generic
-              tools led them to create Astra Systems.
+              tools led them to create MesaOrigins.
             </p>
           </div>
 
@@ -28,7 +28,7 @@ export default function About() {
           <div
             className="ab3-origin-card reveal"
             role="img"
-            aria-label="Timeline: from a factory floor mapping project in 2024 to Astra Systems"
+            aria-label="Timeline: from a factory floor mapping project in 2024 to MesaOrigins"
           >
             <div className="ab3-origin-label">Where this started</div>
 
@@ -51,7 +51,7 @@ export default function About() {
             <div className="ab3-o-step ab3-o-step-last">
               <div className="ab3-o-dot" />
               <div>
-                <b>Astra Systems</b>
+                <b>MesaOrigins</b>
                 <span>Built to do this work the way it should be done.</span>
               </div>
             </div>

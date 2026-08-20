@@ -150,7 +150,7 @@ h3 {
     line-height: 1.3
 }
 
-/* Gradient highlight — the signature Astra device */
+/* Gradient highlight — the signature MesaOrigins device */
 em.grad {
     font-style: normal;
     background: var(--grad);
@@ -895,6 +895,13 @@ em.grad {
         padding: 80px 0;
         min-height: auto;
         display: block
+    }
+
+    .hero-bg::after {
+        background: linear-gradient(180deg,
+            var(--bg) 0%,
+            color-mix(in srgb, var(--bg) 70%, transparent) 40%,
+            transparent 75%);
     }
 
     .hero h1 {
@@ -1991,10 +1998,20 @@ address {
 }
 
 @media (max-width: 767px) {
+    .tubelight-nav-container {
+        width: 311px;
+        justify-content: space-between;
+        padding: 8px 12px;
+    }
 
-    /* icon-only pill below md — comfortably tappable, stays under 320px wide */
+    /* comfortably tappable icons on mobile */
     .tubelight-nav-link {
-        padding: 10px 15px;
+        padding: 12px;
+    }
+    
+    .tubelight-nav-link svg {
+        width: 24px !important;
+        height: 24px !important;
     }
 }
 

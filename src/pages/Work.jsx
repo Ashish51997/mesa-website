@@ -60,7 +60,7 @@ export default function Work() {
             <div className="browser">
               <div className="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
               <div className="browser-body">
-                <img src={moduleScreenshots} alt="Astra software modules screenshots" className="asset-img" />
+                <img src={moduleScreenshots} alt="MesaOrigins software modules screenshots" className="asset-img" />
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function Work() {
           </div>
 
           <blockquote className="pullquote reveal" style={{ maxWidth: '760px' }}>
-            "Astra Systems understood our floor processes from day one. They didn't pitch slides; they walked our extrusion lines, mapped our bottlenecks, and delivered a system that has made our operations completely transparent."
+            "MesaOrigins understood our floor processes from day one. They didn't pitch slides; they walked our extrusion lines, mapped our bottlenecks, and delivered a system that has made our operations completely transparent."
             <cite>Rajesh Mehta, Managing Director, Mass Polymers</cite>
           </blockquote>
 

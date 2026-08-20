@@ -17,18 +17,7 @@ export default function Home() {
       <section className="hero">
         <div className="hero-bg" aria-hidden="true">
           <Suspense fallback={null}>
-            <Prism
-              animationType="rotate"
-              timeScale={0.5}
-              height={3.5}
-              baseWidth={5.5}
-              scale={3.6}
-              hueShift={0}
-              colorFrequency={1}
-              noise={0.5}
-              glow={1}
-              suspendWhenOffscreen
-            />
+            <GLSLHills />
           </Suspense>
         </div>
         <div className="wrap">
@@ -39,8 +28,8 @@ export default function Home() {
               <a className="btn" href="#/contact">Book an Operations Walkthrough</a>
             </div>
           </div>
-          <div className="reveal" aria-label="Astra operations dashboard preview">
-            <img src={heroProvided} alt="Astra Operations Dashboard" className="hero-image" />
+          <div className="reveal" aria-label="MesaOrigins operations dashboard preview">
+            <img src={heroProvided} alt="MesaOrigins Operations Dashboard" className="hero-image" />
           </div>
         </div>
       </section>
@@ -214,7 +203,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head reveal">
             <h2>The people who'll actually be in your plant.</h2>
-            <p className="lede">Astra Systems is a Mumbai-based software firm founded by engineers who like factories. Small team, senior people, no hand-offs to juniors you've never met.</p>
+            <p className="lede">MesaOrigins is a Mumbai-based software firm founded by engineers who like factories. Small team, senior people, no hand-offs to juniors you've never met.</p>
           </div>
           <div className="grid-3 founder-cards">
             <div className="founder reveal">
@@ -239,11 +228,22 @@ export default function Home() {
       {/* 9. FINAL CTA */}
       <section className="section final-cta">
         <Suspense fallback={null}>
-          <GLSLHills />
+          <Prism
+            animationType="rotate"
+            timeScale={0.5}
+            height={3.5}
+            baseWidth={5.5}
+            scale={3.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0.5}
+            glow={1}
+            suspendWhenOffscreen
+          />
         </Suspense>
         <div className="wrap">
           <div className="reveal">
-            <h2>Start with a walkthrough, <em class="grad">not a contract.</em></h2>
+            <h2>Start with a walkthrough, <em className="grad">not a contract.</em></h2>
             <p className="lede">Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation.</p>
             <div className="hero-ctas" style={{ marginTop: '32px' }}>
               <a className="btn" href="#/contact">Book an Operations Walkthrough</a>

@@ -7,16 +7,16 @@ const Logo = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="M1.39876e-06 13.085L8.03516e-07 26.7026C6.75632e-07 29.6282 2.37171 32 5.29735 32C8.22299 32 10.5947 29.6282 10.5947 26.7026L10.5947 16.1114C10.5947 16.1114 10.5569 14.1253 10.7839 13.8416C11.1623 13.3687 11.919 13.085 11.919 13.085L1.39876e-06 13.085Z" fill="url(#paint2_linear_66_32)" />
     <defs>
       <linearGradient id="paint0_linear_66_32" x1="37.8301" y1="6.54252" x2="0.000100295" y2="6.54251" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#1F74FF" />
-        <stop offset="1" stop-color="#0044FF" />
+        <stop stopColor="#1F74FF" />
+        <stop offset="1" stopColor="#0044FF" />
       </linearGradient>
       <linearGradient id="paint1_linear_66_32" x1="32.5327" y1="32" x2="32.5327" y2="13.085" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#287CFF" />
-        <stop offset="1" stop-color="#0538BD" />
+        <stop stopColor="#287CFF" />
+        <stop offset="1" stopColor="#0538BD" />
       </linearGradient>
       <linearGradient id="paint2_linear_66_32" x1="5.29735" y1="32" x2="5.29735" y2="13.085" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#287CFF" />
-        <stop offset="1" stop-color="#0538BD" />
+        <stop stopColor="#287CFF" />
+        <stop offset="1" stopColor="#0538BD" />
       </linearGradient>
     </defs>
   </svg>

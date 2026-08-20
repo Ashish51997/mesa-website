@@ -133,7 +133,7 @@ export default function Contact() {
             {/* Map card */}
             <div className="contact-map-card reveal">
               <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg"
-                role="img" aria-label="Map showing route to Astra Systems office at Innovate Plaza, Tech Park">
+                role="img" aria-label="Map showing route to MesaOrigins office at Innovate Plaza, Tech Park">
                 {/* base */}
                 <rect width="460" height="300" fill="var(--bg-alt)" />
                 {/* blocks */}
