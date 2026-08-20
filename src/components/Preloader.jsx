@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import loadingImage from '../assets/loading-1.png';
+import loadingImage from '../assets/loading.png';
 
 // Hook to calculate the rendered dimensions of the background image (object-fit: cover)
 function useImageDimensions() {
