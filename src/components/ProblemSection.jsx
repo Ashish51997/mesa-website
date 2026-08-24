@@ -13,10 +13,14 @@ const EASE_OUT_CUBIC = [0.215, 0.61, 0.355, 1];
    equivalent, and `once` matches ScrollTrigger's `once: true`. */
 const VIEWPORT = { once: true, margin: '0px 0px -28% 0px' };
 
-const STAGGER = 0.11;
-const CARD_DURATION = 0.55;
-const CLOSING_DELAY = STAGGER * 4 + 0.2; // 0.64s — after the last card lands
-const CLOSING_DURATION = 0.5;
+/* Whole sequence is budgeted to finish at ~1.0s, in strict order:
+   last card lands 0.77s, closing line 0.74s, underline finishes 1.00s. */
+const STAGGER = 0.09;
+const CARD_DURATION = 0.5;
+const CLOSING_DELAY = 0.42;
+const CLOSING_DURATION = 0.32;
+const UNDERLINE_DELAY = CLOSING_DELAY + CLOSING_DURATION; // 0.74s
+const UNDERLINE_DURATION = 0.26;
 const REDUCED_FADE = 0.3;
 
 const PROBLEM_CARDS = [
@@ -176,9 +180,9 @@ export default function ProblemSection() {
       transition: reduced
         ? { duration: 0 }
         : {
-            duration: 0.5,
+            duration: UNDERLINE_DURATION,
             ease: EASE_OUT_CUBIC,
-            delay: CLOSING_DELAY + CLOSING_DURATION,
+            delay: UNDERLINE_DELAY,
           },
     },
   };
@@ -196,7 +200,7 @@ export default function ProblemSection() {
         <div className="section-head reveal">
           <h2>
             The business grew.{' '}
-            <motion.em className="problem-wipe" variants={wipeVariants}>
+            <motion.em className="grad problem-wipe" variants={wipeVariants}>
               The spreadsheets didn't.
             </motion.em>
           </h2>

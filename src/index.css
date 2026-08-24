@@ -975,12 +975,13 @@ em.grad {
     position: relative;
 }
 
-/* Headline accent wipe: --wipe is tweened 0 -> 1 in JS, so the colour resolves
-   against whichever theme's --ink / --accent is active. */
-.problem-wipe {
+/* Headline accent wipe. The span keeps the site's em.grad gradient treatment;
+   an opaque ink text-fill sits on top of it and is faded out as --wipe is
+   tweened 0 -> 1 in JS, so the heading resolves from solid ink into the
+   gradient. Driving it through --ink keeps it theme-aware. */
+em.grad.problem-wipe {
     --wipe: 0;
-    font-style: inherit;
-    color: color-mix(in srgb, var(--accent) calc(var(--wipe) * 100%), var(--ink));
+    -webkit-text-fill-color: color-mix(in srgb, transparent calc(var(--wipe) * 100%), var(--ink));
 }
 
 /* Underline that draws under the closing phrase. scaleX is driven in JS. */
