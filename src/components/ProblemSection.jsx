@@ -13,14 +13,9 @@ const EASE_OUT_CUBIC = [0.215, 0.61, 0.355, 1];
    equivalent, and `once` matches ScrollTrigger's `once: true`. */
 const VIEWPORT = { once: true, margin: '0px 0px -28% 0px' };
 
-/* Whole sequence is budgeted to finish at ~1.0s, in strict order:
-   last card lands 0.77s, closing line 0.74s, underline finishes 1.00s. */
+/* Card stagger is the whole sequence now; last card lands at 0.77s. */
 const STAGGER = 0.09;
 const CARD_DURATION = 0.5;
-const CLOSING_DELAY = 0.42;
-const CLOSING_DURATION = 0.32;
-const UNDERLINE_DELAY = CLOSING_DELAY + CLOSING_DURATION; // 0.74s
-const UNDERLINE_DURATION = 0.26;
 const REDUCED_FADE = 0.3;
 
 const PROBLEM_CARDS = [
@@ -162,31 +157,6 @@ export default function ProblemSection() {
     },
   };
 
-  const closingVariants = {
-    hidden: { opacity: 0, y: reduced ? 0 : 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: reduced
-        ? { duration: REDUCED_FADE, delay: 0 }
-        : { duration: CLOSING_DURATION, ease: EASE_OUT_CUBIC, delay: CLOSING_DELAY },
-    },
-  };
-
-  const underlineVariants = {
-    hidden: { scaleX: reduced ? 1 : 0 },
-    visible: {
-      scaleX: 1,
-      transition: reduced
-        ? { duration: 0 }
-        : {
-            duration: UNDERLINE_DURATION,
-            ease: EASE_OUT_CUBIC,
-            delay: UNDERLINE_DELAY,
-          },
-    },
-  };
-
   return (
     <motion.section
       ref={sectionRef}
@@ -231,19 +201,6 @@ export default function ProblemSection() {
             ))}
           </div>
         </div>
-
-        <motion.p className="closing-line" variants={closingVariants}>
-          None of this is a people problem. Your team is working hard — inside systems that were{' '}
-          <span className="problem-underline">
-            never designed to talk to each other
-            <motion.span
-              className="problem-underline-bar"
-              aria-hidden="true"
-              variants={underlineVariants}
-            />
-          </span>
-          .
-        </motion.p>
       </div>
     </motion.section>
   );
