@@ -18,7 +18,7 @@ export default function Build() {
                 Not modules off a shelf. Every system below started as a complaint on a factory floor — a register that didn't match reality, a report that arrived too late, a WhatsApp group doing the work of software.
               </p>
               <div className="build-hero-ctas">
-                <a href="#/contact" className="btn-primary-glow">Book an Operations Walkthrough</a>
+                <a href="#/contact" className="btn-primary-glow">Book Consultation</a>
                 <button
                   className="btn-secondary-arrow"
                   onClick={() => {
@@ -202,11 +202,11 @@ export default function Build() {
             <div>
               <h2>Not sure which of these is <span className="blue">your problem?</span></h2>
               <p>That's what the walkthrough is for. Tell us how your operation runs — we'll tell you where software would help, and where it wouldn't.</p>
-              <a href="#/contact" className="btn">Book an Operations Walkthrough</a>
+              <a href="#/contact" className="btn">Book Consultation</a>
             </div>
             <div className="build-cta-contact">
               <b>+91 83380 81502</b>
-              <b>sale@mesaorigins.com</b>
+              <b>ssales@mesaorigins.com</b>
             </div>
           </div>
         </div>

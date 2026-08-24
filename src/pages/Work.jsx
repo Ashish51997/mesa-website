@@ -91,12 +91,12 @@ export default function Work() {
             <h2>Your plant is different. The starting point isn't.</h2>
             <p className="lede">Tell us how your operation runs today. We'll tell you honestly where software would help — and where it wouldn't.</p>
             <div className="hero-ctas" style={{ marginTop: '32px' }}>
-              <a className="btn" href="#/contact">Book an Operations Walkthrough</a>
+              <a className="btn" href="#/contact">Book Consultation</a>
             </div>
           </div>
           <div className="reveal">
             <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
-            <a className="contact-big" href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a>
+            <a className="contact-big" href="mailto:ssales@mesaorigins.com">ssales@mesaorigins.com</a>
           </div>
         </div>
       </section>

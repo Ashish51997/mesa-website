@@ -107,7 +107,7 @@ export default function Contact() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  Book an Operations Walkthrough
+                  Book Consultation
                 </button>
                 <p className="form-note">We reply within one business day — a person, not an autoresponder.</p>
               </form>
@@ -141,10 +141,11 @@ export default function Contact() {
                     <path d="m3.5 6.5 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <a href="mailto:sale@mesaorigins.com" className="contact-call-val">sale@mesaorigins.com</a>
+                <a href="mailto:ssales@mesaorigins.com" className="contact-call-val">ssales@mesaorigins.com</a>
               </div>
               <address className="contact-addr">
-                {'{{REAL_ADDRESS}}'}
+                Chennai, Tamil Nadu<br />
+                India
               </address>
             </div>
 
@@ -184,7 +185,7 @@ export default function Contact() {
                   <rect x="234" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
                   <rect x="243" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
                   <text x="266" y="84" fontFamily="system-ui" fontSize="12" fontWeight="700" fill="var(--ink)">Office</text>
-                  <text x="266" y="99" fontFamily="Inter,system-ui" fontSize="9.5" fill="var(--muted)">MesaOrigins</text>
+                  <text x="266" y="99" fontFamily="Inter,system-ui" fontSize="9.5" fill="var(--muted)">Chennai</text>
                 </g>
                 {/* pin */}
                 <g transform="translate(230,30)">
@@ -195,7 +196,7 @@ export default function Contact() {
               </svg>
               <div className="contact-map-cap">
                 <span className="contact-map-dot"></span>
-                {'{{REAL_ADDRESS}}'}
+                Chennai, Tamil Nadu — India
               </div>
             </div>
           </div>

@@ -40,10 +40,9 @@ export default function Footer() {
               <h4>Contact</h4>
               <ul>
                 <li><a href="tel:+918338081502">+91 83380 81502</a></li>
-                <li><a href="tel:+919566220418">+91 95662 20418</a></li>
-                <li><a href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a></li>
+                <li><a href="mailto:ssales@mesaorigins.com">ssales@mesaorigins.com</a></li>
                 <li style={{ color: 'var(--muted)', fontSize: '13px', lineHeight: '1.5' }}>
-                  {'{{REAL_ADDRESS}}'}
+                  Chennai, Tamil Nadu,<br />India
                 </li>
               </ul>
             </div>

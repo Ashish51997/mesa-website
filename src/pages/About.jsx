@@ -193,11 +193,11 @@ export default function About() {
                 Come see how we work —{' '}
                 <span className="ab3-blue">or let us come see how you do.</span>
               </h2>
-              <a href="#/contact" className="ab3-btn">Book an Operations Walkthrough</a>
+              <a href="#/contact" className="ab3-btn">Book Consultation</a>
             </div>
             <div className="ab3-cta-contact">
               <b>+91 83380 81502</b>
-              <b>sale@mesaorigins.com</b>
+              <b>ssales@mesaorigins.com</b>
             </div>
           </div>
         </div>
