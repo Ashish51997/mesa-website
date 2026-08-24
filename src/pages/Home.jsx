@@ -28,8 +28,8 @@ export default function Home() {
               <a className="btn" href="#/contact">Book an Operations Walkthrough</a>
             </div>
           </div>
-          <div className="reveal" aria-label="MesaOrigins operations dashboard preview">
-            <img src={heroProvided} alt="MesaOrigins Operations Dashboard" className="hero-image" />
+          <div className="reveal" aria-label="MesaOps operations dashboard preview">
+            <img src={heroProvided} alt="MesaOps Operations Dashboard" className="hero-image" />
           </div>
         </div>
       </section>
@@ -162,7 +162,7 @@ export default function Home() {
               <p>Workflows, screens, phases, timeline, cost. Before any code, you know exactly what you're getting.</p>
             </div>
             <div className="step reveal">
-              <b>Build the first module</b>
+              <b>Configure the first module</b>
               <p>The highest-pain module ships first; working software in weeks.</p>
             </div>
             <div className="step reveal">
@@ -250,8 +250,8 @@ export default function Home() {
             </div>
           </div>
           <div className="reveal">
-            <a className="contact-big" href="tel:+919876543210">+91 98765 43210</a><br />
-            <a className="contact-big" href="mailto:hello@astrasystems.example">hello@astrasystems.example</a>
+            <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
+            <a className="contact-big" href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a>
           </div>
         </div>
       </section>

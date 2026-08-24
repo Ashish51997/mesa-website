@@ -39,10 +39,11 @@ export default function Footer() {
             <div className="footer-col">
               <h4>Contact</h4>
               <ul>
-                <li><a href="tel:+919876543210">+91 98765 43210</a></li>
-                <li><a href="mailto:hello@astrasystems.example">hello@astrasystems.example</a></li>
+                <li><a href="tel:+918338081502">+91 83380 81502</a></li>
+                <li><a href="tel:+919566220418">+91 95662 20418</a></li>
+                <li><a href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a></li>
                 <li style={{ color: 'var(--muted)', fontSize: '13px', lineHeight: '1.5' }}>
-                  Suite 402, Innovate Plaza,<br />Mumbai, Maharashtra 400076
+                  {'{{REAL_ADDRESS}}'}
                 </li>
               </ul>
             </div>

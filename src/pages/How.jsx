@@ -12,7 +12,7 @@ function FaqItem({ question, answer, defaultOpen = false }) {
       >
         <span>{question}</span>
         <span className="chev">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 9l6 6 6-6"/>
           </svg>
         </span>
@@ -28,6 +28,8 @@ function FaqItem({ question, answer, defaultOpen = false }) {
     </div>
   );
 }
+
+const STAGE_IDS = ['s1', 's2', 's3', 's4', 's5'];
 
 export default function How() {
   const containerRef = useRef(null);
@@ -46,31 +48,89 @@ export default function How() {
     s5: false,
   });
 
-  useEffect(() => {
-    const stageIds = ['s1', 's2', 's3', 's4', 's5'];
-    
-    // Set active status on scroll based on viewport intersection
-    const observers = stageIds.map(id => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          setActiveStages(prev => ({ ...prev, [id]: true }));
-        }
-      }, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -28% 0px"
-      });
-      observer.observe(el);
-      return { observer, el };
-    });
+  // Gate the scroll animation on JS actually being able to run it. The CSS keeps
+  // stage copy visible by default, so a failed observer can never swallow a
+  // stage's title and body the way it did before.
+  const [animate, setAnimate] = useState(false);
 
-    return () => {
-      observers.forEach(obs => {
-        if (obs) obs.observer.unobserve(obs.el);
+  // Arm the reveal animation only when we can prove the browser will actually
+  // run it. Two things can stop it:
+  //   1. The preloader holds the app at visibility:hidden for several seconds,
+  //      so observers armed during that window never see a real scroll.
+  //   2. If the document is not being rendered at all (background tab, bfcache
+  //      restore, prerender, screenshot capture), requestAnimationFrame and
+  //      IntersectionObserver are both suspended and no stage ever gets .on.
+  // In either failure case we leave the animation off, and the CSS default
+  // keeps every stage's title and body visible.
+  useEffect(() => {
+    const markAllActive = () =>
+      setActiveStages(Object.fromEntries(STAGE_IDS.map(id => [id, true])));
+
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      typeof IntersectionObserver === 'undefined'
+    ) {
+      markAllActive();
+      return;
+    }
+
+    let disposed = false;
+    let everHidden = document.visibilityState === 'hidden';
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') everHidden = true;
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    // rAF only fires while the document is being rendered — it is the probe.
+    const arm = () => {
+      if (disposed) return;
+      requestAnimationFrame(() => {
+        if (disposed) return;
+        if (everHidden) markAllActive();
+        else setAnimate(true);
       });
     };
+
+    let mo;
+    if (document.body.classList.contains('no-scroll')) {
+      mo = new MutationObserver(() => {
+        if (!document.body.classList.contains('no-scroll')) {
+          mo.disconnect();
+          arm();
+        }
+      });
+      mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    } else {
+      arm();
+    }
+
+    return () => {
+      disposed = true;
+      document.removeEventListener('visibilitychange', onVisibility);
+      if (mo) mo.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    if (!animate) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveStages(prev => ({ ...prev, [entry.target.id]: true }));
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -12% 0px' }
+    );
+
+    const els = STAGE_IDS.map(id => document.getElementById(id)).filter(Boolean);
+    els.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [animate]);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -109,11 +169,7 @@ export default function How() {
             <a
               className="btn-ghost"
               style={{ fontSize: '16px' }}
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/contact';
-              }}
+              href="#/contact"
             >Book a walkthrough</a>
           </div>
 
@@ -122,7 +178,7 @@ export default function How() {
             <span className="dash"></span>
             <a className="chip" href="#s2"><span className="n">02</span>Blueprint</a>
             <span className="dash"></span>
-            <a className="chip" href="#s3"><span className="n">03</span>First module</a>
+            <a className="chip" href="#s3"><span className="n">03</span>Configure first module</a>
             <span className="dash"></span>
             <a className="chip" href="#s4"><span className="n">04</span>Roll out</a>
             <span className="dash"></span>
@@ -149,7 +205,7 @@ export default function How() {
               </div>
             </div>
 
-            <div className="stage-list" ref={containerRef}>
+            <div className={`stage-list${animate ? ' anim' : ''}`} ref={containerRef}>
               {/* STAGE 1 */}
               <article className={`stage ${activeStages.s1 ? 'on' : ''}`} id="s1">
                 <div className="stage-num"><span>01</span></div>
@@ -179,7 +235,7 @@ export default function How() {
                   <div className="bp-grid">
                     <div className="bp-card">
                       <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M3 6h18M3 12h18M3 18h18"/>
                         </svg>
                       </div>
@@ -189,7 +245,7 @@ export default function How() {
                     
                     <div className="bp-card">
                       <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="2" y="4" width="20" height="14" rx="2"/>
                           <path d="M8 21h8"/>
                         </svg>
@@ -200,7 +256,7 @@ export default function How() {
 
                     <div className="bp-card">
                       <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
                         </svg>
                       </div>
@@ -210,7 +266,7 @@ export default function How() {
 
                     <div className="bp-card">
                       <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="12" cy="12" r="9"/>
                           <path d="M12 7v5l3 3"/>
                         </svg>
@@ -261,9 +317,9 @@ export default function How() {
                 <div className="stage-num"><span>03</span></div>
                 <div className="stage-body">
                   <div className="stage-kicker">Stage three · Working software in weeks</div>
-                  <h3>Build the first module</h3>
+                  <h3>Configure the first module</h3>
                   <p>
-                    The highest-pain module ships first — usually the one that came up most on the floor walk. Working software in weeks, used by your team on real orders. If we're wrong about something, we find out early, when it's cheap to fix.
+                    We start from the proven MesaOps platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.
                   </p>
                   <div className="you-get">
                     <b>What you get:</b>
@@ -295,7 +351,7 @@ export default function How() {
                   <div className="stage-kicker">Stage five · For the long run</div>
                   <h3>Stay</h3>
                   <p>
-                    Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow. The people who built it are the people who answer the phone.
+                    Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow — with the same senior team, long after go-live. The people who built it are the people who answer the phone.
                   </p>
                   <div className="you-get">
                     <b>What you get:</b>
@@ -312,13 +368,13 @@ export default function How() {
       <section className="engage-section">
         <div className="wrap">
           <div className="section-head reveal in">
-            <h2>Engagement model. <span class="accent">Built so you stay in control.</span></h2>
+            <h2>Engagement model. <span className="accent">Built so you stay in control.</span></h2>
             <p>Three commitments that hold from the first walkthrough to years after go-live.</p>
           </div>
           <div className="tri-grid">
             <div className="tri-card">
               <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="16" rx="2"/>
                   <path d="M3 10h18M8 2v4M16 2v4"/>
                 </svg>
@@ -329,7 +385,7 @@ export default function How() {
 
             <div className="tri-card">
               <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22c5.5 0 9-3.5 9-9V6l-9-4-9 4v7c0 5.5 3.5 9 9 9z"/>
                   <path d="M9 12l2 2 4-4"/>
                 </svg>
@@ -340,7 +396,7 @@ export default function How() {
 
             <div className="tri-card">
               <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="5" y="11" width="14" height="9" rx="2"/>
                   <path d="M8 11V7a4 4 0 0 1 8 0"/>
                 </svg>
@@ -360,7 +416,7 @@ export default function How() {
               <h2>Questions <span className="accent">owners ask us.</span></h2>
               <p className="faq-split-note">
                 Asked something else? Bring it to the walkthrough — or write to{' '}
-                <a href="mailto:hello@astrasystems.example">hello@astrasystems.example</a>.
+                <a href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a>.
               </p>
             </div>
             
@@ -411,22 +467,22 @@ export default function How() {
               </div>
             </div>
             <div className="cta-contact">
-              <a href="tel:+919876543210">
+              <a href="tel:+918338081502">
                 <span className="ic">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/>
                   </svg>
                 </span>
-                +91 98765 43210
+                +91 83380 81502
               </a>
-              <a href="mailto:hello@astrasystems.example">
+              <a href="mailto:sale@mesaorigins.com">
                 <span className="ic">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2"/>
                     <path d="m22 7-10 6L2 7"/>
                   </svg>
                 </span>
-                hello@astrasystems.example
+                sale@mesaorigins.com
               </a>
             </div>
           </div>

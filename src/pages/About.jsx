@@ -196,8 +196,8 @@ export default function About() {
               <a href="#/contact" className="ab3-btn">Book an Operations Walkthrough</a>
             </div>
             <div className="ab3-cta-contact">
-              <b>+91 98765 43210</b>
-              <b>hello@astrasystems.example</b>
+              <b>+91 83380 81502</b>
+              <b>sale@mesaorigins.com</b>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ export default function Work() {
         <div className="wrap">
           <span className="eyebrow reveal">Case study</span>
           <h1 className="reveal">Mass Polymers: from paper registers to <em className="grad">one connected plant.</em></h1>
-          <p className="lede reveal" style={{ marginTop: '20px' }}>Plastic extrusion · Pune, Maharashtra · Scope: 11 modules, inquiry to dispatch, rolled out in phases.</p>
+          <p className="lede reveal" style={{ marginTop: '20px' }}>Plastic extrusion · Pune, Maharashtra · Scope: inquiry to dispatch, rolled out in phases.</p>
         </div>
       </section>
 
@@ -26,7 +26,7 @@ export default function Work() {
 
           <div className="prose">
             <h2 style={{ marginTop: 0 }}>The company</h2>
-            <p>Mass Polymers is a leading manufacturer of high-quality PVC pipes and fittings, serving major construction and agricultural sectors. Operating with a 45,000 sq ft plant in Pune, they run 3 continuous shifts, 18 extrusion lines, and employ over 120 floor operators. The order book had been growing steadily for years, and the plant had grown with it: more machines, more shifts, more people.</p>
+            <p>Mass Polymers manufactures PVC pipes and fittings from a plant in Pune, running continuous shifts across multiple extrusion lines. The order book had been growing steadily for years, and the plant had grown with it: more machines, more shifts, more people.</p>
             <p>What hadn't grown was the way information moved. The systems that had comfortably run a smaller operation — registers, spreadsheets, phone calls — were now holding a much larger one together.</p>
 
             <h2>Life before</h2>
@@ -35,7 +35,7 @@ export default function Work() {
             <p>Nobody was careless. Everybody was busy. The information simply lived in too many places, in formats that couldn't be checked against each other.</p>
 
             <h2>The turning point</h2>
-            <p>A major dispatch error that delayed a key order by 4 days, resulting in a penalty and client friction, became the final turning point. Management knew the plant needed one system. What held them back was what holds most manufacturers back: stories of ERP projects that ran for a year, cost more than quoted, and ended with the team working around the software instead of in it.</p>
+            <p>A dispatch error that delayed a key order — and the client friction that followed — became the final turning point. Management knew the plant needed one system. What held them back was what holds most manufacturers back: stories of ERP projects that ran for a year, cost more than quoted, and ended with the team working around the software instead of in it.</p>
             <p>The condition they set was simple: the system had to match how the plant already worked, and it had to prove itself in stages — working software early, not a big reveal at the end.</p>
 
             <h2>What we built</h2>
@@ -60,29 +60,18 @@ export default function Work() {
             <div className="browser">
               <div className="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
               <div className="browser-body">
-                <img src={moduleScreenshots} alt="MesaOrigins software modules screenshots" className="asset-img" />
+                <img src={moduleScreenshots} alt="MesaOps software modules screenshots" className="asset-img" />
               </div>
             </div>
           </div>
 
           <div className="prose">
             <h2 style={{ marginTop: 0 }}>How we rolled it out</h2>
-            <p>The highest-pain module shipped first. Each phase went live on the floor with hands-on training — supervisors and operators using the real system on real orders before the next phase began. The rollout started with the Sales Order and Raw Material Inward modules, which immediately stopped material leakages. Within 6 weeks, production logs were digitized at the machines. No big-bang cutover, no parallel-running paper for months.</p>
+            <p>The highest-pain module shipped first. Each phase went live on the floor with hands-on training — supervisors and operators using the real system on real orders before the next phase began. The rollout started with the Sales Order and Raw Material Inward modules, which closed the gaps where material had been going untracked. Production logs were digitized at the machines in an early phase. No big-bang cutover, no parallel-running paper for months.</p>
 
             <h2>Life after</h2>
-            <p>Management now sees the entire operation in real time. Every batch is fully traceable — machine, shift, operator, raw-material lot. Reporting that took 3 days now takes 10 minutes. Review meetings argue about decisions, not about whose numbers are right.</p>
+            <p>Management now sees the entire operation in real time. Every batch is traceable — machine, shift, operator, raw-material lot. Reporting that used to be assembled by hand is now read straight off a live dashboard. Review meetings argue about decisions, not about whose numbers are right.</p>
           </div>
-
-          <div className="stats reveal" style={{ maxWidth: '860px' }}>
-            <div className="stat"><b>11 modules</b><span>one connected platform</span></div>
-            <div className="stat"><b>3 days → 10 min</b><span>management reporting time</span></div>
-            <div className="stat"><b>100%</b><span>batch traceability</span></div>
-          </div>
-
-          <blockquote className="pullquote reveal" style={{ maxWidth: '760px' }}>
-            "MesaOrigins understood our floor processes from day one. They didn't pitch slides; they walked our extrusion lines, mapped our bottlenecks, and delivered a system that has made our operations completely transparent."
-            <cite>Rajesh Mehta, Managing Director, Mass Polymers</cite>
-          </blockquote>
 
           <div className="problem-links">
             <h3 style={{ marginBottom: '20px' }}>The problems this story solves, one by one</h3>
@@ -106,8 +95,8 @@ export default function Work() {
             </div>
           </div>
           <div className="reveal">
-            <a className="contact-big" href="tel:+919876543210">+91 98765 43210</a><br />
-            <a className="contact-big" href="mailto:hello@astrasystems.example">hello@astrasystems.example</a>
+            <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
+            <a className="contact-big" href="mailto:sale@mesaorigins.com">sale@mesaorigins.com</a>
           </div>
         </div>
       </section>

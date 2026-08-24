@@ -2333,13 +2333,21 @@ address {
     background: var(--surface-2);
 }
 
+/* Stage copy is visible by default. The reveal animation is opt-in: JS adds
+   .anim to .stage-list only once it can actually drive it, so a stage's title
+   and body can never be left invisible by an observer that failed to fire. */
 .stage-body {
-    opacity: 0;
-    transform: translateY(18px);
+    opacity: 1;
+    transform: none;
     transition: opacity .5s ease, transform .5s ease;
 }
 
-.stage.on .stage-body {
+.stage-list.anim .stage-body {
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.stage-list.anim .stage.on .stage-body {
     opacity: 1;
     transform: none;
 }

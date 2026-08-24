@@ -4,6 +4,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
+    email: '',
     role: '',
     phone: '',
     headache: '',
@@ -17,13 +18,25 @@ export default function Contact() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // TODO(P0): this form has no submission target. Nothing is sent anywhere —
+  // the success message below is shown to the user while the lead is discarded.
+  // Wire this to a real endpoint (Vercel serverless function, Formspree, CRM
+  // webhook) before the next deploy.
+  const submitLead = async (data) => {
+    console.warn('[contact] No submission endpoint configured — lead discarded.', data);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = true;
     if (!formData.company.trim()) newErrors.company = true;
+    if (!EMAIL_RE.test(formData.email.trim())) newErrors.email = true;
     if (!formData.phone.trim()) newErrors.phone = true;
     if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return; }
+    submitLead(formData);
     setSubmitted(true);
   };
 
@@ -66,6 +79,12 @@ export default function Contact() {
                     placeholder="Company name"
                     value={formData.company} onChange={handleChange} />
                 </div>
+                <div className={`field${errors.email ? ' field-error' : ''}`}>
+                  <label htmlFor="f-email">Email</label>
+                  <input id="f-email" name="email" type="email" autoComplete="email" inputMode="email"
+                    placeholder="you@company.com"
+                    value={formData.email} onChange={handleChange} />
+                </div>
                 <div className="field">
                   <label htmlFor="f-role">Role</label>
                   <input id="f-role" name="role" type="text" autoComplete="organization-title"
@@ -75,7 +94,7 @@ export default function Contact() {
                 <div className={`field${errors.phone ? ' field-error' : ''}`}>
                   <label htmlFor="f-phone">Phone</label>
                   <input id="f-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 00000 00000"
                     value={formData.phone} onChange={handleChange} />
                 </div>
                 <div className="field">
@@ -113,7 +132,7 @@ export default function Contact() {
                       stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <a href="tel:+919876543210" className="contact-call-val">+91 98765 43210</a>
+                <a href="tel:+918338081502" className="contact-call-val">+91 83380 81502</a>
               </div>
               <div className="contact-call-line">
                 <div className="contact-call-ic" aria-hidden="true">
@@ -122,18 +141,17 @@ export default function Contact() {
                     <path d="m3.5 6.5 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <a href="mailto:hello@astrasystems.example" className="contact-call-val">hello@astrasystems.example</a>
+                <a href="mailto:sale@mesaorigins.com" className="contact-call-val">sale@mesaorigins.com</a>
               </div>
               <address className="contact-addr">
-                Suite 402, Innovate Plaza, Tech Park<br />
-                Mumbai, Maharashtra, 400076
+                {'{{REAL_ADDRESS}}'}
               </address>
             </div>
 
             {/* Map card */}
             <div className="contact-map-card reveal">
               <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg"
-                role="img" aria-label="Map showing route to MesaOrigins office at Innovate Plaza, Tech Park">
+                role="img" aria-label="Map showing route to the MesaOrigins office">
                 {/* base */}
                 <rect width="460" height="300" fill="var(--bg-alt)" />
                 {/* blocks */}
@@ -166,7 +184,7 @@ export default function Contact() {
                   <rect x="234" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
                   <rect x="243" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
                   <text x="266" y="84" fontFamily="system-ui" fontSize="12" fontWeight="700" fill="var(--ink)">Office</text>
-                  <text x="266" y="99" fontFamily="Inter,system-ui" fontSize="9.5" fill="var(--muted)">Innovate Plaza</text>
+                  <text x="266" y="99" fontFamily="Inter,system-ui" fontSize="9.5" fill="var(--muted)">MesaOrigins</text>
                 </g>
                 {/* pin */}
                 <g transform="translate(230,30)">
@@ -177,7 +195,7 @@ export default function Contact() {
               </svg>
               <div className="contact-map-cap">
                 <span className="contact-map-dot"></span>
-                Suite 402, Innovate Plaza, Tech Park — Mumbai
+                {'{{REAL_ADDRESS}}'}
               </div>
             </div>
           </div>

@@ -145,7 +145,7 @@ export default function Build() {
                 </svg>
               </div>
               <div className="build-sol">
-                <b>Inquiry-to-dispatch ERP.</b> One flow from inquiry to sales order to plan to dispatch, so sales promises dates production can keep.
+                <b>Inquiry-to-dispatch ERP.</b> One flow from inquiry to sales order to plan to dispatch — so sales promises dates production can keep.
               </div>
             </div>
 
@@ -205,8 +205,8 @@ export default function Build() {
               <a href="#/contact" className="btn">Book an Operations Walkthrough</a>
             </div>
             <div className="build-cta-contact">
-              <b>+91 98765 43210</b>
-              <b>hello@astrasystems.example</b>
+              <b>+91 83380 81502</b>
+              <b>sale@mesaorigins.com</b>
             </div>
           </div>
         </div>
