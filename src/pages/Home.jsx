@@ -43,20 +43,20 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head reveal">
             <h2>One system. <em className="grad">One version of the truth.</em></h2>
-            <p className="lede">Imagine walking into Monday's review meeting and every number on the screen is live. An inquiry becomes a sales order, a production plan, a machine schedule, a QC record, and a dispatch note — in one flow, with nothing re-typed and nothing lost.</p>
+            <p className="lede">Walk into Monday's review and every number is live. Inquiry to sales order to plan to QC to dispatch — one flow, nothing re-typed.</p>
           </div>
           <div className="outcomes">
             <div className="outcome reveal">
               <b>You see the plant in real time.</b>
-              <p>Production, quality, inventory, and dispatch on one screen — from the floor or from your phone.</p>
+              <p>Production, quality, inventory and dispatch on one screen — from the floor or from your phone.</p>
             </div>
             <div className="outcome reveal">
               <b>Every product is traceable.</b>
-              <p>Batch to machine to shift to operator to raw-material lot. A complaint becomes a ten-minute lookup, not a ten-day investigation.</p>
+              <p>Batch, machine, shift, raw-material lot. A ten-minute lookup, not a ten-day investigation.</p>
             </div>
             <div className="outcome reveal">
               <b>Decisions stop waiting for data.</b>
-              <p>Month-end reports become live dashboards. Gut-feel planning becomes plan-versus-actual.</p>
+              <p>Month-end reports become live dashboards. Gut feel becomes plan-versus-actual.</p>
             </div>
           </div>
           <div className="annotated reveal">
