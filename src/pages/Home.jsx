@@ -4,6 +4,7 @@ import founder1 from '../assets/founder_1.jpg';
 import founder2 from '../assets/founder_2.jpg';
 import founder3 from '../assets/founder_3.jpg';
 import heroProvided from '../assets/hero_provided.png';
+import ProblemSection from '../components/ProblemSection';
 // Lazy-loaded so their WebGL libraries (three / ogl) are code-split out of the main bundle
 const GLSLHills = lazy(() =>
   import('../components/ui/glsl-hills').then((m) => ({ default: m.GLSLHills }))
@@ -35,57 +36,7 @@ export default function Home() {
       </section>
 
       {/* 2. THE PROBLEM */}
-      <section className="section alt">
-        <div className="wrap">
-          <div className="section-head reveal">
-            <h2>The business grew. <em className="grad">The spreadsheets didn't.</em></h2>
-            <p className="lede">Every growing manufacturer hits the same wall. The order book is healthy, the machines are running — but the information holding it all together lives in a dozen disconnected places.</p>
-          </div>
-          <div className="grid-4">
-            <div className="card problem-card reveal">
-              <div className="glyph">
-                <svg viewBox="0 0 24 24">
-                  <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z" />
-                  <path d="M3 8l9 5 9-5M12 13v8" />
-                </svg>
-              </div>
-              <h3>"What's our actual stock?"</h3>
-              <p>Inventory lives in a register, an Excel sheet, and the storekeeper's head. The three never agree. You find out the truth during the annual audit — or when a dispatch gets delayed.</p>
-            </div>
-            <div className="card problem-card reveal">
-              <div className="glyph">
-                <svg viewBox="0 0 24 24">
-                  <path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z" />
-                  <path d="M8 11h8M8 14h5" />
-                </svg>
-              </div>
-              <h3>"Check the WhatsApp group."</h3>
-              <p>Production status is a chain of photos and voice notes. By the time numbers reach a review meeting, they're two days old and nobody can verify them.</p>
-            </div>
-            <div className="card problem-card reveal">
-              <div className="glyph">
-                <svg viewBox="0 0 24 24">
-                  <path d="M9 4h6v3H9zM7 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1" />
-                  <path d="M8 12h8M8 16h6" />
-                </svg>
-              </div>
-              <h3>"The QC file is with Ramesh."</h3>
-              <p>Quality inspections live on paper. When a customer complaint comes in, tracing which batch, which machine, which shift takes days — if it's possible at all.</p>
-            </div>
-            <div className="card problem-card reveal">
-              <div className="glyph">
-                <svg viewBox="0 0 24 24">
-                  <rect x="3" y="5" width="18" height="16" rx="2" />
-                  <path d="M3 9h18M8 3v4M16 3v4M12 13v5M9.5 15.5L12 18l2.5-2.5" />
-                </svg>
-              </div>
-              <h3>"We'll confirm delivery by tomorrow."</h3>
-              <p>Sales can't promise dates because they can't see production. Production can't plan because they can't see material.</p>
-            </div>
-          </div>
-          <p className="closing-line reveal">None of this is a people problem. Your team is working hard — inside systems that were never designed to talk to each other.</p>
-        </div>
-      </section>
+      <ProblemSection />
 
       {/* 3. THE SHIFT */}
       <section className="section">

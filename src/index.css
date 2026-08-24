@@ -950,6 +950,119 @@ em.grad {
     line-height: 1.55
 }
 
+/* ============ HOME PROBLEM SECTION ============ */
+
+/* .grid-4 already stretches its items, so the four cards match heights on their
+   own; this makes the dependency explicit and survives a future align-items
+   change on the grid. */
+.problem-section .grid-4 {
+    align-items: stretch;
+    /* stretch alone only equalises within a row track, so at the 2x2 tablet
+       layout the two rows could differ. Equal row tracks make all four cards
+       match at every breakpoint. */
+    grid-auto-rows: 1fr;
+    position: relative;
+    z-index: 1;
+}
+
+.problem-section .problem-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Positioning context for the (flag-gated) connector. */
+.problem-grid-wrap {
+    position: relative;
+}
+
+/* Headline accent wipe: --wipe is tweened 0 -> 1 in JS, so the colour resolves
+   against whichever theme's --ink / --accent is active. */
+.problem-wipe {
+    --wipe: 0;
+    font-style: inherit;
+    color: color-mix(in srgb, var(--accent) calc(var(--wipe) * 100%), var(--ink));
+}
+
+/* Underline that draws under the closing phrase. scaleX is driven in JS. */
+.problem-underline {
+    position: relative;
+}
+
+/* nowrap keeps the drawn bar on one line; below this width the phrase is
+   allowed to wrap and the bar is dropped rather than straddling two lines. */
+@media (min-width: 600px) {
+    .problem-underline {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 599px) {
+    .problem-underline-bar {
+        display: none;
+    }
+}
+
+.problem-underline-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: var(--ink-body);
+    opacity: .3;
+    transform: scaleX(0);
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+/* Hover is interaction feedback, so it survives reduced-motion. Pointer devices
+   only — no sticky hover artifacts on touch. */
+@media (hover: hover) {
+    .problem-section .problem-card {
+        transition: transform .18s ease-out, border-color .18s ease-out, box-shadow .18s ease-out;
+    }
+
+    .problem-section .problem-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 6px 30px var(--glow);
+    }
+
+    .problem-section .problem-card .glyph {
+        transition: background .18s ease-out;
+    }
+
+    .problem-section .problem-card:hover .glyph {
+        background: var(--glow);
+    }
+}
+
+/* Decorative broken connector — only rendered when the component flag is on. */
+.broken-line {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.broken-line svg {
+    width: 100%;
+    height: 2px;
+    display: block;
+    overflow: visible;
+}
+
+.broken-line path {
+    fill: none;
+    stroke: var(--border-strong);
+    stroke-width: 1;
+    opacity: .08;
+}
+
+
 .closing-line {
     margin-top: 40px;
     font-size: 16px;
