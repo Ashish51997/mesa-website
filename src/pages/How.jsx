@@ -64,7 +64,6 @@ const STAGES = [
     kicker: 'Stage one · The visit',
     title: 'Walk the floor',
     body: 'We start in your plant, not a conference room. We follow an order through its whole life — inquiry, planning, production, QC, stores, dispatch — and talk to the people who actually do the work: supervisors, operators, storekeepers, the QC in-charge. We map how work actually flows, including the workarounds nobody wrote down.',
-    callout: 'a shared, honest picture of how your operation runs today. Most owners tell us this alone was worth the visit.',
     icon: (
       <>
         <circle cx="6" cy="19" r="2.5" />
@@ -79,7 +78,6 @@ const STAGES = [
     kicker: 'Stage two · On paper first',
     title: 'Blueprint',
     body: 'Before any code, we put the whole system on paper. The Blueprint is a fixed document you can read, question, and approve:',
-    callout: 'workflow maps, screen designs, phase plans, and absolute cost clarity before writing any code.',
     chips: BP_CHIPS,
     icon: (
       <>
@@ -94,7 +92,6 @@ const STAGES = [
     kicker: 'Stage three · Working software in weeks',
     title: 'Configure the first module',
     body: 'We start from the proven MesaOps platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.',
-    callout: 'a live module your team runs daily — not a demo, not a prototype.',
     icon: (
       <>
         <path d="M21 8l-9-5-9 5 9 5 9-5z" />
@@ -109,7 +106,6 @@ const STAGES = [
     kicker: 'Stage four · Prove, then proceed',
     title: 'Roll out in stages',
     body: 'Each phase goes live with training on the floor — not a manual sent by email. Supervisors and operators use the system on real work before the next phase starts. Each phase proves itself before the next begins, and you decide whether to continue at every stage.',
-    callout: 'a system that earns its next phase — and an exit door at every stage.',
     icon: <path d="M3 20h5v-4h5v-4h5V8h3" />,
   },
   {
@@ -118,7 +114,6 @@ const STAGES = [
     kicker: 'Stage five · For the long run',
     title: 'Stay',
     body: 'Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow — with the same senior team, long after go-live. The people who built it are the people who answer the phone.',
-    callout: 'a partner who knows your plant — not a ticket queue.',
     icon: <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.25a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2z" />,
   },
 ];
@@ -372,9 +367,6 @@ export default function How() {
                     {st.id === 's2' && (
                       <div className="bp-doc" aria-hidden="true">
                         <div className="bp-doc-inner">
-                          <div className="bp-doc-bar">
-                            <i></i><i></i><i></i><em>BLUEPRINT_V1 · WORKFLOW &amp; PHASE PLAN</em>
-                          </div>
                           <div className="bp-doc-body">
                             <div className="bp-flow">
                               <span className="node">INQUIRY → SALES ORDER</span>
@@ -400,10 +392,6 @@ export default function How() {
                       </div>
                     )}
 
-                    <div className="you-get">
-                      <b>What you get:</b>
-                      <span>{st.callout}</span>
-                    </div>
                   </div>
                 </article>
               ))}

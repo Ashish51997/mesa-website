@@ -3027,31 +3027,6 @@ address {
     max-width: 620px;
 }
 
-.you-get {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 20px;
-    /* The stage card is --surface now, so the callout steps to --bg-alt to stay
-       readable as a distinct block inside it. */
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 14px;
-    max-width: 620px;
-}
-
-.you-get b {
-    color: var(--accent);
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.you-get span {
-    color: var(--ink-body);
-}
 
 /* Blueprint deliverables grid */
 .bp-grid {
@@ -3124,41 +3099,6 @@ address {
     overflow: hidden;
 }
 
-.bp-doc-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-}
-
-.bp-doc-bar i {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    display: block;
-}
-
-.bp-doc-bar i:nth-child(1) {
-    background: #FF6159
-}
-
-.bp-doc-bar i:nth-child(2) {
-    background: #FFBD2E
-}
-
-.bp-doc-bar i:nth-child(3) {
-    background: #28C840
-}
-
-.bp-doc-bar em {
-    font-style: normal;
-    font-family: var(--font-head);
-    font-size: 10.5px;
-    color: var(--muted);
-    margin-left: 8px;
-    letter-spacing: .06em;
-}
 
 .bp-doc-body {
     padding: 22px;
