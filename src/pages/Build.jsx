@@ -3,6 +3,99 @@ import FinalCta from '../components/FinalCta';
 import BuildFlowCard from '../components/BuildFlowCard';
 import useAnimationReady from '../lib/useAnimationReady';
 
+/* Each card pairs the complaint we heard with the system that answers it. */
+const BUILD_CARDS = [
+  {
+    problem: "We can't see production in real time.",
+    title: 'Production monitoring & machine logs',
+    note: 'Operators log at the machine. Management sees the floor live.',
+    icon: (
+      <>
+        <rect x="2" y="4" width="20" height="13" rx="2" />
+        <path d="M6 12l3-4 3 5 2.5-3 3.5 2M8 21h8" />
+      </>
+    ),
+  },
+  {
+    problem: 'Inventory is never accurate.',
+    title: 'Stores, inventory & material flow',
+    note: 'Stock moves when material moves — register, sheet and reality agree.',
+    icon: (
+      <>
+        <path d="M21 8l-9-5-9 5 9 5 9-5z" />
+        <path d="M3 8v8l9 5 9-5V8" />
+        <path d="M12 13v8" />
+      </>
+    ),
+  },
+  {
+    problem: 'Quality lives on paper.',
+    title: 'Digital QC, inspection & CAPA',
+    note: 'Every check recorded against the batch. Audit-ready by default.',
+    icon: (
+      <>
+        <rect x="5" y="3" width="14" height="18" rx="2" />
+        <path d="M9 3.5V6h6V3.5M9 12l2 2 4-4" />
+      </>
+    ),
+  },
+  {
+    problem: "Sales and plant don't talk.",
+    title: 'Inquiry-to-dispatch ERP',
+    note: 'One flow from inquiry to dispatch — sales promises dates production can keep.',
+    icon: (
+      <>
+        <circle cx="5" cy="6" r="2.5" />
+        <circle cx="19" cy="6" r="2.5" />
+        <circle cx="12" cy="18" r="2.5" />
+        <path d="M7 7.5l3.5 8M17 7.5l-3.5 8M7.5 6h9" />
+      </>
+    ),
+  },
+  {
+    problem: 'Reports take days.',
+    title: 'Dashboards & MIS',
+    note: 'Month-end numbers, live every day — on a desktop or a phone.',
+    icon: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  },
+  {
+    problem: 'People re-type data between systems.',
+    title: 'Integration & workflow automation',
+    note: 'Entered once, flows everywhere — Tally, weighbridges, machines, Excel.',
+    icon: <path d="M9 17H7a5 5 0 0 1 0-10h2M15 7h2a5 5 0 0 1 0 10h-2M8 12h8" />,
+  },
+];
+
+const BEYOND_CHIPS = [
+  {
+    label: 'Logistics',
+    icon: (
+      <>
+        <path d="M1 8h14v9H1zM15 11h4l4 4v2h-8" />
+        <circle cx="6" cy="19" r="2" />
+        <circle cx="18" cy="19" r="2" />
+      </>
+    ),
+  },
+  {
+    label: 'Warehousing',
+    icon: <path d="M3 21V8l9-5 9 5v13M3 21h18M9 21v-6h6v6" />,
+  },
+  {
+    label: 'Distribution',
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18" />
+      </>
+    ),
+  },
+  {
+    label: 'Cold storage',
+    icon: <path d="M12 2v20M4 6l16 12M20 6L4 18M12 5l-2-2M12 5l2-2M12 19l-2 2M12 19l2 2" />,
+  },
+];
+
 export default function Build() {
   // Gate the hero's rise on the animation actually being able to run — without
   // this the copy sits at opacity 0 wherever animations are suspended.
@@ -51,111 +144,53 @@ export default function Build() {
       {/* ============ PROBLEM → SYSTEM ============ */}
       <section className="build-systems">
         <div className="wrap">
-          <div className="build-rows">
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>We can't see production in real time.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Production monitoring &amp; machine-log systems.</b> Operators log output, downtime, and rejections at the machine; management sees the floor live.
-              </div>
-            </div>
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>Inventory is never accurate.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Stores, inventory &amp; material-flow systems.</b> Live stock by item, lot, and location — GRN to issue to dispatch — so the register, the sheet, and reality finally agree.
-              </div>
-            </div>
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>Quality lives on paper.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Digital QC, inspection &amp; CAPA systems.</b> Inspections recorded against the batch, complaints traced in minutes, CAPA tracked to closure — audit-ready by default.
-              </div>
-            </div>
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>Sales and plant don't talk.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Inquiry-to-dispatch ERP.</b> One flow from inquiry to sales order to plan to dispatch — so sales promises dates production can keep.
-              </div>
-            </div>
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>Reports take days.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Dashboards &amp; MIS.</b> The numbers management waits for at month-end, live every day — on a desktop or a phone.
-              </div>
-            </div>
-
-            <div className="build-row reveal">
-              <div className="build-prob">
-                <div className="build-qmark">“</div>
-                <blockquote>People re-type data between systems.</blockquote>
-              </div>
-              <div className="build-arrow" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="build-sol">
-                <b>Integration &amp; workflow automation.</b> Tally, weighbridges, machines, Excel — connected so data is entered once and flows everywhere it's needed.
-              </div>
-            </div>
-
+          <div className="section-head reveal">
+            <h2>Six complaints. <em className="grad">Six systems.</em></h2>
+            <p className="lede">
+              Every system below started as a sentence we heard on a factory floor. Hover any card
+              to see what answers it.
+            </p>
           </div>
 
-          <div className="build-honesty reveal">
-            We recommend AI and automation only where they pay for themselves. If a simpler system solves it, that's what we'll tell you.
+          <div className="build-grid">
+            {BUILD_CARDS.map((card) => (
+              <article className="build-card reveal" key={card.title}>
+                <p className="build-card-prob">&ldquo;{card.problem}&rdquo;</p>
+                <div className="flip-line" aria-hidden="true"></div>
+                <div className="build-card-sol">
+                  <div className="sol-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">{card.icon}</svg>
+                  </div>
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.note}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ============ BEYOND MANUFACTURING ============ */}
       <section className="build-beyond">
         <div className="wrap build-beyond-inner reveal">
-          <h2>Beyond manufacturing — <span className="blue">the same operational DNA.</span></h2>
-          <p>Inventory, dispatch, traceability, workflow — the same DNA applies to logistics, distribution, and other operations-heavy businesses. If that's you, talk to us.</p>
+          <h2>Beyond manufacturing &mdash; <em className="grad">the same operational DNA.</em></h2>
+          <p>
+            Inventory, dispatch, traceability, workflow &mdash; if your business runs on
+            operations, the same systems apply.
+          </p>
+          <div className="beyond-chips">
+            {BEYOND_CHIPS.map((chip) => (
+              <span className="b-chip" key={chip.label}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">{chip.icon}</svg>
+                {chip.label}
+              </span>
+            ))}
+            <a className="b-chip is-you" href="#/contact">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              That&rsquo;s you? Talk to us
+            </a>
+          </div>
         </div>
       </section>
 
