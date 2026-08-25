@@ -1,13 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
+import saikatCard from '../assets/team-saikat-card.png';
+import saikatPhoto from '../assets/team-saikat-photo.jpg';
+import ashishCard from '../assets/team-ashish-card.png';
+import ashishPhoto from '../assets/team-ashish-photo.jpg';
+import tanmayCard from '../assets/team-tanmay-card.png';
+import tanmayPhoto from '../assets/team-tanmay-photo.jpg';
 
 /* TEAM DATA
-   photo:    null renders an initials card. Drop in an imported image to use a
-             real portrait.
-   tags:     short parenthesised lines under the name.
-   bio:      TODO(BIO) — no bios supplied yet. The paragraph is omitted rather
-             than filled with invented copy; add a string here and it renders.
-   linkedin: TODO(LINKEDIN) — the button is omitted while this is null, rather
-             than shipping a link to "#". */
+   card:     large 3:4 artwork for the detail panel (left).
+   thumb:    real photograph for the selector tile (right).
+   focus:    object-position for the thumb crop; full-body shots need a high
+             value so the face survives the square crop.
+   Members without artwork fall back to an initials tile automatically.
+
+   TODO(CARD-NAME): all three supplied cards are printed "Saikat Maiti / UI UX
+   Designer" — the template was not re-rendered per person, so Ashish's and
+   Tanmay's cards currently carry Saikat's name and job title.
+   TODO(BIO) / TODO(LINKEDIN): still unsupplied; both fields degrade to nothing
+   rather than being invented. */
 const TEAM = [
   {
     name: 'Ashish Kumar Roule',
@@ -15,7 +25,9 @@ const TEAM = [
     tags: ['Technology'],
     bio: null,
     linkedin: null,
-    photo: null,
+    card: ashishCard,
+    thumb: ashishPhoto,
+    focus: '50% 22%',
   },
   {
     name: 'Saikat Maiti',
@@ -23,7 +35,9 @@ const TEAM = [
     tags: ['Product Design'],
     bio: null,
     linkedin: null,
-    photo: null,
+    card: saikatCard,
+    thumb: saikatPhoto,
+    focus: '50% 28%',
   },
   {
     name: 'Tanmay Bhaat',
@@ -31,7 +45,9 @@ const TEAM = [
     tags: ['Sales & Marketing'],
     bio: null,
     linkedin: null,
-    photo: null,
+    card: tanmayCard,
+    thumb: tanmayPhoto,
+    focus: '50% 30%',
   },
   {
     name: 'Tania',
@@ -39,7 +55,8 @@ const TEAM = [
     tags: ['AI & Technology'],
     bio: null,
     linkedin: null,
-    photo: null,
+    card: null,
+    thumb: null,
   },
   {
     name: 'Ayush Singhal',
@@ -47,15 +64,26 @@ const TEAM = [
     tags: ['Technology'],
     bio: null,
     linkedin: null,
-    photo: null,
+    card: null,
+    thumb: null,
   },
 ];
 
 const SWITCH_MS = 220;
 
-function Portrait({ member, className }) {
-  if (member.photo) {
-    return <img src={member.photo} alt={`Portrait of ${member.name}`} className={className} />;
+function Portrait({ member, variant }) {
+  const src = variant === 'card' ? member.card : member.thumb;
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={`Portrait of ${member.name}`}
+        className="tm-photo"
+        loading="lazy"
+        decoding="async"
+        style={variant === 'thumb' && member.focus ? { objectPosition: member.focus } : undefined}
+      />
+    );
   }
   return (
     <div className="tm-initials" aria-hidden="true">
@@ -97,7 +125,7 @@ export default function TeamSelector() {
     <div className="tm-grid">
       <article className={`tm-detail${switching ? ' is-switching' : ''}`} aria-live="polite">
         <div className="tm-detail-portrait tm-fade">
-          <Portrait member={member} className="tm-photo" />
+          <Portrait member={member} variant="card" />
         </div>
         <div className="tm-detail-body">
           <h3 className="tm-detail-name tm-fade">{member.name}</h3>
@@ -133,7 +161,7 @@ export default function TeamSelector() {
             aria-label={`Show details for ${m.name}`}
             onClick={() => select(i)}
           >
-            <Portrait member={m} className="tm-photo" />
+            <Portrait member={m} variant="thumb" />
             <span className="tm-thumb-name">{m.name}</span>
           </button>
         ))}

@@ -5618,41 +5618,9 @@ body.no-scroll {
     margin-bottom: 56px;
 }
 
-.tm-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-head);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-}
 
-.tm-eyebrow::before {
-    content: "";
-    width: 24px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--accent);
-}
 
-.tm-head-cols {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
-    gap: 48px;
-    align-items: end;
-}
 
-.tm-count {
-    font-size: .5em;
-    font-weight: 500;
-    color: var(--muted);
-    vertical-align: super;
-    margin-left: .25em;
-}
 
 .tm-grid {
     display: grid;
@@ -5670,9 +5638,10 @@ body.no-scroll {
     border-radius: 20px;
     padding: 40px;
     display: grid;
-    /* Portrait gives way before the copy does. */
-    grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
-    gap: 32px;
+    /* The card artwork is a detailed poster, so it needs real width to stay
+       legible; the name size below drops to keep the copy column workable. */
+    grid-template-columns: minmax(170px, 250px) minmax(0, 1fr);
+    gap: 28px;
     align-items: start;
 }
 
@@ -5682,12 +5651,14 @@ body.no-scroll {
     border-radius: 16px;
     overflow: hidden;
     background: var(--glow-soft);
+    border: 1px solid var(--border);
 }
 
 .tm-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 25%;
     display: block;
 }
 
@@ -5717,7 +5688,7 @@ body.no-scroll {
 
 .tm-detail-name {
     font-family: var(--font-head);
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(24px, 2.2vw, 32px);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -.02em;
@@ -5893,10 +5864,6 @@ body.no-scroll {
 }
 
 @media (max-width: 760px) {
-    .tm-head-cols {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
 
     .tm-sec-head {
         margin-bottom: 40px;
@@ -5938,7 +5905,7 @@ body.no-scroll {
     line-height: 1.7;
     color: var(--ink-body);
     max-width: 62ch;
-    margin-bottom: 44px;
+    margin-top: 18px;
 }
 
 .ab3-swap {

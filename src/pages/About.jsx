@@ -1,5 +1,5 @@
 import React from 'react';
-import TeamSelector, { TEAM } from '../components/TeamSelector';
+import TeamSelector from '../components/TeamSelector';
 
 
 export default function About() {
@@ -77,18 +77,14 @@ export default function About() {
       <section className="ab3-founders">
         <div className="wrap">
           <div className="tm-sec-head reveal">
-            <span className="tm-eyebrow">The team</span>
-            <div className="tm-head-cols">
-              <h2 className="ab3-h2">
-                The people who&rsquo;ll walk your floor
-                <span className="tm-count">({String(TEAM.length).padStart(2, '0')})</span>
-              </h2>
-              <p className="ab3-team-intro">
-                A small, senior team &mdash; no hand-offs to juniors you&rsquo;ve never met. The people
-                who map your workflows are the same people who build your system and pick up the
-                phone when something breaks.
-              </p>
-            </div>
+            <h2 className="ab3-h2">
+              The people who&rsquo;ll <em className="grad">walk your floor</em>
+            </h2>
+            <p className="ab3-team-intro">
+              A small, senior team &mdash; no hand-offs to juniors you&rsquo;ve never met. The people
+              who map your workflows are the same people who build your system and pick up the
+              phone when something breaks.
+            </p>
           </div>
           <div className="reveal">
             <TeamSelector />
