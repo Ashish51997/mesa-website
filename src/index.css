@@ -3964,9 +3964,9 @@ body.no-scroll {
 .beyond-chips {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    /* Left-aligned like every other section; the reference centred this. */
+    justify-content: flex-start;
     gap: 12px;
-    margin-top: 36px;
 }
 
 .b-chip {
@@ -4037,28 +4037,9 @@ body.no-scroll {
     padding: 88px 0;
 }
 
-.build-beyond-inner {
-    max-width: 720px;
-}
 
-.build-beyond h2 {
-    font-family: var(--font-head);
-    font-size: clamp(22px, 2.8vw, 28px);
-    letter-spacing: -.015em;
-    line-height: 1.25;
-    font-weight: 700;
-}
 
-.build-beyond h2 span.blue {
-    color: var(--accent);
-}
 
-.build-beyond p {
-    margin-top: 12px;
-    color: var(--ink-body);
-    font-size: 15px;
-    max-width: 60ch;
-}
 
 
 @media (max-width: 860px) {

@@ -173,13 +173,17 @@ export default function Build() {
       </section>
 
       <section className="build-beyond">
-        <div className="wrap build-beyond-inner reveal">
-          <h2>Beyond manufacturing &mdash; <em className="grad">the same operational DNA.</em></h2>
-          <p>
-            Inventory, dispatch, traceability, workflow &mdash; if your business runs on
-            operations, the same systems apply.
-          </p>
-          <div className="beyond-chips">
+        <div className="wrap">
+          {/* Same .section-head/.lede pair as every other section, so the type
+              scale matches instead of falling back to the base h2. */}
+          <div className="section-head reveal">
+            <h2>Beyond manufacturing &mdash; <em className="grad">the same operational DNA.</em></h2>
+            <p className="lede">
+              Inventory, dispatch, traceability, workflow &mdash; if your business runs on
+              operations, the same systems apply.
+            </p>
+          </div>
+          <div className="beyond-chips reveal">
             {BEYOND_CHIPS.map((chip) => (
               <span className="b-chip" key={chip.label}>
                 <svg viewBox="0 0 24 24" aria-hidden="true">{chip.icon}</svg>
