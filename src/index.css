@@ -3348,10 +3348,29 @@ address {
     transform: rotate(180deg);
 }
 
+/* Collapse/expand via grid rows. This replaced a JS height animation that a
+   leftover `max-height: 0` was clamping shut — there was never a matching .open
+   rule to release it, so no answer could expand. As CSS, the open state is
+   declarative and holds even if the transition never gets a frame. */
 .faq-split-a {
-    max-height: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .3s ease;
+}
+
+.faq-split-item.open .faq-split-a {
+    grid-template-rows: 1fr;
+}
+
+.faq-split-a-inner {
     overflow: hidden;
-    transition: max-height .35s ease;
+    min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .faq-split-a {
+        transition: none;
+    }
 }
 
 .faq-split-a p {

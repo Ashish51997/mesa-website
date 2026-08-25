@@ -22,14 +22,14 @@ function FaqItem({ question, answer, defaultOpen = false }) {
           </svg>
         </span>
       </button>
-      <motion.div
-        initial={false}
-        animate={{ height: isOpen ? 'auto' : 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="faq-split-a"
-      >
-        <p>{answer}</p>
-      </motion.div>
+      {/* Open/closed is a CSS grid-row transition rather than a JS height
+          animation: the panel's expanded state is then declarative, so it is
+          correct even if the animation never gets a frame to run. */}
+      <div className="faq-split-a">
+        <div className="faq-split-a-inner">
+          <p>{answer}</p>
+        </div>
+      </div>
     </div>
   );
 }
