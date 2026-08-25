@@ -3,11 +3,11 @@ import salesConsole from '../assets/mesaops-sales-console.png';
 import heroProvided from '../assets/hero_provided.png';
 import ProblemSection from '../components/ProblemSection';
 import CapabilityExplorer from '../components/CapabilityExplorer';
+import FinalCta from '../components/FinalCta';
 // Lazy-loaded so their WebGL libraries (three / ogl) are code-split out of the main bundle
 const GLSLHills = lazy(() =>
   import('../components/ui/glsl-hills').then((m) => ({ default: m.GLSLHills }))
 );
-const Prism = lazy(() => import('../components/ui/Prism'));
 
 /* Five stage illustrations, drawn in the site's line-art language: accent
    stroke, --glow-soft tints, no imported artwork. */
@@ -295,35 +295,11 @@ export default function Home() {
       </section>
 
       {/* 9. FINAL CTA */}
-      <section className="section final-cta">
-        <Suspense fallback={null}>
-          <Prism
-            animationType="rotate"
-            timeScale={0.5}
-            height={3.5}
-            baseWidth={5.5}
-            scale={3.6}
-            hueShift={0}
-            colorFrequency={1}
-            noise={0.5}
-            glow={1}
-            suspendWhenOffscreen
-          />
-        </Suspense>
-        <div className="wrap">
-          <div className="reveal">
-            <h2>Start with a walkthrough, <em className="grad">not a contract.</em></h2>
-            <p className="lede">Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation.</p>
-            <div className="hero-ctas" style={{ marginTop: '32px' }}>
-              <a className="btn" href="#/contact">Book Consultation</a>
-            </div>
-          </div>
-          <div className="reveal">
-            <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
-            <a className="contact-big" href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>
-          </div>
-        </div>
-      </section>
+      <FinalCta
+        heading={<>Start with a walkthrough, <em className="grad">not a contract.</em></>}
+        lede="Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation."
+      />
+
     </div>
   );
 }

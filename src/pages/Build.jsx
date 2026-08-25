@@ -1,4 +1,5 @@
 import React from 'react';
+import FinalCta from '../components/FinalCta';
 
 export default function Build() {
   return (
@@ -196,21 +197,11 @@ export default function Build() {
       </section>
 
       {/* ============ CTA ============ */}
-      <section className="build-cta">
-        <div className="wrap">
-          <div className="build-cta-card reveal">
-            <div>
-              <h2>Not sure which of these is <span className="blue">your problem?</span></h2>
-              <p>That's what the walkthrough is for. Tell us how your operation runs — we'll tell you where software would help, and where it wouldn't.</p>
-              <a href="#/contact" className="btn">Book Consultation</a>
-            </div>
-            <div className="build-cta-contact">
-              <b>+91 83380 81502</b>
-              <b>sales@mesaorigins.com</b>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FinalCta
+        heading={<>Not sure which of these is <em className="grad">your problem?</em></>}
+        lede="That's what the walkthrough is for. Tell us how your operation runs — we'll tell you where software would help, and where it wouldn't."
+      />
+
     </div>
   );
 }

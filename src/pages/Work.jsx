@@ -1,4 +1,5 @@
 import React from 'react';
+import FinalCta from '../components/FinalCta';
 import dashboardOverview from '../assets/dashboard_overview.jpg';
 import moduleScreenshots from '../assets/module_screenshots.jpg';
 
@@ -85,21 +86,11 @@ export default function Work() {
         </div>
       </section>
 
-      <section className="section final-cta">
-        <div className="wrap">
-          <div className="reveal">
-            <h2>Your plant is different. The starting point isn't.</h2>
-            <p className="lede">Tell us how your operation runs today. We'll tell you honestly where software would help — and where it wouldn't.</p>
-            <div className="hero-ctas" style={{ marginTop: '32px' }}>
-              <a className="btn" href="#/contact">Book Consultation</a>
-            </div>
-          </div>
-          <div className="reveal">
-            <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
-            <a className="contact-big" href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>
-          </div>
-        </div>
-      </section>
+      <FinalCta
+        heading={<>Your plant is different. <em className="grad">The starting point isn&rsquo;t.</em></>}
+        lede="Tell us how your operation runs today. We'll tell you honestly where software would help — and where it wouldn't."
+      />
+
     </div>
   );
 }

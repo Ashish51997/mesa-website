@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll } from 'framer-motion';
+import FinalCta from '../components/FinalCta';
 
 function FaqItem({ question, answer, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -131,13 +132,6 @@ export default function How() {
 
     return () => observer.disconnect();
   }, [animate]);
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   return (
     <div className="how-page" id="page-how">
@@ -448,46 +442,11 @@ export default function How() {
       </section>
 
       {/* CTA */}
-      <section className="cta-sec" id="cta">
-        <div className="wrap">
-          <div className="cta-card reveal in">
-            <div>
-              <h2>Start with a walkthrough, <span className="accent">not a contract.</span></h2>
-              <p className="sub">
-                45 minutes, your team and ours. No deck, no obligation — just an honest look at how your operation runs today.
-              </p>
-              <div className="hero-actions" style={{ marginTop: '28px' }}>
-                <button 
-                  className="btn btn-primary" 
-                  onClick={() => scrollToSection('cta')} 
-                  style={{ cursor: 'pointer', border: 'none' }}
-                >
-                  Book Consultation
-                </button>
-              </div>
-            </div>
-            <div className="cta-contact">
-              <a href="tel:+918338081502">
-                <span className="ic">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/>
-                  </svg>
-                </span>
-                +91 83380 81502
-              </a>
-              <a href="mailto:sales@mesaorigins.com">
-                <span className="ic">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2"/>
-                    <path d="m22 7-10 6L2 7"/>
-                  </svg>
-                </span>
-                sales@mesaorigins.com
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FinalCta
+        heading={<>Start with a walkthrough, <em className="grad">not a contract.</em></>}
+        lede="45 minutes, your team and ours. No deck, no obligation — just an honest look at how your operation runs today."
+      />
+
     </div>
   );
 }

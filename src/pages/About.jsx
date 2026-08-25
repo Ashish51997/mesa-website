@@ -1,5 +1,6 @@
 import React from 'react';
 import TeamSelector from '../components/TeamSelector';
+import FinalCta from '../components/FinalCta';
 
 
 export default function About() {
@@ -134,33 +135,10 @@ export default function About() {
       </section>
 
       {/* ============ CTA ============ */}
-      <section className="ab3-cta">
-        <div className="wrap">
-          <div className="ab3-cta-card reveal">
-            <div>
-              <h2 className="ab3-cta-h2">
-                Come see how we work —{' '}
-                <span className="ab3-blue">or let us come see how you do.</span>
-              </h2>
-              <a href="#/contact" className="ab3-btn">Book Consultation</a>
-            </div>
-            <div className="ab3-cta-contact">
-              <a href="tel:+918338081502">
-                <span className="ab3-cta-ic" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c1 .3 1.9.5 2.9.7a2 2 0 0 1 1.6 2z" /></svg>
-                </span>
-                +91 83380 81502
-              </a>
-              <a href="mailto:sales@mesaorigins.com">
-                <span className="ab3-cta-ic" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" /><path d="M22 7l-10 7L2 7" /></svg>
-                </span>
-                sales@mesaorigins.com
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FinalCta
+        heading={<>Come see how we work &mdash; <em className="grad">or let us come see how you do.</em></>}
+        lede="Tell us how your operation runs today — 45 minutes, your team and ours. We'll tell you honestly where software would help, where it wouldn't, and what a first phase would look like. No deck, no obligation."
+      />
 
     </div>
   );

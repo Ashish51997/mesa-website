@@ -3264,86 +3264,16 @@ address {
     }
 }
 
-/* CTA Card */
-.cta-sec {
-    padding: 120px 0;
-    position: relative;
-}
 
-.cta-card {
-    position: relative;
-    background: var(--surface);
-    border-radius: 26px;
-    padding: 64px 60px;
-    display: grid;
-    grid-template-columns: 1.3fr .8fr;
-    gap: 48px;
-    align-items: center;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: 0 30px 90px var(--glow-soft);
-}
 
-.cta-card::before {
-    content: "";
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--glow-soft), transparent 70%);
-    top: -190px;
-    right: -110px;
-    pointer-events: none;
-}
 
-.cta-card h2 {
-    max-width: 480px;
-    color: var(--ink);
-}
 
-.cta-card .sub {
-    margin-top: 14px;
-    color: var(--ink-body);
-    font-size: 15.5px;
-    max-width: 440px;
-}
 
-.cta-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--ink);
-}
 
-.cta-contact a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 
-.cta-contact a:hover {
-    color: var(--accent);
-}
 
-.cta-contact .ic {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--glow-soft);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-}
 
 @media (max-width: 860px) {
-    .cta-card {
-        grid-template-columns: 1fr;
-        padding: 44px 32px
-    }
 }
 
 @media (max-width: 900px) {
@@ -3817,82 +3747,14 @@ body.no-scroll {
     max-width: 60ch;
 }
 
-.build-cta {
-    padding: 16px 0 96px;
-    position: relative;
-}
 
-.build-cta-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 60px 56px;
-    background: var(--surface);
-    box-shadow: 0 30px 80px var(--glow-soft);
-    display: grid;
-    grid-template-columns: 1.25fr .75fr;
-    gap: 44px;
-    align-items: center;
-}
 
-.build-cta-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: .8;
-    background:
-        radial-gradient(460px 300px at 10% 0%, var(--build-glow-a), transparent 62%),
-        radial-gradient(520px 340px at 95% 100%, var(--build-glow-b), transparent 62%);
-}
 
-.build-cta-card h2 {
-    font-family: var(--font-head);
-    font-size: clamp(26px, 3.4vw, 38px);
-    line-height: 1.12;
-    letter-spacing: -.02em;
-    font-weight: 700;
-    max-width: 15ch;
-    color: var(--ink);
-    position: relative;
-    z-index: 1;
-}
 
-.build-cta-card h2 span.blue {
-    color: var(--accent);
-}
 
-.build-cta-card p {
-    margin-top: 16px;
-    color: var(--ink-body);
-    max-width: 46ch;
-    font-size: 15px;
-    position: relative;
-    z-index: 1;
-}
 
-.build-cta-card .btn {
-    margin-top: 28px;
-    position: relative;
-    z-index: 1;
-}
 
-.build-cta-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    position: relative;
-    z-index: 1;
-}
 
-.build-cta-contact b {
-    font-family: var(--font-head);
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: -.01em;
-    color: var(--ink);
-}
 
 @media (max-width: 860px) {
     .build-row {
@@ -3911,10 +3773,6 @@ body.no-scroll {
         transform: rotate(90deg) translateX(4px);
     }
 
-    .build-cta-card {
-        grid-template-columns: 1fr;
-        padding: 40px 28px;
-    }
 
     .build-hero {
         padding: 80px 0 68px;
@@ -6055,102 +5913,16 @@ body.no-scroll {
     line-height: 1.55;
 }
 
-/* ── CTA ── */
-.ab3-cta {
-    padding: 0 0 96px;
-}
 
-.ab3-cta-card {
-    position: relative;
-    overflow: hidden;
-    border: none;
-    border-radius: 28px;
-    padding: 64px 56px;
-    background:
-        radial-gradient(600px 400px at 50% 50%, var(--about-glow-a), transparent 70%),
-        var(--surface);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .04), 0 24px 80px rgba(0, 0, 0, .08);
-    display: grid;
-    grid-template-columns: 1.25fr .75fr;
-    gap: 44px;
-    align-items: center;
-}
 
-.ab3-cta-h2 {
-    font-size: clamp(26px, 3.5vw, 40px);
-    line-height: 1.15;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    color: var(--ink);
-    max-width: 18ch;
-}
 
-.ab3-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 26px;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 999px;
-    padding: 13px 26px;
-    border: none;
-    color: #fff;
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    box-shadow: 0 10px 26px var(--glow-soft);
-    transition: transform .15s ease, box-shadow .15s ease;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-.ab3-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 32px var(--glow);
-}
 
-.ab3-cta-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
 
-.ab3-cta-contact a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    transition: color .18s ease-out;
-}
 
-.ab3-cta-ic {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--glow-soft);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.ab3-cta-ic svg {
-    width: 15px;
-    height: 15px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
 
 @media (hover: hover) {
-    .ab3-cta-contact a:hover {
-        color: var(--accent);
-    }
 }
 
 /* ── Responsive ── */
@@ -6171,10 +5943,6 @@ body.no-scroll {
         gap: 32px 24px;
     }
 
-    .ab3-cta-card {
-        grid-template-columns: 1fr;
-        padding: 40px 28px;
-    }
 }
 
 @media (max-width: 560px) {
@@ -6220,18 +5988,12 @@ body.no-scroll {
         padding: 64px 0;
     }
 
-    .cta-sec {
-        padding: 64px 0;
-    }
 
     /* What We Build */
     .build-beyond {
         padding: 56px 0;
     }
 
-    .build-cta {
-        padding: 8px 0 64px;
-    }
 
     /* About */
     .ab3-belief {
@@ -6253,7 +6015,4 @@ body.no-scroll {
         padding: 0 0 56px;
     }
 
-    .ab3-cta {
-        padding: 0 0 56px;
-    }
 }
