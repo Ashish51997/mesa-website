@@ -504,26 +504,38 @@ export default function How() {
             </div>
             
             <div className="faq-split-list">
-              <FaqItem 
-                question="How long until something is live?" 
-                answer="The first module is typically in your team's hands within weeks of Blueprint approval — running on real orders, not test data. The exact timeline is fixed per phase in the Blueprint, so you know the date before we write a line of code."
+              <FaqItem
+                question="How long until something is live?"
+                answer="Weeks, not months. We start from the proven MesaOps platform and configure your highest-pain module first — so your team is running real work on it early, not waiting for a big-bang launch. The exact timeline is written into your Blueprint before we begin, so you know the date before you commit."
                 defaultOpen={true}
               />
-              <FaqItem 
-                question="What happens to our existing data?" 
-                answer="It comes with you. Registers, Excel sheets, and existing records are migrated as part of the relevant phase — cleaned, structured, and verified against your originals before go-live. Nothing is retired until the new system has proven it holds the truth."
+              <FaqItem
+                question="What happens to our existing data?"
+                answer="It comes with you. Customer lists, item masters, opening stock, running orders — we bring the useful data in during setup, and your team verifies it before go-live. Nobody sits and retypes registers into the new system."
               />
-              <FaqItem 
-                question="What if we already use Tally?" 
-                answer="Keep it. Tally stays your accounting system; we integrate with it so invoices, vouchers, and ledgers flow without double entry. We build the operations layer — production, quality, stores, dispatch — that Tally was never meant to handle."
+              <FaqItem
+                question="What if we already use Tally?"
+                answer="Keep it. Tally stays your accounting system — we don't replace it. We run the factory side: orders, production, QC, stores and dispatch. Your accounts team gets clean, ready-to-enter numbers from the system instead of chasing the floor for figures."
               />
-              <FaqItem 
-                question="Do we need our own IT team?" 
-                answer="No. The system is built for supervisors and operators, not engineers, and we handle hosting, updates, and support under the ongoing arrangement. If you do have IT staff, we work alongside them and hand over whatever they want to own."
+              <FaqItem
+                question="Do we need our own IT team?"
+                answer="No. We host the system, keep it secure, back it up and update it — that's part of the monthly plan. If your team can use WhatsApp, they can use this. And we train everyone on the floor, shift by shift, until they're comfortable."
               />
-              <FaqItem 
-                question="Who owns the code and data?" 
-                answer="You do. Every phase ends with your data in your system, and if we ever part ways you keep the code, the database, and the documentation. No lock-in is a design decision, not a promise."
+              <FaqItem
+                question="Who owns the code and data?"
+                answer="You do. If we ever part ways, you keep everything — the code, the database, the documentation. No lock-in is one of our standing commitments, and it's written into the agreement, not just this page."
+              />
+              <FaqItem
+                question="Will our operators actually use it?"
+                answer="That's the test we design for. Screens mirror the paper registers your team already fills every shift — same fields, same order — so day one feels familiar, not foreign. Entries are made by tapping and picking, not typing. And the system never blocks a save: it records what really happened on the floor."
+              />
+              <FaqItem
+                question="What does it cost?"
+                answer="Every phase is a fixed price, agreed in the Blueprint before any work starts — no hourly billing, no open-ended invoices. The walkthrough is where we understand your plant and give you that number. You'll know the full cost of a phase before you say yes to it."
+              />
+              <FaqItem
+                question="What if something breaks during a night shift?"
+                answer="You call, we fix. Support comes from the same senior team that built your system — the people who know your plant, not a ticket queue. And because nothing in the system blocks a save, a glitch never stops your line: the floor keeps running while we sort it out."
               />
             </div>
           </div>
