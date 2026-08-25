@@ -5624,10 +5624,10 @@ body.no-scroll {
 
 .tm-grid {
     display: grid;
-    /* Selector runs down the left as a 150px rail; the detail takes the rest of
-       the row to the right. */
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 32px;
+    /* Detail on the left, 2-up picker on the right. max-content sizes the picker
+       from its tiles rather than hardcoding a width. */
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 40px;
     align-items: start;
 }
 
@@ -5638,10 +5638,10 @@ body.no-scroll {
     border-radius: 20px;
     padding: 40px;
     display: grid;
-    /* Shares the row with the 150px rail, so the poster is capped a little
-       tighter to leave the copy column workable. */
-    grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
-    gap: 40px;
+    /* The picker takes ~316px of the row, so the poster is held back to leave
+       the copy column a workable measure. */
+    grid-template-columns: minmax(200px, 270px) minmax(0, 1fr);
+    gap: 32px;
     align-items: start;
 }
 
@@ -5688,7 +5688,7 @@ body.no-scroll {
 
 .tm-detail-name {
     font-family: var(--font-head);
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(24px, 2.4vw, 32px);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -.02em;
@@ -5792,15 +5792,15 @@ body.no-scroll {
     transition: opacity .22s ease, transform .22s ease;
 }
 
-.tm-detail.is-switching .tm-fade {
+.tm-grid.is-switching .tm-fade {
     opacity: 0;
     transform: translateY(6px);
 }
 
 /* ---- Right: selector thumbnails ---- */
 .tm-selector {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
     gap: 16px;
 }
 
@@ -5880,17 +5880,15 @@ body.no-scroll {
     }
 
     .tm-selector {
-        flex-direction: row;
-        flex-wrap: wrap;
+        /* 3-up splits five members 3+2; 4-up leaves an orphan on row two. */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 480px;
     }
 
-    .tm-detail {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    .tm-detail-portrait {
-        width: min(340px, 70%);
+    .tm-thumb {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
     }
 }
 
@@ -5912,11 +5910,7 @@ body.no-scroll {
 
     .tm-selector {
         gap: 12px;
-    }
-
-    .tm-thumb {
-        width: 120px;
-        height: 120px;
+        max-width: none;
     }
 }
 

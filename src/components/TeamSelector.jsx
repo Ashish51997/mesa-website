@@ -142,25 +142,8 @@ export default function TeamSelector() {
   const member = TEAM[shown];
 
   return (
-    <div className="tm-grid">
-      {/* Selector sits above the detail so the card artwork can run full width. */}
-      <div className="tm-selector" role="group" aria-label="Select a team member">
-        {TEAM.map((m, i) => (
-          <button
-            key={m.name}
-            type="button"
-            className="tm-thumb"
-            aria-pressed={i === active}
-            aria-label={`Show details for ${m.name}`}
-            onClick={() => select(i)}
-          >
-            <Portrait member={m} variant="thumb" />
-            <span className="tm-thumb-name">{m.name}</span>
-          </button>
-        ))}
-      </div>
-
-      <article className={`tm-detail${switching ? ' is-switching' : ''}`} aria-live="polite">
+    <div className={`tm-grid${switching ? ' is-switching' : ''}`}>
+      <article className="tm-detail" aria-live="polite">
         <div className="tm-detail-portrait tm-fade">
           <Portrait member={member} variant="card" />
         </div>
@@ -191,6 +174,23 @@ export default function TeamSelector() {
           </div>
         </div>
       </article>
+
+      {/* Picker sits to the right of the detail, two tiles across. */}
+      <div className="tm-selector" role="group" aria-label="Select a team member">
+        {TEAM.map((m, i) => (
+          <button
+            key={m.name}
+            type="button"
+            className="tm-thumb"
+            aria-pressed={i === active}
+            aria-label={`Show details for ${m.name}`}
+            onClick={() => select(i)}
+          >
+            <Portrait member={m} variant="thumb" />
+            <span className="tm-thumb-name">{m.name}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
