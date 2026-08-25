@@ -2853,7 +2853,10 @@ address {
 
 .rail-layout {
     display: grid;
-    grid-template-columns: 56px 1fr;
+    /* minmax(0,1fr) not 1fr: .stage uses a negative left margin to straddle the
+       rail, which inflates the track's min-content size and pushed the grid
+       wider than its container. */
+    grid-template-columns: 56px minmax(0, 1fr);
     gap: 48px;
 }
 
@@ -2890,14 +2893,16 @@ address {
 
 .stage {
     display: grid;
-    grid-template-columns: 56px 1fr;
+    grid-template-columns: 56px minmax(0, 1fr);
     gap: 48px;
     margin-left: -104px;
     padding-left: 0;
 }
 
 .stage-num {
-    position: relative;
+    position: sticky;
+    top: 120px;
+    align-self: start;
     z-index: 1;
 }
 
@@ -2928,9 +2933,63 @@ address {
    .anim to .stage-list only once it can actually drive it, so a stage's title
    and body can never be left invisible by an observer that failed to fire. */
 .stage-body {
+    min-width: 0;
     opacity: 1;
     transform: none;
-    transition: opacity .5s ease, transform .5s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px 34px;
+    transition: opacity .5s ease, transform .25s ease-out,
+        border-color .25s ease-out, box-shadow .25s ease-out;
+}
+
+@media (hover: hover) {
+    .stage-body:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 16px 40px var(--glow-soft);
+    }
+}
+
+/* Icon tile + heading share a row at the top of each card. */
+.card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 14px;
+}
+
+.stage-icon {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--glow-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .25s ease-out,
+        color .25s ease-out;
+}
+
+.stage-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+    .stage-body:hover .stage-icon {
+        transform: scale(1.08) rotate(-4deg);
+        background: var(--accent);
+        color: #fff;
+    }
 }
 
 .stage-list.anim .stage-body {
@@ -2950,15 +3009,15 @@ address {
     letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .stage-body h3 {
     font-family: var(--font-head);
-    font-size: clamp(22px, 2.6vw, 28px);
+    font-size: clamp(20px, 2.2vw, 26px);
     font-weight: 700;
     letter-spacing: -.015em;
-    margin-bottom: 12px;
+    line-height: 1.15;
     color: var(--ink);
 }
 
@@ -2972,8 +3031,10 @@ address {
     display: inline-flex;
     align-items: flex-start;
     gap: 10px;
-    margin-top: 18px;
-    background: var(--surface);
+    margin-top: 20px;
+    /* The stage card is --surface now, so the callout steps to --bg-alt to stay
+       readable as a distinct block inside it. */
+    background: var(--bg-alt);
     border: 1px solid var(--border);
     border-left: 3px solid var(--accent);
     border-radius: 12px;
@@ -3001,52 +3062,51 @@ address {
     max-width: 680px;
 }
 
-.bp-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    transition: transform .2s, box-shadow .2s, border-color .2s;
-}
-
-.bp-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-    border-color: var(--accent-2);
-}
-
-.bp-card .ic {
+.bp-chip {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
-    background: var(--glow-soft);
-    color: var(--accent);
-    margin-bottom: 12px;
+    gap: 12px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: border-color .2s ease-out, transform .2s ease-out, background .2s ease-out;
 }
 
-.bp-card h4 {
-    font-size: 14.5px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 5px;
-}
-
-.bp-card p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    line-height: 1.5;
-}
-
-@media (max-width: 640px) {
-    .bp-grid {
-        grid-template-columns: 1fr
+@media (hover: hover) {
+    .bp-chip:hover {
+        border-color: var(--accent);
+        background: var(--surface);
+        transform: translateY(-2px);
     }
 }
 
-/* Blueprint document mock */
+.bp-chip svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.bp-chip span {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.bp-chip small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 1px;
+}
+
 .bp-doc {
     margin-top: 26px;
     max-width: 680px;
@@ -3339,7 +3399,7 @@ address {
 
 @media (max-width: 900px) {
     .rail-layout {
-        grid-template-columns: 40px 1fr;
+        grid-template-columns: 40px minmax(0, 1fr);
         gap: 28px
     }
 
@@ -3348,7 +3408,7 @@ address {
     }
 
     .stage {
-        grid-template-columns: 40px 1fr;
+        grid-template-columns: 40px minmax(0, 1fr);
         gap: 28px;
         margin-left: -68px
     }
@@ -3357,6 +3417,31 @@ address {
         width: 40px;
         height: 40px;
         font-size: 12px
+    }
+
+    .stage-body {
+        padding: 22px 20px;
+    }
+
+    .card-top {
+        gap: 14px;
+        margin-bottom: 12px;
+    }
+
+    .stage-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .stage-icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    /* Two chips will not fit in a ~274px card. */
+    .bp-grid {
+        grid-template-columns: 1fr;
     }
 }
 

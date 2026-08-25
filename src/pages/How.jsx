@@ -46,7 +46,84 @@ const HERO_PROPS = [
   { cls: 'how-prop-checklist', src: iconChecklist, w: 663, h: 592, from: 440, until: 0.56 },
 ];
 
-const STAGE_IDS = ['s1', 's2', 's3', 's4', 's5'];
+const BP_CHIPS = [
+  { title: 'Workflow maps', note: 'Every process, step by step',
+    icon: <path d="M4 6h16M4 12h16M4 18h10" /> },
+  { title: 'Screen designs', note: 'Screens your team reacts to first',
+    icon: <><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 21h8" /></> },
+  { title: 'Phase plan', note: 'What ships first, and why',
+    icon: <path d="M4 20V10M10 20V4M16 20v-9M22 20H2" /> },
+  { title: 'Timeline & cost', note: 'Fixed scope per phase',
+    icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></> },
+];
+
+const STAGES = [
+  {
+    id: 's1',
+    num: '01',
+    kicker: 'Stage one · The visit',
+    title: 'Walk the floor',
+    body: 'We start in your plant, not a conference room. We follow an order through its whole life — inquiry, planning, production, QC, stores, dispatch — and talk to the people who actually do the work: supervisors, operators, storekeepers, the QC in-charge. We map how work actually flows, including the workarounds nobody wrote down.',
+    callout: 'a shared, honest picture of how your operation runs today. Most owners tell us this alone was worth the visit.',
+    icon: (
+      <>
+        <circle cx="6" cy="19" r="2.5" />
+        <circle cx="18" cy="5" r="2.5" />
+        <path d="M8.5 19h6a4 4 0 0 0 0-8h-5a4 4 0 0 1 0-8h6" />
+      </>
+    ),
+  },
+  {
+    id: 's2',
+    num: '02',
+    kicker: 'Stage two · On paper first',
+    title: 'Blueprint',
+    body: 'Before any code, we put the whole system on paper. The Blueprint is a fixed document you can read, question, and approve:',
+    callout: 'workflow maps, screen designs, phase plans, and absolute cost clarity before writing any code.',
+    chips: BP_CHIPS,
+    icon: (
+      <>
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18M9 9v12" />
+      </>
+    ),
+  },
+  {
+    id: 's3',
+    num: '03',
+    kicker: 'Stage three · Working software in weeks',
+    title: 'Configure the first module',
+    body: 'We start from the proven MesaOps platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.',
+    callout: 'a live module your team runs daily — not a demo, not a prototype.',
+    icon: (
+      <>
+        <path d="M21 8l-9-5-9 5 9 5 9-5z" />
+        <path d="M3 8v8l9 5 9-5V8" />
+        <path d="M12 13v8" />
+      </>
+    ),
+  },
+  {
+    id: 's4',
+    num: '04',
+    kicker: 'Stage four · Prove, then proceed',
+    title: 'Roll out in stages',
+    body: 'Each phase goes live with training on the floor — not a manual sent by email. Supervisors and operators use the system on real work before the next phase starts. Each phase proves itself before the next begins, and you decide whether to continue at every stage.',
+    callout: 'a system that earns its next phase — and an exit door at every stage.',
+    icon: <path d="M3 20h5v-4h5v-4h5V8h3" />,
+  },
+  {
+    id: 's5',
+    num: '05',
+    kicker: 'Stage five · For the long run',
+    title: 'Stay',
+    body: 'Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow — with the same senior team, long after go-live. The people who built it are the people who answer the phone.',
+    callout: 'a partner who knows your plant — not a ticket queue.',
+    icon: <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.25a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2z" />,
+  },
+];
+
+const STAGE_IDS = STAGES.map((st) => st.id);
 
 export default function How() {
   const containerRef = useRef(null);
@@ -258,159 +335,78 @@ export default function How() {
             </div>
 
             <div className={`stage-list${animate ? ' anim' : ''}`} ref={containerRef}>
-              {/* STAGE 1 */}
-              <article className={`stage ${activeStages.s1 ? 'on' : ''}`} id="s1">
-                <div className="stage-num"><span>01</span></div>
-                <div className="stage-body">
-                  <div className="stage-kicker">Stage one · The visit</div>
-                  <h3>Walk the floor</h3>
-                  <p>
-                    We start in your plant, not a conference room. We follow an order through its whole life — inquiry, planning, production, QC, stores, dispatch — and talk to the people who actually do the work: supervisors, operators, storekeepers, the QC in-charge. We map how work actually flows, including the workarounds nobody wrote down.
-                  </p>
-                  <div className="you-get">
-                    <b>What you get:</b>
-                    <span>a shared, honest picture of how your operation runs today. Most owners tell us this alone was worth the visit.</span>
-                  </div>
-                </div>
-              </article>
-
-              {/* STAGE 2 */}
-              <article className={`stage ${activeStages.s2 ? 'on' : ''}`} id="s2">
-                <div className="stage-num"><span>02</span></div>
-                <div className="stage-body">
-                  <div className="stage-kicker">Stage two · On paper first</div>
-                  <h3>Blueprint</h3>
-                  <p>
-                    Before any code, we put the whole system on paper. The Blueprint is a fixed document you can read, question, and approve:
-                  </p>
-
-                  <div className="bp-grid">
-                    <div className="bp-card">
-                      <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M3 6h18M3 12h18M3 18h18"/>
-                        </svg>
+              {STAGES.map((st) => (
+                <article
+                  className={`stage ${activeStages[st.id] ? 'on' : ''}`}
+                  id={st.id}
+                  key={st.id}
+                >
+                  <div className="stage-num"><span>{st.num}</span></div>
+                  <div className="stage-body">
+                    <div className="card-top">
+                      <div className="stage-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">{st.icon}</svg>
                       </div>
-                      <h4>Workflow maps</h4>
-                      <p>Every process the system will cover, drawn as it will work, step by step.</p>
-                    </div>
-                    
-                    <div className="bp-card">
-                      <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="2" y="4" width="20" height="14" rx="2"/>
-                          <path d="M8 21h8"/>
-                        </svg>
+                      <div>
+                        <div className="stage-kicker">{st.kicker}</div>
+                        <h3>{st.title}</h3>
                       </div>
-                      <h4>Screen designs</h4>
-                      <p>The actual screens your team will use, so an operator can react to them before they're built.</p>
                     </div>
 
-                    <div className="bp-card">
-                      <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
-                        </svg>
-                      </div>
-                      <h4>Phase plan</h4>
-                      <p>Which module ships first, second, third — and why.</p>
-                    </div>
+                    <p>{st.body}</p>
 
-                    <div className="bp-card">
-                      <div className="ic">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="9"/>
-                          <path d="M12 7v5l3 3"/>
-                        </svg>
+                    {st.chips && (
+                      <div className="bp-grid">
+                        {st.chips.map((chip) => (
+                          <div className="bp-chip" key={chip.title}>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">{chip.icon}</svg>
+                            <span>
+                              {chip.title}
+                              <small>{chip.note}</small>
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                      <h4>Timeline &amp; cost</h4>
-                      <p>Per phase, fixed scope. No open-ended billing.</p>
-                    </div>
-                  </div>
+                    )}
 
-                  <div className="bp-doc" aria-hidden="true">
-                    <div className="bp-doc-inner">
-                      <div className="bp-doc-bar">
-                        <i></i><i></i><i></i><em>BLUEPRINT_V1 · WORKFLOW &amp; PHASE PLAN</em>
-                      </div>
-                      <div className="bp-doc-body">
-                        <div className="bp-flow">
-                          <span className="node">INQUIRY → SALES ORDER</span>
-                          <span className="arrow"></span>
-                          <span className="node">PRODUCTION PLAN</span>
-                          <span className="arrow"></span>
-                          <span className="node">QC · BATCH TRACE</span>
-                          <span className="arrow"></span>
-                          <span className="node">DISPATCH → INVOICE</span>
-                        </div>
-                        <div className="bp-side">
-                          <span className="tag">PHASE 1 · FIXED SCOPE</span>
-                          <div className="row w90"></div>
-                          <div className="row w70"></div>
-                          <div className="row w90"></div>
-                          <div className="row w55"></div>
-                          <span className="tag">TIMELINE · 6 WKS</span>
-                          <div className="row w70"></div>
-                          <div className="row w55"></div>
+                    {st.id === 's2' && (
+                      <div className="bp-doc" aria-hidden="true">
+                        <div className="bp-doc-inner">
+                          <div className="bp-doc-bar">
+                            <i></i><i></i><i></i><em>BLUEPRINT_V1 · WORKFLOW &amp; PHASE PLAN</em>
+                          </div>
+                          <div className="bp-doc-body">
+                            <div className="bp-flow">
+                              <span className="node">INQUIRY → SALES ORDER</span>
+                              <span className="arrow"></span>
+                              <span className="node">PRODUCTION PLAN</span>
+                              <span className="arrow"></span>
+                              <span className="node">QC · BATCH TRACE</span>
+                              <span className="arrow"></span>
+                              <span className="node">DISPATCH → INVOICE</span>
+                            </div>
+                            <div className="bp-side">
+                              <span className="tag">PHASE 1 · FIXED SCOPE</span>
+                              <div className="row w90"></div>
+                              <div className="row w70"></div>
+                              <div className="row w90"></div>
+                              <div className="row w55"></div>
+                              <span className="tag">TIMELINE · 6 WKS</span>
+                              <div className="row w70"></div>
+                              <div className="row w55"></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    )}
+
+                    <div className="you-get">
+                      <b>What you get:</b>
+                      <span>{st.callout}</span>
                     </div>
                   </div>
-
-                  <div className="you-get">
-                    <b>What you get:</b>
-                    <span>workflow maps, screen designs, phase plans, and absolute cost clarity before writing any code.</span>
-                  </div>
-                </div>
-              </article>
-
-              {/* STAGE 3 */}
-              <article className={`stage ${activeStages.s3 ? 'on' : ''}`} id="s3">
-                <div className="stage-num"><span>03</span></div>
-                <div className="stage-body">
-                  <div className="stage-kicker">Stage three · Working software in weeks</div>
-                  <h3>Configure the first module</h3>
-                  <p>
-                    We start from the proven MesaOps platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.
-                  </p>
-                  <div className="you-get">
-                    <b>What you get:</b>
-                    <span>a live module your team runs daily — not a demo, not a prototype.</span>
-                  </div>
-                </div>
-              </article>
-
-              {/* STAGE 4 */}
-              <article className={`stage ${activeStages.s4 ? 'on' : ''}`} id="s4">
-                <div className="stage-num"><span>04</span></div>
-                <div className="stage-body">
-                  <div className="stage-kicker">Stage four · Prove, then proceed</div>
-                  <h3>Roll out in stages</h3>
-                  <p>
-                    Each phase goes live with training on the floor — not a manual sent by email. Supervisors and operators use the system on real work before the next phase starts. Each phase proves itself before the next begins, and you decide whether to continue at every stage.
-                  </p>
-                  <div className="you-get">
-                    <b>What you get:</b>
-                    <span>a system that earns its next phase — and an exit door at every stage.</span>
-                  </div>
-                </div>
-              </article>
-
-              {/* STAGE 5 */}
-              <article className={`stage ${activeStages.s5 ? 'on' : ''}`} id="s5">
-                <div className="stage-num"><span>05</span></div>
-                <div className="stage-body">
-                  <div className="stage-kicker">Stage five · For the long run</div>
-                  <h3>Stay</h3>
-                  <p>
-                    Plants change: new machines, new products, new customers with new requirements. We support the system, fix what breaks, and extend it as you grow — with the same senior team, long after go-live. The people who built it are the people who answer the phone.
-                  </p>
-                  <div className="you-get">
-                    <b>What you get:</b>
-                    <span>a partner who knows your plant — not a ticket queue.</span>
-                  </div>
-                </div>
-              </article>
+                </article>
+              ))}
             </div>
           </div>
         </div>
