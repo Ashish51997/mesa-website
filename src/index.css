@@ -1518,22 +1518,6 @@ em.grad.problem-wipe {
     }
 }
 
-.chip {
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--ink);
-    background: var(--surface);
-    display: inline-flex;
-    align-items: center;
-    line-height: 1.2;
-}
-
-.chip:hover {
-    border-color: var(--accent)
-}
 
 /* ============ CAPABILITY EXPLORER (Home) ============ */
 
@@ -2593,6 +2577,9 @@ address {
 .how-hero .wrap {
     position: relative;
     z-index: 1;
+    /* .how-hero is a flex container, so the wrap would otherwise shrink to fit
+       its content and the tablet's width would change with the copy. */
+    width: 100%;
 }
 
 /* ---- Hero tablet ---- */
@@ -2654,15 +2641,14 @@ address {
     font-size: 16px;
 }
 
-.how-tablet-screen .stage-strip {
-    margin-top: 36px;
-}
 
 /* ---- Floating props ---- */
 .how-prop {
     position: absolute;
     height: auto;
-    z-index: 1;
+    /* Above the tablet (z-index 2) so the props sit in front of the device
+       rather than being clipped behind its edges. */
+    z-index: 3;
     pointer-events: none;
     user-select: none;
     filter: drop-shadow(0 18px 30px rgba(16, 18, 35, .18));
@@ -2847,65 +2833,7 @@ address {
 }
 
 /* Stage strip in Hero */
-.stage-strip {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-top: 64px;
-    flex-wrap: wrap;
-    row-gap: 18px;
-}
 
-.stage-strip .chip {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 9px 16px 9px 10px;
-    font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    transition: border-color .2s, transform .2s;
-    color: var(--ink);
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.stage-strip .chip:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    text-decoration: none;
-    color: var(--ink);
-}
-
-.stage-strip .chip .n {
-    font-family: var(--font-head);
-    font-size: 11px;
-    color: var(--accent);
-    background: var(--glow-soft);
-    border-radius: 999px;
-    padding: 4px 8px;
-}
-
-.stage-strip .dash {
-    width: 34px;
-    height: 1px;
-    background: repeating-linear-gradient(90deg, var(--accent) 0 5px, transparent 5px 10px);
-    opacity: .5;
-    flex: none;
-}
-
-@media (max-width: 720px) {
-    .stage-strip .dash {
-        display: none
-    }
-
-    .stage-strip {
-        gap: 10px
-    }
-}
 
 /* Rail layout & timeline animation */
 .stages-section {
@@ -3401,17 +3329,6 @@ address {
 }
 
 
-
-
-
-
-
-
-
-
-@media (max-width: 860px) {
-}
-
 @media (max-width: 900px) {
     .rail-layout {
         grid-template-columns: 40px 1fr;
@@ -3882,14 +3799,6 @@ body.no-scroll {
     font-size: 15px;
     max-width: 60ch;
 }
-
-
-
-
-
-
-
-
 
 
 @media (max-width: 860px) {
@@ -5593,18 +5502,11 @@ body.no-scroll {
 }
 
 
-
-
-
-
 /* ============ TEAM SELECTOR (About) ============ */
 
 .tm-sec-head {
     margin-bottom: 56px;
 }
-
-
-
 
 
 .tm-grid {
@@ -5939,8 +5841,6 @@ body.no-scroll {
 }
 
 
-
-
 /* ── How We Operate (4-col numbered) ── */
 .ab3-operate {
     display: flex;
@@ -6049,17 +5949,6 @@ body.no-scroll {
     line-height: 1.55;
 }
 
-
-
-
-
-
-
-
-
-
-@media (hover: hover) {
-}
 
 /* ── Responsive ── */
 @media (max-width: 900px) {

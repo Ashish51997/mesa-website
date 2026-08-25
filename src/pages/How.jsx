@@ -247,17 +247,6 @@ export default function How() {
                   <a className="btn-ghost" href="#/contact">Book a walkthrough</a>
                 </div>
 
-                <div className="stage-strip" aria-hidden="true">
-                  <a className="chip" href="#s1"><span className="n">01</span>Walk the floor</a>
-                  <span className="dash"></span>
-                  <a className="chip" href="#s2"><span className="n">02</span>Blueprint</a>
-                  <span className="dash"></span>
-                  <a className="chip" href="#s3"><span className="n">03</span>Configure first module</a>
-                  <span className="dash"></span>
-                  <a className="chip" href="#s4"><span className="n">04</span>Roll out</a>
-                  <span className="dash"></span>
-                  <a className="chip" href="#s5"><span className="n">05</span>Stay</a>
-                </div>
               </div>
             </motion.div>
           </motion.div>
