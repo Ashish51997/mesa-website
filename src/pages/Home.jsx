@@ -295,7 +295,6 @@ export default function Home() {
           <div className="reveal">
             <CapabilityExplorer />
           </div>
-          <div className="callout reveal">We recommend AI and automation only where they pay for themselves. If a simpler system solves it, that's what we'll tell you.</div>
         </div>
       </section>
 

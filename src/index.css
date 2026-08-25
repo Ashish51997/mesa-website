@@ -1789,15 +1789,6 @@ em.grad.problem-wipe {
     }
 }
 
-.callout {
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius);
-    background: var(--surface);
-    padding: 18px 22px;
-    font-size: 16px;
-}
-
 .founder-cards {
     margin-top: 40px
 }
