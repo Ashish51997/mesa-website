@@ -141,7 +141,7 @@ export default function Contact() {
                     <path d="m3.5 6.5 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <a href="mailto:ssales@mesaorigins.com" className="contact-call-val">ssales@mesaorigins.com</a>
+                <a href="mailto:sales@mesaorigins.com" className="contact-call-val">sales@mesaorigins.com</a>
               </div>
               <address className="contact-addr">
                 Chennai, Tamil Nadu<br />

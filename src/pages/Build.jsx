@@ -206,7 +206,7 @@ export default function Build() {
             </div>
             <div className="build-cta-contact">
               <b>+91 83380 81502</b>
-              <b>ssales@mesaorigins.com</b>
+              <b>sales@mesaorigins.com</b>
             </div>
           </div>
         </div>

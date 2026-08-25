@@ -96,7 +96,7 @@ export default function Work() {
           </div>
           <div className="reveal">
             <a className="contact-big" href="tel:+918338081502">+91 83380 81502</a><br />
-            <a className="contact-big" href="mailto:ssales@mesaorigins.com">ssales@mesaorigins.com</a>
+            <a className="contact-big" href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>
           </div>
         </div>
       </section>

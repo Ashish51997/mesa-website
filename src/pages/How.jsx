@@ -416,7 +416,7 @@ export default function How() {
               <h2>Questions <span className="accent">owners ask us.</span></h2>
               <p className="faq-split-note">
                 Asked something else? Bring it to the walkthrough — or write to{' '}
-                <a href="mailto:ssales@mesaorigins.com">ssales@mesaorigins.com</a>.
+                <a href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>.
               </p>
             </div>
             
@@ -475,14 +475,14 @@ export default function How() {
                 </span>
                 +91 83380 81502
               </a>
-              <a href="mailto:ssales@mesaorigins.com">
+              <a href="mailto:sales@mesaorigins.com">
                 <span className="ic">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2"/>
                     <path d="m22 7-10 6L2 7"/>
                   </svg>
                 </span>
-                ssales@mesaorigins.com
+                sales@mesaorigins.com
               </a>
             </div>
           </div>

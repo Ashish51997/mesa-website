@@ -40,7 +40,7 @@ export default function Footer() {
               <h4>Contact</h4>
               <ul>
                 <li><a href="tel:+918338081502">+91 83380 81502</a></li>
-                <li><a href="mailto:ssales@mesaorigins.com">ssales@mesaorigins.com</a></li>
+                <li><a href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a></li>
                 <li style={{ color: 'var(--muted)', fontSize: '13px', lineHeight: '1.5' }}>
                   Chennai, Tamil Nadu,<br />India
                 </li>
