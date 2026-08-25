@@ -5624,11 +5624,10 @@ body.no-scroll {
 
 .tm-grid {
     display: grid;
-    /* The detail side carries a large name plus tags and a button, so it takes
-       the larger share; an even split left it at ~190px inside this container. */
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
-    gap: 40px;
-    align-items: stretch;
+    /* Selector row on top, detail beneath — the detail spans the full width so
+       the card artwork gets real size. */
+    grid-template-columns: 1fr;
+    gap: 32px;
 }
 
 /* ---- Left: selected member ---- */
@@ -5638,10 +5637,9 @@ body.no-scroll {
     border-radius: 20px;
     padding: 40px;
     display: grid;
-    /* The card artwork is a detailed poster, so it needs real width to stay
-       legible; the name size below drops to keep the copy column workable. */
-    grid-template-columns: minmax(170px, 250px) minmax(0, 1fr);
-    gap: 28px;
+    /* Full-width row now, so the poster can be shown large. */
+    grid-template-columns: minmax(260px, 400px) minmax(0, 1fr);
+    gap: 44px;
     align-items: start;
 }
 
@@ -5688,7 +5686,7 @@ body.no-scroll {
 
 .tm-detail-name {
     font-family: var(--font-head);
-    font-size: clamp(24px, 2.2vw, 32px);
+    font-size: clamp(28px, 3vw, 40px);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -.02em;
@@ -5799,18 +5797,16 @@ body.no-scroll {
 
 /* ---- Right: selector thumbnails ---- */
 .tm-selector {
-    display: grid;
-    /* Two columns rather than the reference's three: with five members and a
-       three-paragraph bio the detail side runs tall, and 3-up left a large void
-       beneath the thumbs while shrinking each photo to ~138px. */
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
-    align-content: start;
 }
 
 .tm-thumb {
     position: relative;
-    aspect-ratio: 1 / 1.08;
+    flex: 0 0 auto;
+    width: 150px;
+    height: 150px;
     border-radius: 14px;
     overflow: hidden;
     padding: 0;
@@ -5873,9 +5869,17 @@ body.no-scroll {
     }
 }
 
-@media (max-width: 1024px) {
-    .tm-grid {
+/* Below this the poster and the copy fight for room side by side — the name
+   plus three bio paragraphs need more than the ~320px left over — so stack them
+   and let each have the full width. */
+@media (max-width: 1000px) {
+    .tm-detail {
         grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .tm-detail-portrait {
+        width: min(340px, 70%);
     }
 }
 
@@ -5892,12 +5896,16 @@ body.no-scroll {
     }
 
     .tm-detail-portrait {
-        width: min(200px, 60%);
+        width: min(300px, 85%);
     }
 
     .tm-selector {
-        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
+    }
+
+    .tm-thumb {
+        width: 120px;
+        height: 120px;
     }
 }
 
