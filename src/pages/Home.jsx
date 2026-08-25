@@ -164,7 +164,6 @@ export default function Home() {
                 loading="lazy"
                 decoding="async"
               />
-              <figcaption>MesaOps &mdash; Sales &amp; Inquiry Console</figcaption>
             </figure>
           </div>
         </div>
