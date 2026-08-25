@@ -5624,10 +5624,11 @@ body.no-scroll {
 
 .tm-grid {
     display: grid;
-    /* Selector row on top, detail beneath — the detail spans the full width so
-       the card artwork gets real size. */
-    grid-template-columns: 1fr;
+    /* Selector runs down the left as a 150px rail; the detail takes the rest of
+       the row to the right. */
+    grid-template-columns: 150px minmax(0, 1fr);
     gap: 32px;
+    align-items: start;
 }
 
 /* ---- Left: selected member ---- */
@@ -5637,9 +5638,10 @@ body.no-scroll {
     border-radius: 20px;
     padding: 40px;
     display: grid;
-    /* Full-width row now, so the poster can be shown large. */
-    grid-template-columns: minmax(260px, 400px) minmax(0, 1fr);
-    gap: 44px;
+    /* Shares the row with the 150px rail, so the poster is capped a little
+       tighter to leave the copy column workable. */
+    grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+    gap: 40px;
     align-items: start;
 }
 
@@ -5798,7 +5800,7 @@ body.no-scroll {
 /* ---- Right: selector thumbnails ---- */
 .tm-selector {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 16px;
 }
 
@@ -5873,6 +5875,15 @@ body.no-scroll {
    plus three bio paragraphs need more than the ~320px left over — so stack them
    and let each have the full width. */
 @media (max-width: 1000px) {
+    .tm-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tm-selector {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
     .tm-detail {
         grid-template-columns: 1fr;
         gap: 28px;
