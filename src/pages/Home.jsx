@@ -11,6 +11,79 @@ const GLSLHills = lazy(() =>
 );
 const Prism = lazy(() => import('../components/ui/Prism'));
 
+/* Five stage illustrations, drawn in the site's line-art language: accent
+   stroke, --glow-soft tints, no imported artwork. */
+const HOW_STEPS = [
+  {
+    title: 'Walk the floor',
+    body: 'We start in your plant, not a conference room, and map how work actually flows.',
+    art: (
+      <>
+        <path d="M22 72V46l13-8v8l13-8v8l13-8v34z" className="tint" />
+        <rect x="74" y="30" width="24" height="42" rx="2" className="tint" />
+        <rect x="30" y="56" width="9" height="9" rx="1" />
+        <rect x="44" y="56" width="9" height="9" rx="1" />
+        <rect x="81" y="42" width="10" height="9" rx="1" />
+        <path d="M14 80h112" className="dotted" />
+      </>
+    ),
+  },
+  {
+    title: 'Blueprint',
+    body: "Workflows, screens, phases, timeline, cost. Before any code, you know exactly what you're getting.",
+    art: (
+      <>
+        <rect x="26" y="20" width="88" height="56" rx="3" />
+        <path d="M26 40h88M26 58h88M56 20v56M85 20v56" className="dotted" />
+        <rect x="33" y="26" width="16" height="10" rx="1.5" className="tint" />
+        <rect x="62" y="44" width="18" height="12" rx="1.5" className="tint" />
+        <circle cx="99" cy="31" r="6" />
+        <path d="M30 84h80M30 81v6M110 81v6" />
+      </>
+    ),
+  },
+  {
+    title: 'Configure the first module',
+    body: 'The highest-pain module ships first; working software in weeks.',
+    art: (
+      <>
+        <rect x="28" y="46" width="26" height="26" rx="3" className="dashed" />
+        <rect x="86" y="46" width="26" height="26" rx="3" className="dashed" />
+        <rect x="57" y="16" width="26" height="26" rx="3" className="dashed" />
+        <rect x="57" y="46" width="26" height="26" rx="3" className="solid" />
+        <path d="M64 59l4.5 4.5L76 55" className="knock" />
+      </>
+    ),
+  },
+  {
+    title: 'Roll out in stages',
+    body: 'Training on the floor; each phase proves itself before the next.',
+    art: (
+      <>
+        <rect x="28" y="58" width="22" height="20" rx="3" className="solid" />
+        <path d="M34 67l3.5 3.5L44 64" className="knock" />
+        <rect x="58" y="44" width="22" height="34" rx="3" className="tint" />
+        <path d="M64 55l3.5 3.5L74 50" />
+        <rect x="88" y="30" width="22" height="48" rx="3" />
+        <path d="M26 40l28-14 22 8 26-18" />
+        <path d="M96 14h10v10" />
+      </>
+    ),
+  },
+  {
+    title: 'Stay',
+    body: 'We support, refine, and extend the system as you grow.',
+    art: (
+      <>
+        <path d="M70 82c-22-10-32-22-32-36a18 18 0 0132-11 18 18 0 0132 11c0 14-10 26-32 36z" className="tint" />
+        <path d="M70 66V44" />
+        <path d="M70 48c0-7 5-12 12-12 0 7-5 12-12 12z" />
+        <path d="M70 56c0-7-5-12-12-12 0 7 5 12 12 12z" />
+      </>
+    ),
+  },
+];
+
 export default function Home() {
   return (
     <div className="page-content" id="page-home">
@@ -198,26 +271,16 @@ export default function Home() {
             <h2>From factory walkthrough to live system — <em className="grad">in stages, not one giant leap.</em></h2>
           </div>
           <div className="timeline">
-            <div className="step reveal">
-              <b>Walk the floor</b>
-              <p>We start in your plant, not a conference room, and map how work actually flows.</p>
-            </div>
-            <div className="step reveal">
-              <b>Blueprint</b>
-              <p>Workflows, screens, phases, timeline, cost. Before any code, you know exactly what you're getting.</p>
-            </div>
-            <div className="step reveal">
-              <b>Configure the first module</b>
-              <p>The highest-pain module ships first; working software in weeks.</p>
-            </div>
-            <div className="step reveal">
-              <b>Roll out in stages</b>
-              <p>Training on the floor; each phase proves itself before the next.</p>
-            </div>
-            <div className="step reveal">
-              <b>Stay</b>
-              <p>We support, refine, and extend the system as you grow.</p>
-            </div>
+            {HOW_STEPS.map((step, i) => (
+              <div className="step reveal" key={step.title}>
+                <div className="step-art" aria-hidden="true">
+                  <svg viewBox="0 0 140 96">{step.art}</svg>
+                </div>
+                <span className="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <b>{step.title}</b>
+                <p>{step.body}</p>
+              </div>
+            ))}
           </div>
           <p className="trust-line reveal">Fixed-scope phases. No lock-in — you own your data and your system.</p>
         </div>
