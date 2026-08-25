@@ -1,8 +1,5 @@
 import React, { lazy, Suspense } from 'react';
 import salesConsole from '../assets/mesaops-sales-console.png';
-import founder1 from '../assets/founder_1.jpg';
-import founder2 from '../assets/founder_2.jpg';
-import founder3 from '../assets/founder_3.jpg';
 import heroProvided from '../assets/hero_provided.png';
 import ProblemSection from '../components/ProblemSection';
 import CapabilityExplorer from '../components/CapabilityExplorer';
@@ -294,33 +291,6 @@ export default function Home() {
           </div>
           <div className="reveal">
             <CapabilityExplorer />
-          </div>
-        </div>
-      </section>
-
-      {/* 8. WHO WE ARE */}
-      <section className="section">
-        <div className="wrap">
-          <div className="section-head reveal">
-            <h2>The people who'll actually be in your plant.</h2>
-            <p className="lede">MesaOrigins is a Mumbai-based software firm founded by engineers who like factories. Small team, senior people, no hand-offs to juniors you've never met.</p>
-          </div>
-          <div className="grid-3 founder-cards">
-            <div className="founder reveal">
-              <img src={founder1} alt="Aravind Nair" />
-              <b>Aravind Nair</b>
-              <span>Founder &amp; CEO</span>
-            </div>
-            <div className="founder reveal">
-              <img src={founder2} alt="Priya Sharma" />
-              <b>Priya Sharma</b>
-              <span>Chief of Operations</span>
-            </div>
-            <div className="founder reveal">
-              <img src={founder3} alt="Dr. Marc Dupont" />
-              <b>Dr. Marc Dupont</b>
-              <span>Chief Software Architect</span>
-            </div>
           </div>
         </div>
       </section>
