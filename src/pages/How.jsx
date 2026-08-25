@@ -4,6 +4,7 @@ import FinalCta from '../components/FinalCta';
 import iconGear from '../assets/how-icon-gear.png';
 import iconTools from '../assets/how-icon-tools.png';
 import iconChecklist from '../assets/how-icon-checklist.png';
+import faqWorker from '../assets/faq-worker.png';
 
 function FaqItem({ question, answer, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -490,6 +491,16 @@ export default function How() {
                 Asked something else? Bring it to the walkthrough — or write to{' '}
                 <a href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>.
               </p>
+              <img
+                className="faq-figure"
+                src={faqWorker}
+                alt=""
+                aria-hidden="true"
+                width="1122"
+                height="1402"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             
             <div className="faq-split-list">

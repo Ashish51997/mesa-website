@@ -3360,6 +3360,22 @@ address {
     color: var(--ink-body);
 }
 
+/* Decorative figure under the FAQ note. Purely illustrative, so it is
+   aria-hidden with empty alt and lazy-loaded — it sits well down the page. */
+.faq-figure {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 28px;
+}
+
+@media (max-width: 900px) {
+    .faq-figure {
+        max-width: 220px;
+    }
+}
+
 .faq-split-note {
     margin-top: 26px;
     font-size: 14px;
