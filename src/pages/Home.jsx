@@ -47,14 +47,35 @@ export default function Home() {
           </div>
           <div className="outcomes">
             <div className="outcome reveal">
+              <div className="glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="4" width="20" height="13" rx="2" />
+                  <path d="M8 21h8M12 17v4" />
+                  <path d="M6 12l3-3 2.5 2.5L15 8l3 3" />
+                </svg>
+              </div>
               <b>You see the plant in real time.</b>
               <p>Production, quality, inventory and dispatch on one screen — from the floor or from your phone.</p>
             </div>
             <div className="outcome reveal">
+              <div className="glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2l8 4.5v9L12 20l-8-4.5v-9L12 2z" />
+                  <path d="M4 6.5l8 4.5 8-4.5M12 11v9" />
+                  <circle cx="12" cy="11" r="1.6" />
+                </svg>
+              </div>
               <b>Every product is traceable.</b>
               <p>Batch, machine, shift, raw-material lot. A ten-minute lookup, not a ten-day investigation.</p>
             </div>
             <div className="outcome reveal">
+              <div className="glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 3v18h18" />
+                  <path d="M7 15l4-4 3 3 5-6" />
+                  <path d="M19 8h-3.2M19 8v3.2" />
+                </svg>
+              </div>
               <b>Decisions stop waiting for data.</b>
               <p>Month-end reports become live dashboards. Gut feel becomes plan-versus-actual.</p>
             </div>

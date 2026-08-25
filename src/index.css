@@ -899,7 +899,8 @@ em.grad {
     margin-bottom: 10px
 }
 
-.problem-card .glyph {
+.problem-card .glyph,
+.outcome .glyph {
     width: 40px;
     height: 40px;
     margin-bottom: 16px;
@@ -910,12 +911,15 @@ em.grad {
     background: var(--glow-soft);
 }
 
-.problem-card .glyph svg {
+.problem-card .glyph svg,
+.outcome .glyph svg {
     width: 100%;
     height: 100%;
     stroke: currentColor;
     fill: none;
-    stroke-width: 1.6
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .problem-card p {
@@ -979,11 +983,31 @@ em.grad.problem-wipe {
         box-shadow: 0 6px 30px var(--glow);
     }
 
-    .problem-section .problem-card .glyph {
+    /* .outcome also carries .reveal, which is declared much later in this file
+       and sets `transform: none` at equal specificity — so these need the extra
+       .outcomes ancestor to win. transform takes the hover duration while
+       opacity keeps the slower entrance fade. */
+    .outcomes .outcome {
+        transition:
+            opacity .6s cubic-bezier(0.16, 1, 0.3, 1),
+            transform .18s ease-out,
+            border-color .18s ease-out,
+            box-shadow .18s ease-out;
+    }
+
+    .outcomes .outcome:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 6px 30px var(--glow);
+    }
+
+    .problem-section .problem-card .glyph,
+    .outcomes .outcome .glyph {
         transition: background .18s ease-out;
     }
 
-    .problem-section .problem-card:hover .glyph {
+    .problem-section .problem-card:hover .glyph,
+    .outcomes .outcome:hover .glyph {
         background: var(--glow);
     }
 }
