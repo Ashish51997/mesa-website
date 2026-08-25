@@ -106,18 +106,88 @@ export default function Home() {
             <h2>Software shaped to your process — <em className="grad">not your process contorted to software.</em></h2>
           </div>
           <div className="contrast">
-            <div className="card reveal">
+            <div className="card contrast-card reveal">
               <span className="label">Option one</span>
               <h3>Packaged ERP</h3>
-              <p>Forces your plant to work the way the software was designed. "Six months of implementation" is really six months of changing how your people work — and paying consultants to configure screens nobody asked for.</p>
+              <p className="contrast-tagline">Your plant adapts to the software.</p>
+              <ul className="contrast-list">
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  Six months of "implementation" = six months of changing how your people work
+                </li>
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  Consultants configuring screens nobody asked for
+                </li>
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  Rigid workflows your operators route around on paper
+                </li>
+              </ul>
             </div>
-            <div className="card reveal">
+
+            <div className="card contrast-card is-featured reveal">
+              <span className="label">The middle — deliberately</span>
+              <h3>MesaOrigins</h3>
+              <p className="contrast-tagline">The software adapts to your plant.</p>
+              <ul className="contrast-list">
+                <li>
+                  <span className="mark mark-yes" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                  </span>
+                  We already know how mid-size plants run — planning, quality, traceability, dispatch
+                </li>
+                <li>
+                  <span className="mark mark-yes" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                  </span>
+                  Built custom, so it fits your workflow on day one
+                </li>
+                <li>
+                  <span className="mark mark-yes" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                  </span>
+                  No retraining ritual, no domain tuition on your invoice
+                </li>
+              </ul>
+              <a className="contrast-link" href="#/how-we-work">
+                See how we work
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+            </div>
+
+            <div className="card contrast-card reveal">
               <span className="label">Option two</span>
               <h3>Generic dev shop</h3>
-              <p>Will build whatever you specify — but they're learning manufacturing on your invoice. They don't know what a CAPA is, why a GRN matters, or what an auditor will ask for.</p>
+              <p className="contrast-tagline">Learning manufacturing on your invoice.</p>
+              <ul className="contrast-list">
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  Builds whatever you specify — you become the domain expert
+                </li>
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  Doesn't know what a CAPA is or why a GRN matters
+                </li>
+                <li>
+                  <span className="mark mark-no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </span>
+                  No idea what an auditor will ask for
+                </li>
+              </ul>
             </div>
           </div>
-          <p className="resolution reveal">We sit in the middle, deliberately. We already know how mid-size plants run — production planning, quality systems, traceability, dispatch. And we build custom, so the system fits your workflow on day one.</p>
         </div>
       </section>
 

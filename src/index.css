@@ -1212,14 +1212,15 @@ em.grad.problem-wipe {
 
 .contrast {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    align-items: stretch;
     margin-bottom: 36px
 }
 
 .contrast .card h3 {
     font-size: 24px;
-    margin-bottom: 12px
+    margin-bottom: 8px
 }
 
 .contrast .card .label {
@@ -1237,7 +1238,121 @@ em.grad.problem-wipe {
     line-height: 1.55
 }
 
-@media (max-width:760px) {
+.contrast-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.contrast-tagline {
+    font-weight: 600;
+    color: var(--ink-body);
+    margin-bottom: 18px;
+}
+
+.contrast-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contrast-list li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    align-items: start;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-body);
+}
+
+/* The palette has no semantic red/green, so the contrast is carried by the
+   accent against muted grey: the middle column reads bright, the two
+   alternatives read dimmed. */
+.mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+}
+
+.mark svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.mark-no {
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+}
+
+.mark-yes {
+    color: var(--accent);
+    background: var(--glow-soft);
+    border: 1px solid var(--border-strong);
+}
+
+/* Featured middle column — accent edge plus the section's existing glow idiom. */
+.contrast-card.is-featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 28px var(--glow-soft);
+}
+
+.contrast-card.is-featured:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px var(--glow);
+}
+
+.contrast-card.is-featured .label {
+    color: var(--accent);
+}
+
+.contrast-link {
+    margin-top: auto;
+    padding-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.contrast-link svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .18s ease-out;
+}
+
+@media (hover: hover) {
+    .contrast-link:hover svg {
+        transform: translateX(3px);
+    }
+}
+
+@media (min-width: 961px) {
+    /* Lifts the middle column proud of its neighbours, as in the reference. */
+    .contrast-card.is-featured {
+        margin: -14px 0;
+    }
+}
+
+@media (max-width:960px) {
     .contrast {
         grid-template-columns: 1fr
     }
