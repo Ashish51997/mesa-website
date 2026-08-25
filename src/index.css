@@ -1086,6 +1086,38 @@ em.grad.problem-wipe {
     position: relative
 }
 
+/* Product capture in the Home solution section. The supplied render carries its
+   own background, so it sits in a plain rounded container rather than the
+   browser chrome — width/height are set on the <img> so the box is reserved
+   before the file loads and the section does not shift. */
+.product-shot {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .14), 0 4px 20px rgba(0, 0, 0, .06);
+}
+
+.product-shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-shot figcaption {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 14px 16px 16px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+:root[data-theme="dark"] .product-shot {
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .5), 0 4px 20px rgba(0, 0, 0, .3);
+}
+
 .annot {
     position: absolute;
     background: var(--surface);

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import oneSystemProvided from '../assets/one_system_provided.png';
+import salesConsole from '../assets/mesaops-sales-console.png';
 import founder1 from '../assets/founder_1.jpg';
 import founder2 from '../assets/founder_2.jpg';
 import founder3 from '../assets/founder_3.jpg';
@@ -60,12 +60,20 @@ export default function Home() {
             </div>
           </div>
           <div className="annotated reveal">
-            <div className="browser">
-              <div className="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-              <div className="browser-body">
-                <img src={oneSystemProvided} alt="One System Operations Dashboard" style={{ width: '100%', height: 'auto', display: 'block' }} />
-              </div>
-            </div>
+            <figure className="product-shot">
+              {/* TODO(NAMING): capture shows "MesaOrigins" branding; public product name is "MesaOps".
+                  Awaiting either a re-exported capture or a decision to adopt the company name on
+                  product surfaces. Do not crop/edit the image to hide it. */}
+              <img
+                src={salesConsole}
+                alt="MesaOps Sales and Inquiry Console showing live inquiries, quotations and order status"
+                width="1426"
+                height="1103"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>MesaOps &mdash; Sales &amp; Inquiry Console</figcaption>
+            </figure>
             <div className="annotations-below">
               <span className="annot-pill">Live machine status</span>
               <span className="annot-pill">Batch trace in one click</span>
