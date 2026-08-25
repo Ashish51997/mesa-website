@@ -421,35 +421,6 @@ export default function How() {
                         ))}
                       </div>
                     )}
-
-                    {st.id === 's2' && (
-                      <div className="bp-doc" aria-hidden="true">
-                        <div className="bp-doc-inner">
-                          <div className="bp-doc-body">
-                            <div className="bp-flow">
-                              <span className="node">INQUIRY → SALES ORDER</span>
-                              <span className="arrow"></span>
-                              <span className="node">PRODUCTION PLAN</span>
-                              <span className="arrow"></span>
-                              <span className="node">QC · BATCH TRACE</span>
-                              <span className="arrow"></span>
-                              <span className="node">DISPATCH → INVOICE</span>
-                            </div>
-                            <div className="bp-side">
-                              <span className="tag">PHASE 1 · FIXED SCOPE</span>
-                              <div className="row w90"></div>
-                              <div className="row w70"></div>
-                              <div className="row w90"></div>
-                              <div className="row w55"></div>
-                              <span className="tag">TIMELINE · 6 WKS</span>
-                              <div className="row w70"></div>
-                              <div className="row w55"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
                   </div>
                 </article>
               ))}
