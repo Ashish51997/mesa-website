@@ -29,9 +29,9 @@ export default function Build() {
                 late, a WhatsApp group doing the work of software.
               </p>
               <div className="build-hero-ctas rise d4">
-                <a href="#/contact" className="btn-primary-glow">Book Consultation</a>
+                <a href="#/contact" className="btn">Book Consultation</a>
                 <button
-                  className="btn-secondary-arrow"
+                  className="btn btn-outline"
                   onClick={() => {
                     const el = document.querySelector('.build-systems');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
