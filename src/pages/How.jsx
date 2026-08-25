@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import FinalCta from '../components/FinalCta';
+import iconGear from '../assets/how-icon-gear.png';
+import iconTools from '../assets/how-icon-tools.png';
+import iconChecklist from '../assets/how-icon-checklist.png';
 
 function FaqItem({ question, answer, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -30,6 +33,42 @@ function FaqItem({ question, answer, defaultOpen = false }) {
   );
 }
 
+const EASE_OUT_CUBIC = [0.215, 0.61, 0.355, 1];
+
+/* Hero entrance. Runs once when the page is ready — nothing is scroll-linked,
+   so there is no per-frame work while scrolling. The props start further out
+   and land at staggered delays, which reads as depth without tracking scroll. */
+const HERO_STAGE = {
+  hidden: {},
+  shown: { transition: { delayChildren: 0.05, staggerChildren: 0.08 } },
+};
+
+const TABLET = {
+  hidden: { opacity: 0, y: 90 },
+  shown: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: EASE_OUT_CUBIC },
+  },
+};
+
+const prop = (x, y, rotate, duration) => ({
+  hidden: { opacity: 0, x, y, rotate },
+  shown: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    rotate: 0,
+    transition: { duration, ease: EASE_OUT_CUBIC },
+  },
+});
+
+const HERO_PROPS = [
+  { cls: 'how-prop-gear', src: iconGear, w: 667, h: 667, variants: prop(-40, 70, -18, 0.8) },
+  { cls: 'how-prop-tools', src: iconTools, w: 565, h: 565, variants: prop(46, 84, 16, 0.85) },
+  { cls: 'how-prop-checklist', src: iconChecklist, w: 663, h: 592, variants: prop(34, 96, 10, 0.9) },
+];
+
 const STAGE_IDS = ['s1', 's2', 's3', 's4', 's5'];
 
 export default function How() {
@@ -53,6 +92,28 @@ export default function How() {
   // stage copy visible by default, so a failed observer can never swallow a
   // stage's title and body the way it did before.
   const [animate, setAnimate] = useState(false);
+
+  // Same probe as the stage rail below: never hide the hero unless we can prove
+  // the entrance will actually run.
+  const [heroReady, setHeroReady] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let disposed = false;
+    let everHidden = document.visibilityState === 'hidden';
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') everHidden = true;
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    const id = requestAnimationFrame(() => {
+      if (!disposed && !everHidden) setHeroReady(true);
+    });
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(id);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
 
   // Arm the reveal animation only when we can prove the browser will actually
   // run it. Two things can stop it:
@@ -135,49 +196,71 @@ export default function How() {
 
   return (
     <div className="how-page" id="page-how">
-      {/* HERO */}
+      {/* HERO — the whole hero renders on a tablet screen, with the tablet and
+          the props around it animating in once the section is reached. */}
       <header className="how-hero">
         <div className="wrap">
+          <motion.div
+            className="how-stage"
+            initial={heroReady ? 'hidden' : false}
+            animate={heroReady ? 'shown' : undefined}
+            variants={HERO_STAGE}
+          >
+            {HERO_PROPS.map((prop) => (
+              <motion.img
+                key={prop.cls}
+                className={`how-prop ${prop.cls}`}
+                src={prop.src}
+                alt=""
+                aria-hidden="true"
+                width={prop.w}
+                height={prop.h}
+                decoding="async"
+                variants={prop.variants}
+              />
+            ))}
 
-          <h1>
-            From factory walkthrough to live system — <span className="accent">in stages, not one giant leap.</span>
-          </h1>
-          <p className="lead" style={{ fontSize: '16px' }}>
-            You should never sign for a year of work and hope. Here's exactly what happens, in what order, and what you hold in your hands at each stage.
-          </p>
-          <div className="hero-actions">
-            <a
-              className="btn-primary"
-              style={{ fontSize: '16px' }}
-              href="#stages"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('stages')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              See the five stages
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-              </svg>
-            </a>
-            <a
-              className="btn-ghost"
-              style={{ fontSize: '16px' }}
-              href="#/contact"
-            >Book a walkthrough</a>
-          </div>
+            <motion.div className="how-tablet" variants={TABLET}>
+              <div className="how-tablet-screen">
+                <h1>
+                  From factory walkthrough to live system &mdash;{' '}
+                  <span className="accent">in stages, not one giant leap.</span>
+                </h1>
+                <p className="lead">
+                  You should never sign for a year of work and hope. Here&rsquo;s exactly what
+                  happens, in what order, and what you hold in your hands at each stage.
+                </p>
+                <div className="hero-actions">
+                  <a
+                    className="btn-primary"
+                    href="#stages"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('stages')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    See the five stages
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 5v14M19 12l-7 7-7-7" />
+                    </svg>
+                  </a>
+                  <a className="btn-ghost" href="#/contact">Book a walkthrough</a>
+                </div>
 
-          <div className="stage-strip" aria-hidden="true">
-            <a className="chip" href="#s1"><span className="n">01</span>Walk the floor</a>
-            <span className="dash"></span>
-            <a className="chip" href="#s2"><span className="n">02</span>Blueprint</a>
-            <span className="dash"></span>
-            <a className="chip" href="#s3"><span className="n">03</span>Configure first module</a>
-            <span className="dash"></span>
-            <a className="chip" href="#s4"><span className="n">04</span>Roll out</a>
-            <span className="dash"></span>
-            <a className="chip" href="#s5"><span className="n">05</span>Stay</a>
-          </div>
+                <div className="stage-strip" aria-hidden="true">
+                  <a className="chip" href="#s1"><span className="n">01</span>Walk the floor</a>
+                  <span className="dash"></span>
+                  <a className="chip" href="#s2"><span className="n">02</span>Blueprint</a>
+                  <span className="dash"></span>
+                  <a className="chip" href="#s3"><span className="n">03</span>Configure first module</a>
+                  <span className="dash"></span>
+                  <a className="chip" href="#s4"><span className="n">04</span>Roll out</a>
+                  <span className="dash"></span>
+                  <a className="chip" href="#s5"><span className="n">05</span>Stay</a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </header>
 
