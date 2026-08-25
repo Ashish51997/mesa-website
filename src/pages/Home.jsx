@@ -5,6 +5,7 @@ import founder2 from '../assets/founder_2.jpg';
 import founder3 from '../assets/founder_3.jpg';
 import heroProvided from '../assets/hero_provided.png';
 import ProblemSection from '../components/ProblemSection';
+import CapabilityExplorer from '../components/CapabilityExplorer';
 // Lazy-loaded so their WebGL libraries (three / ogl) are code-split out of the main bundle
 const GLSLHills = lazy(() =>
   import('../components/ui/glsl-hills').then((m) => ({ default: m.GLSLHills }))
@@ -291,15 +292,8 @@ export default function Home() {
           <div className="section-head reveal">
             <h2>Whatever the operational problem, <em className="grad">we build the system that solves it.</em></h2>
           </div>
-          <div className="chips reveal">
-            <span className="chip">Custom ERP</span>
-            <span className="chip">Production &amp; Quality Systems</span>
-            <span className="chip">Inventory &amp; Dispatch</span>
-            <span className="chip">Dashboards &amp; MIS</span>
-            <span className="chip">Workflow Automation</span>
-            <span className="chip">Mobile Apps for the Floor</span>
-            <span className="chip">Integrations (Tally, weighbridges, machines)</span>
-            <span className="chip">Applied AI (where it earns its keep)</span>
+          <div className="reveal">
+            <CapabilityExplorer />
           </div>
           <div className="callout reveal">We recommend AI and automation only where they pay for themselves. If a simpler system solves it, that's what we'll tell you.</div>
         </div>

@@ -1527,13 +1527,6 @@ em.grad.problem-wipe {
     }
 }
 
-.chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 32px 0 28px
-}
-
 .chip {
     border: 1px solid var(--border-strong);
     border-radius: 999px;
@@ -1549,6 +1542,251 @@ em.grad.problem-wipe {
 
 .chip:hover {
     border-color: var(--accent)
+}
+
+/* ============ CAPABILITY EXPLORER (Home) ============ */
+
+.cap-explorer {
+    margin: 32px 0 28px;
+}
+
+.cap-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.cap-chip {
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink-body);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: transform .18s ease-out, border-color .18s ease-out,
+        background .18s ease-out, color .18s ease-out, box-shadow .18s ease-out;
+}
+
+/* Hover has to read as "this is a control": the chip lifts, takes the accent
+   edge and a tinted ground, so it is obviously different from the static
+   example pills sitting below it in the panel. */
+@media (hover: hover) {
+    .cap-chip:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+        background: var(--glow-soft);
+        color: var(--accent);
+        box-shadow: 0 4px 16px var(--glow-soft);
+    }
+
+    .cap-chip.is-active:hover {
+        background: var(--accent);
+        /* Literal white, not --surface: the chip ground stays accent blue in
+           both themes, and --surface is near-black in dark. */
+        color: #fff;
+        box-shadow: 0 4px 18px var(--glow);
+    }
+}
+
+.cap-chip:active {
+    transform: translateY(0);
+}
+
+.cap-chip.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.cap-chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.cap-panel {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 44px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+    align-items: center;
+    min-height: 280px;
+}
+
+.cap-panel::before {
+    content: "";
+    position: absolute;
+    left: -10%;
+    top: -40%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(closest-side, var(--glow-soft), transparent 70%);
+    pointer-events: none;
+}
+
+.cap-panel:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.cap-art {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--bg-alt);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+
+.cap-art svg {
+    width: 62%;
+    height: auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Token-driven fill vocabulary — no literal hex in the drawings. */
+.cap-art .f-accent {
+    fill: var(--accent);
+    stroke: none;
+}
+
+.cap-art .f-mid {
+    fill: var(--accent-2);
+    stroke: none;
+}
+
+.cap-art .f-tint {
+    fill: var(--glow-soft);
+}
+
+.cap-art .f-surface {
+    fill: var(--surface);
+}
+
+.cap-art .s-mid {
+    stroke: var(--accent-2);
+    stroke-width: 2.5;
+}
+
+.cap-art .s-line {
+    stroke: var(--border-strong);
+}
+
+.cap-art .knock {
+    stroke: var(--surface);
+    stroke-width: 2.5;
+}
+
+.cap-body {
+    position: relative;
+}
+
+.cap-body h3 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 12px;
+}
+
+.cap-body > p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-body);
+    max-width: 52ch;
+    margin-bottom: 22px;
+}
+
+.cap-eg-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.cap-eg-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cap-eg {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--glow-soft);
+    border-radius: 999px;
+    padding: 7px 14px;
+}
+
+/* --accent is a saturated blue; at 13px on the dark tinted ground it sits too
+   close to the background. --accent-2 is the lighter existing step. */
+:root[data-theme="dark"] .cap-eg {
+    color: var(--accent-2);
+}
+
+/* Panel contents are re-keyed on change, so this runs on every switch. */
+.cap-art,
+.cap-body {
+    animation: capFade .3s ease;
+}
+
+@keyframes capFade {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cap-art,
+    .cap-body {
+        animation: none;
+    }
+
+    .cap-chip {
+        transition: border-color .18s ease-out, background .18s ease-out, color .18s ease-out;
+    }
+
+    .cap-chip:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 880px) {
+    .cap-panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 28px;
+    }
+
+    .cap-art {
+        max-width: 220px;
+    }
 }
 
 .callout {
