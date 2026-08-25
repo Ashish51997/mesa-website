@@ -1,12 +1,6 @@
 import React from 'react';
+import TeamSelector, { TEAM } from '../components/TeamSelector';
 
-const TEAM = [
-  { name: 'Ashish Kumar Roule', role: 'Technology', initials: 'AK' },
-  { name: 'Saikat Maiti', role: 'Product Design', initials: 'SM' },
-  { name: 'Tanmay Bhaat', role: 'Sales & Marketing', initials: 'TB' },
-  { name: 'Tania', role: 'AI & Technology', initials: 'T' },
-  { name: 'Ayush Singhal', role: 'Technology', initials: 'AS' },
-];
 
 export default function About() {
   return (
@@ -82,29 +76,22 @@ export default function About() {
       {/* ============ TEAM ============ */}
       <section className="ab3-founders">
         <div className="wrap">
-          <div className="ab3-sec-head reveal">
-            <div>
-              <span className="ab3-kicker">The team</span>
-              <h2 className="ab3-h2">The people who&rsquo;ll walk your floor</h2>
+          <div className="tm-sec-head reveal">
+            <span className="tm-eyebrow">The team</span>
+            <div className="tm-head-cols">
+              <h2 className="ab3-h2">
+                The people who&rsquo;ll walk your floor
+                <span className="tm-count">({String(TEAM.length).padStart(2, '0')})</span>
+              </h2>
+              <p className="ab3-team-intro">
+                A small, senior team &mdash; no hand-offs to juniors you&rsquo;ve never met. The people
+                who map your workflows are the same people who build your system and pick up the
+                phone when something breaks.
+              </p>
             </div>
           </div>
-          <p className="ab3-team-intro reveal">
-            A small, senior team &mdash; no hand-offs to juniors you&rsquo;ve never met. The people who
-            map your workflows are the same people who build your system and pick up the phone when
-            something breaks.
-          </p>
-          <div className="ab3-team">
-            {TEAM.map((person) => (
-              <div className="ab3-person reveal" key={person.name}>
-                <div className="ab3-portrait">
-                  <span className="ab3-initials" aria-hidden="true">{person.initials}</span>
-                </div>
-                <div className="ab3-person-meta">
-                  <b>{person.name}</b>
-                  <span>{person.role}</span>
-                </div>
-              </div>
-            ))}
+          <div className="reveal">
+            <TeamSelector />
           </div>
         </div>
       </section>
