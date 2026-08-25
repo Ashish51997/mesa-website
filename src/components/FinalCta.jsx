@@ -30,7 +30,13 @@ export default function FinalCta({ heading, lede, className = '' }) {
           <h2>{heading}</h2>
           {lede && <p className="lede">{lede}</p>}
           <div className="hero-ctas" style={{ marginTop: '32px' }}>
-            <a className="btn" href="#/contact">Book Consultation</a>
+            {/* Opens a pre-addressed email rather than routing to the contact form. */}
+            <a
+              className="btn"
+              href="mailto:sales@mesaorigins.com?subject=Operations%20walkthrough"
+            >
+              Book Consultation
+            </a>
           </div>
         </div>
         <div className="reveal">

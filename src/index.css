@@ -1800,8 +1800,10 @@ em.grad.problem-wipe {
 
 .final-cta .wrap {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 56px;
+    grid-template-columns: 1.35fr 1fr;
+    /* Wide gutter so the phone and email read as their own column rather than
+       running on from the lede. */
+    gap: 96px;
     align-items: center;
     /* frosted glass so the animated hills behind read through the card
        while the copy stays legible */
@@ -2090,20 +2092,6 @@ em.grad.problem-wipe {
     .ps-row .arr {
         transform: rotate(90deg);
         height: 28px
-    }
-}
-
-/* Contact */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 56px;
-    align-items: start
-}
-
-@media (max-width:860px) {
-    .contact-grid {
-        grid-template-columns: 1fr
     }
 }
 
@@ -4368,75 +4356,167 @@ body.no-scroll {
    CONTACT PAGE STYLES
    ========================================================================= */
 
-.contact-hero {
+/* One section: pitch + direct lines + map on the left, the form on the right.
+   The old build had a 100vh hero above the form, which pushed the form itself
+   below the fold on every screen. */
+.contact-section {
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding-top: 108px;
-    padding-bottom: 56px;
-    box-sizing: border-box;
-    border-bottom: 1px solid var(--border);
-    min-height: 100vh;
+    /* Clears the sticky header row (74px) before the content starts. */
+    padding: 132px 0 104px;
 }
 
-.contact-hero-glow {
+.contact-glow {
     position: absolute;
     inset: 0;
     pointer-events: none;
     opacity: .85;
     background:
-        radial-gradient(620px 420px at 20% 12%, var(--about-glow-a), transparent 65%),
-        radial-gradient(640px 460px at 85% 55%, var(--about-glow-b), transparent 68%);
+        radial-gradient(620px 420px at 18% 8%, var(--about-glow-a), transparent 65%),
+        radial-gradient(640px 460px at 88% 60%, var(--about-glow-b), transparent 68%);
 }
 
-.contact-hero-inner {
+.contact-grid {
     position: relative;
-    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    gap: 56px;
+    align-items: start;
 }
 
-.contact-hero h1 {
-    font-size: clamp(32px, 4.8vw, 52px);
+/* — Left column — */
+.contact-pitch h1 {
+    font-size: clamp(32px, 4.6vw, 52px);
     line-height: 1.08;
     letter-spacing: -.02em;
     font-weight: 700;
     color: var(--ink);
-    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
-.grad-text {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* What the walkthrough is, as icon rows rather than a paragraph. */
+.contact-expect {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
 }
 
-.contact-lede {
-    margin-top: 22px;
-    max-width: 62ch;
-    color: var(--ink-body);
-    font-size: 16px;
-    line-height: 1.65;
-}
-
-.contact-body {
-    padding: var(--pad-desk) 0;
-}
-
-.contact-grid {
+.contact-expect li {
     display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 28px;
-    align-items: start;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-body);
+}
+
+.contact-expect em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* Same icon tile as the problem-to-system cards and the About timeline. */
+.contact-expect-ic {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: var(--glow-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .25s ease-out,
+        color .25s ease-out;
+}
+
+.contact-expect-ic svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+    .contact-expect li:hover .contact-expect-ic {
+        transform: scale(1.08) rotate(-4deg);
+        background: var(--accent);
+        color: #fff;
+    }
+}
+
+/* Phone and email reuse .b-chip from What We Build. */
+.contact-direct {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 /* — Form card — */
 .contact-form-card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 34px;
-    box-shadow: 0 18px 50px rgba(25, 25, 80, .07);
+    box-shadow: 0 18px 50px var(--glow-soft);
+}
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 16px;
+}
+
+/* .field carries a bottom margin for stacked forms; the grid gap owns spacing
+   here instead. */
+.contact-form-grid .field {
+    margin-bottom: 0;
+}
+
+.contact-form-grid .field.full,
+.contact-form-grid .contact-submit-btn,
+.contact-form-grid .form-note {
+    grid-column: 1 / -1;
+}
+
+/* Icon inside the input. The left padding keeps text clear of it. */
+.field-input {
+    position: relative;
+}
+
+.field-ic {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    transition: color .2s ease-out;
+}
+
+.field-ic svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.field-input input {
+    padding-left: 42px;
+}
+
+.field-input:focus-within .field-ic {
+    color: var(--accent);
 }
 
 .field-error input,
@@ -4450,159 +4530,82 @@ body.no-scroll {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     font-weight: 600;
     font-size: 14.5px;
     border-radius: 999px;
     cursor: pointer;
-    padding: 14px 26px;
+    padding: 15px 26px;
     border: none;
     font-family: var(--font-body);
     color: #fff;
     background: linear-gradient(120deg, var(--accent), var(--accent-2));
     box-shadow: 0 10px 26px var(--glow-soft);
-    transition: transform .15s ease, box-shadow .15s ease;
+    transition: transform .15s ease-out, box-shadow .15s ease-out;
 }
 
-.contact-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 32px var(--glow);
+.contact-submit-btn svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .2s ease-out;
 }
 
-/* — Right column — */
-.contact-side {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+@media (hover: hover) {
+    .contact-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px var(--glow);
+    }
+
+    .contact-submit-btn:hover svg {
+        transform: translateX(3px);
+    }
 }
 
-.contact-call-card {
-    position: relative;
-    overflow: hidden;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 30px;
-}
-
-.contact-call-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(380px 240px at 90% -10%, var(--about-glow-a), transparent 65%);
-    opacity: .6;
-}
-
-.contact-call-card h2 {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -.01em;
-    margin-bottom: 18px;
-    color: var(--ink);
-    position: relative;
-}
-
-.contact-call-line {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-    position: relative;
-}
-
-.contact-call-line:last-of-type {
-    margin-bottom: 0;
-}
-
-.contact-call-ic {
-    flex: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
+.form-note {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent);
-}
-
-.contact-call-val {
-    font-family: var(--font-head);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -.005em;
-    color: var(--ink);
-    text-decoration: none;
-    transition: color .15s;
-}
-
-.contact-call-val:hover {
-    color: var(--accent);
-}
-
-.contact-addr {
-    margin-top: 20px;
-    padding-top: 18px;
-    border-top: 1px solid var(--border);
-    font-size: 13.5px;
-    color: var(--ink-body);
-    line-height: 1.55;
-    font-style: normal;
-    position: relative;
-}
-
-/* — Map card — */
-.contact-map-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: 0 8px 24px var(--glow-soft);
-}
-
-.contact-map-card svg {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.contact-map-cap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 18px;
-    border-top: 1px solid var(--border);
+    gap: 9px;
+    margin-top: 0;
     font-size: 12.5px;
-    color: var(--ink-body);
+    color: var(--muted);
 }
 
-.contact-map-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
+.form-note svg {
     flex: none;
+    width: 14px;
+    height: 14px;
+    color: var(--accent);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
+    .contact-section {
+        padding: 104px 0 72px;
+    }
+
     .contact-grid {
         grid-template-columns: 1fr;
+        gap: 44px;
     }
+}
 
-    .contact-hero {
-        min-height: auto;
-        padding-top: 88px;
-        padding-bottom: 40px;
-    }
-
+@media (max-width: 640px) {
     .contact-form-card {
-        padding: 26px;
+        padding: 24px;
     }
 
-    .contact-body {
-        padding: var(--pad-mob) 0;
+    .contact-form-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -5584,6 +5587,12 @@ body.no-scroll {
     line-height: 1.65;
 }
 
+.ab3-lede em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+}
+
 /* Origin card */
 .ab3-origin-card {
     position: relative;
@@ -5603,50 +5612,78 @@ body.no-scroll {
     margin-bottom: 18px;
 }
 
+.ab3-o-steps {
+    position: relative;
+    list-style: none;
+}
+
 .ab3-o-step {
-    display: flex;
+    position: relative;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
     gap: 14px;
     align-items: flex-start;
-    position: relative;
     padding-bottom: 18px;
 }
 
-.ab3-o-step-last {
+.ab3-o-step:last-child {
     padding-bottom: 0;
 }
 
-/* Connecting vertical line between dots */
-.ab3-o-step:not(.ab3-o-step-last)::before {
+/* Rail between one icon tile and the next — nothing trailing off the last one. */
+.ab3-o-step:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: 12px;
-    top: 26px;
+    left: 19px;
+    top: 40px;
     bottom: 0;
     width: 2px;
+    border-radius: 2px;
     background: linear-gradient(var(--accent), var(--about-glow-a));
     opacity: .4;
 }
 
-.ab3-o-dot {
-    width: 26px;
-    height: 26px;
-    flex: none;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: var(--surface);
+/* Staggered so the three beats arrive in order once the card scrolls in. */
+.ab3-o-step:nth-child(2) {
+    transition-delay: .1s;
+}
+
+.ab3-o-step:nth-child(3) {
+    transition-delay: .2s;
+}
+
+/* Same icon tile as the problem-to-system cards, sized for this narrower card. */
+.ab3-o-ic {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: var(--glow-soft);
+    color: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 1;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .25s ease-out,
+        color .25s ease-out;
 }
 
-.ab3-o-dot::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
+.ab3-o-ic svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+    .ab3-o-step:hover .ab3-o-ic {
+        transform: scale(1.08) rotate(-4deg);
+        background: var(--accent);
+        color: #fff;
+    }
 }
 
 .ab3-o-step b {
@@ -5659,6 +5696,7 @@ body.no-scroll {
 }
 
 .ab3-o-step span {
+    display: block;
     font-size: 12.5px;
     color: var(--ink-body);
     line-height: 1.5;
@@ -5677,57 +5715,19 @@ body.no-scroll {
     vertical-align: 1px;
 }
 
-/* ── Shared ── */
-.ab3-kicker {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
+/* Same reason as .cap-eg: --accent at 10px on the dark tinted pill sits too
+   close to the ground. --accent-2 is the lighter existing step. */
+:root[data-theme="dark"] .ab3-yr {
+    color: var(--accent-2);
 }
 
+/* ── Shared ── */
 .ab3-h2 {
     font-size: clamp(28px, 4vw, 44px);
     line-height: 1.1;
     letter-spacing: -.02em;
     font-weight: 800;
     color: var(--ink);
-}
-
-/* ── Belief pull-quote ── */
-.ab3-belief {
-    padding: 96px 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.ab3-belief-glow {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: .55;
-    background: radial-gradient(640px 320px at 50% 50%, var(--about-glow-a), transparent 70%);
-}
-
-.ab3-blockquote {
-    position: relative;
-    font-weight: 700;
-    font-size: clamp(26px, 4vw, 44px);
-    line-height: 1.15;
-    letter-spacing: -.02em;
-    max-width: 22ch;
-    margin: 0 auto;
-    color: var(--ink);
-}
-
-.ab3-attr {
-    position: relative;
-    margin-top: 22px;
-    font-size: 13px;
-    color: var(--muted);
 }
 
 /* ── Founders ── */
@@ -5746,317 +5746,126 @@ body.no-scroll {
 }
 
 
-/* ============ TEAM SELECTOR (About) ============ */
+/* ============ TEAM (About) ============ */
 
 .tm-sec-head {
     margin-bottom: 56px;
 }
 
-
-.tm-grid {
+/* Circle portraits in one row — the whole team at a glance, which is the point
+   of "a small, senior team". Replaces the detail-panel selector. */
+.tm-people {
+    list-style: none;
     display: grid;
-    /* Detail on the left, 2-up picker on the right. max-content sizes the picker
-       from its tiles rather than hardcoding a width. */
-    grid-template-columns: minmax(0, 1fr) max-content;
-    gap: 40px;
-    align-items: start;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 28px 24px;
 }
 
-/* ---- Left: selected member ---- */
-.tm-detail {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 40px;
-    display: grid;
-    /* The picker takes ~316px of the row, so the poster is held back to leave
-       the copy column a workable measure. */
-    grid-template-columns: minmax(200px, 270px) minmax(0, 1fr);
-    gap: 32px;
-    align-items: start;
+.tm-person {
+    text-align: center;
 }
 
-.tm-detail-portrait {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 16px;
+.tm-person:nth-child(2) {
+    transition-delay: .06s;
+}
+
+.tm-person:nth-child(3) {
+    transition-delay: .12s;
+}
+
+.tm-person:nth-child(4) {
+    transition-delay: .18s;
+}
+
+.tm-person:nth-child(5) {
+    transition-delay: .24s;
+}
+
+.tm-circle {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     overflow: hidden;
-    background: var(--glow-soft);
-    border: 1px solid var(--border);
+    background: var(--surface-2);
+    margin-bottom: 18px;
+    transition: box-shadow .25s ease-out;
 }
 
-.tm-photo {
+.tm-circle img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: 50% 25%;
-    display: block;
+    /* Per-person zoom, anchored on the face via transform-origin. */
+    transform: scale(var(--tm-zoom, 1));
+    transition: transform .35s cubic-bezier(.22, .61, .36, 1);
 }
 
+/* Fallback when a photograph is missing. */
 .tm-initials {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-head);
-    font-weight: 600;
-    letter-spacing: -.02em;
-    color: var(--accent);
-    background:
-        radial-gradient(120% 90% at 20% 10%, var(--glow), transparent 60%),
-        var(--glow-soft);
-    user-select: none;
-}
-
-.tm-detail-portrait .tm-initials {
-    font-size: 64px;
-}
-
-.tm-detail-body {
-    min-width: 0;
-}
-
-.tm-detail-name {
-    font-family: var(--font-head);
-    font-size: clamp(24px, 2.4vw, 32px);
-    line-height: 1.06;
+    font-size: 30px;
     font-weight: 700;
     letter-spacing: -.02em;
+    color: var(--accent);
+    background: var(--glow-soft);
+}
+
+@media (hover: hover) {
+    .tm-person:hover .tm-circle {
+        box-shadow: 0 0 0 4px var(--glow-soft);
+    }
+
+    .tm-person:hover .tm-circle img {
+        transform: scale(calc(var(--tm-zoom, 1) * 1.05));
+    }
+}
+
+.tm-person h3 {
+    font-family: var(--font-head);
+    font-size: 16.5px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.25;
     color: var(--ink);
-    margin-bottom: 18px;
+    margin-bottom: 5px;
 }
 
-.tm-detail-tags {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 22px;
-}
-
-.tm-detail-tags span {
-    font-size: 15px;
-    color: var(--ink-body);
-}
-
-.tm-detail-tags span::before {
-    content: "(";
+.tm-person p {
+    font-size: 13px;
+    line-height: 1.5;
     color: var(--muted);
 }
 
-.tm-detail-tags span::after {
-    content: ")";
-    color: var(--muted);
-}
-
-.tm-detail-bio {
-    max-width: 52ch;
-    margin-bottom: 26px;
-}
-
-.tm-detail-bio p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--ink-body);
-}
-
-.tm-detail-bio p + p {
-    margin-top: 14px;
-}
-
-.tm-detail-bio em {
-    font-style: normal;
-    font-weight: 600;
-    color: var(--ink);
-}
-
-.tm-detail-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.tm-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14.5px;
-    font-weight: 600;
-    padding: 12px 26px;
-    border-radius: 999px;
-    border: 1.5px solid transparent;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform .18s ease-out, box-shadow .18s ease-out,
-        background .18s ease-out, border-color .18s ease-out;
-}
-
-.tm-btn-primary {
-    background: var(--accent);
-    color: #fff;
-}
-
-.tm-btn-ghost {
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--border-strong);
-}
-
-.tm-btn:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-}
-
-@media (hover: hover) {
-    .tm-btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 20px var(--glow);
-    }
-
-    .tm-btn-ghost:hover {
-        border-color: var(--ink);
-    }
-}
-
-/* Crossfade when the selected member changes. */
-.tm-fade {
-    transition: opacity .22s ease, transform .22s ease;
-}
-
-.tm-grid.is-switching .tm-fade {
-    opacity: 0;
-    transform: translateY(6px);
-}
-
-/* ---- Right: selector thumbnails ---- */
-.tm-selector {
-    display: grid;
-    grid-template-columns: repeat(2, 150px);
-    gap: 16px;
-}
-
-.tm-thumb {
-    position: relative;
-    flex: 0 0 auto;
-    width: 150px;
-    height: 150px;
-    border-radius: 14px;
-    overflow: hidden;
-    padding: 0;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    cursor: pointer;
-    filter: grayscale(1);
-    opacity: .55;
-    transition: filter .25s ease, opacity .25s ease, border-color .25s ease,
-        transform .2s ease-out, box-shadow .2s ease-out;
-}
-
-.tm-thumb .tm-initials {
-    font-size: 34px;
-}
-
-.tm-thumb[aria-pressed="true"] {
-    filter: grayscale(0);
-    opacity: 1;
-    border-color: var(--accent);
-    box-shadow: 0 10px 26px var(--glow-soft);
-}
-
-.tm-thumb:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    opacity: .9;
-}
-
-@media (hover: hover) {
-    .tm-thumb:hover {
-        opacity: .9;
-        transform: translateY(-2px);
-    }
-}
-
-.tm-thumb-name {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 8px 10px 9px;
-    font-size: 11.5px;
-    font-weight: 600;
-    letter-spacing: .02em;
-    color: #fff;
-    background: linear-gradient(to top, rgba(10, 11, 16, .82), rgba(10, 11, 16, 0));
-    text-align: left;
-    opacity: 0;
-    transition: opacity .2s ease;
-}
-
-.tm-thumb[aria-pressed="true"] .tm-thumb-name {
-    opacity: 1;
-}
-
-@media (hover: hover) {
-    .tm-thumb:hover .tm-thumb-name {
-        opacity: 1;
-    }
-}
-
-/* Below this the poster and the copy fight for room side by side — the name
-   plus three bio paragraphs need more than the ~320px left over — so stack them
-   and let each have the full width. */
 @media (max-width: 1000px) {
-    .tm-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .tm-selector {
-        /* 3-up splits five members 3+2; 4-up leaves an orphan on row two. */
+    /* 3-up splits five members 3+2; 4-up leaves an orphan on row two. */
+    .tm-people {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        max-width: 480px;
-    }
-
-    .tm-thumb {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
+        gap: 36px 28px;
     }
 }
 
 @media (max-width: 760px) {
-
     .tm-sec-head {
         margin-bottom: 40px;
     }
 
-    .tm-detail {
-        grid-template-columns: 1fr;
-        padding: 28px;
-        gap: 24px;
-    }
-
-    .tm-detail-portrait {
-        width: min(300px, 85%);
-    }
-
-    .tm-selector {
-        gap: 12px;
-        max-width: none;
+    .tm-people {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 20px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-    .tm-fade,
-    .tm-thumb,
-    .tm-btn,
-    .tm-thumb-name {
+    .tm-circle,
+    .tm-circle img {
         transition: none;
-    }
-
-    .tm-thumb:hover,
-    .tm-btn-primary:hover {
-        transform: none;
     }
 }
 
@@ -6099,56 +5908,93 @@ body.no-scroll {
 
 .ab3-op-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
 }
 
+/* Cards, like the problem-to-system grid on What We Build. */
 .ab3-op {
-    position: relative;
-    padding-top: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 24px 28px;
+    transition: transform .25s ease-out, box-shadow .25s ease-out, border-color .25s ease-out,
+        opacity .6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ab3-op::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 34px;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--accent);
+/* Staggered arrival, left to right. */
+.ab3-op:nth-child(2) {
+    transition-delay: .06s;
 }
 
-.ab3-tick {
-    width: 26px;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--accent);
-    margin-bottom: 16px;
+.ab3-op:nth-child(3) {
+    transition-delay: .12s;
 }
 
-.ab3-num {
-    font-size: 28px;
-    font-weight: 700;
+.ab3-op:nth-child(4) {
+    transition-delay: .18s;
+}
+
+@media (hover: hover) {
+    .ab3-op:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 16px 40px var(--glow-soft);
+    }
+}
+
+.ab3-op-ic {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    background: var(--glow-soft);
     color: var(--accent);
-    letter-spacing: -.02em;
-    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .25s ease-out,
+        color .25s ease-out;
 }
 
-.ab3-op b {
-    font-size: 15.5px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 8px;
-    letter-spacing: -.005em;
-    line-height: 1.3;
+.ab3-op-ic svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+    .ab3-op:hover .ab3-op-ic {
+        transform: scale(1.08) rotate(-4deg);
+        background: var(--accent);
+        color: #fff;
+    }
+}
+
+.ab3-op h3 {
+    font-family: var(--font-head);
+    font-size: 16.5px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.25;
     color: var(--ink);
+    margin-bottom: 8px;
 }
 
 .ab3-op p {
     font-size: 13.5px;
     color: var(--ink-body);
-    line-height: 1.55;
+    line-height: 1.6;
+}
+
+.ab3-op p em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
 }
 
 /* ── Where we are ── */
@@ -6208,8 +6054,7 @@ body.no-scroll {
 
 
     .ab3-op-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 32px 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
 }
@@ -6265,10 +6110,6 @@ body.no-scroll {
 
 
     /* About */
-    .ab3-belief {
-        padding: 64px 0;
-    }
-
     .ab3-founders {
         padding: 64px 0;
     }

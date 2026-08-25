@@ -1,5 +1,71 @@
 import React, { useState } from 'react';
 
+/* What the walkthrough actually is — icon rows in place of a paragraph. */
+const EXPECT = [
+  {
+    lead: '45 minutes',
+    rest: ' — your team and ours, on how your operation runs today.',
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" />
+      </>
+    ),
+  },
+  {
+    lead: 'An honest answer',
+    rest: ' — where software would help, and where it wouldn’t.',
+    icon: (
+      <>
+        <path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z" />
+        <path d="M9 12l2 2 4-4" />
+      </>
+    ),
+  },
+  {
+    lead: 'No deck, no obligation',
+    rest: ' — just what a first phase would look like.',
+    icon: (
+      <>
+        <rect x="4" y="3" width="16" height="18" rx="2" />
+        <path d="M8 8h8M8 12h8M8 16h5" />
+        <path d="M3 3l18 18" />
+      </>
+    ),
+  },
+];
+
+/* Icons sit inside the inputs, so they live next to the field definitions. */
+const FIELD_ICONS = {
+  name: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+    </>
+  ),
+  company: (
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M9 8h.01M15 8h.01M9 12h.01M15 12h.01M9 16h6" />
+    </>
+  ),
+  email: (
+    <>
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M22 6l-10 7L2 6" />
+    </>
+  ),
+  phone: (
+    <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.25a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2z" />
+  ),
+  role: (
+    <>
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    </>
+  ),
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -40,76 +106,111 @@ export default function Contact() {
     setSubmitted(true);
   };
 
+  /* One field, icon inside the input. `full` spans both grid columns. */
+  const field = ({ id, name, label, type = 'text', placeholder, autoComplete, inputMode, full }) => (
+    <div className={`field${full ? ' full' : ''}${errors[name] ? ' field-error' : ''}`}>
+      <label htmlFor={id}>{label}</label>
+      <div className="field-input">
+        <span className="field-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24">{FIELD_ICONS[name]}</svg>
+        </span>
+        <input
+          id={id}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          inputMode={inputMode}
+          value={formData[name]}
+          onChange={handleChange}
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="page-content" id="page-contact">
 
-      {/* ============ HERO ============ */}
-      <header className="contact-hero">
-        <div className="contact-hero-glow" aria-hidden="true"></div>
-        <div className="wrap contact-hero-inner">
-          <h1 className="reveal">
-            Start with a walkthrough,{' '}
-            <span className="grad-text">not a contract.</span>
-          </h1>
-          <p className="contact-lede reveal">
-            Tell us how your operation runs today — 45 minutes, your team and ours.
-            We'll tell you honestly where software would help, where it wouldn't,
-            and what a first phase would look like. No deck, no obligation.
-          </p>
-        </div>
-      </header>
-
-      {/* ============ CONTACT BODY ============ */}
-      <section className="contact-body">
+      {/* One section — the pitch, the ways to reach us and the form side by side,
+          so nothing sits in a dead full-screen band above the form. */}
+      <section className="contact-section">
+        <div className="contact-glow" aria-hidden="true"></div>
         <div className="wrap contact-grid">
 
-          {/* — Left: Form card — */}
+          {/* — Left: pitch and the ways to reach us — */}
+          <div className="contact-pitch">
+            <h1 className="reveal">
+              Start with a walkthrough, <em className="grad">not a contract.</em>
+            </h1>
+
+            <ul className="contact-expect reveal">
+              {EXPECT.map((item) => (
+                <li key={item.lead}>
+                  <span className="contact-expect-ic" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">{item.icon}</svg>
+                  </span>
+                  <span>
+                    <em>{item.lead}</em>{item.rest}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Same chip as the What We Build page. */}
+            <div className="contact-direct reveal">
+              <a className="b-chip" href="tel:+918338081502">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.25a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2z" />
+                </svg>
+                +91 83380 81502
+              </a>
+              <a className="b-chip" href="mailto:sales@mesaorigins.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M22 6l-10 7L2 6" />
+                </svg>
+                sales@mesaorigins.com
+              </a>
+              <span className="b-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z" />
+                  <circle cx="12" cy="10" r="2.6" />
+                </svg>
+                Chennai, Tamil Nadu — India
+              </span>
+            </div>
+          </div>
+
+          {/* — Right: the form — */}
           <div className="contact-form-card reveal">
             {!submitted ? (
-              <form id="walkForm" onSubmit={handleSubmit} noValidate>
-                <div className={`field${errors.name ? ' field-error' : ''}`}>
-                  <label htmlFor="f-name">Name</label>
-                  <input id="f-name" name="name" type="text" autoComplete="name"
-                    placeholder="Your full name"
-                    value={formData.name} onChange={handleChange} />
-                </div>
-                <div className={`field${errors.company ? ' field-error' : ''}`}>
-                  <label htmlFor="f-company">Company</label>
-                  <input id="f-company" name="company" type="text" autoComplete="organization"
-                    placeholder="Company name"
-                    value={formData.company} onChange={handleChange} />
-                </div>
-                <div className={`field${errors.email ? ' field-error' : ''}`}>
-                  <label htmlFor="f-email">Email</label>
-                  <input id="f-email" name="email" type="email" autoComplete="email" inputMode="email"
-                    placeholder="you@company.com"
-                    value={formData.email} onChange={handleChange} />
-                </div>
-                <div className="field">
-                  <label htmlFor="f-role">Role</label>
-                  <input id="f-role" name="role" type="text" autoComplete="organization-title"
-                    placeholder="e.g. Operations Manager"
-                    value={formData.role} onChange={handleChange} />
-                </div>
-                <div className={`field${errors.phone ? ' field-error' : ''}`}>
-                  <label htmlFor="f-phone">Phone</label>
-                  <input id="f-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel"
-                    placeholder="+91 00000 00000"
-                    value={formData.phone} onChange={handleChange} />
-                </div>
-                <div className="field">
+              <form id="walkForm" className="contact-form-grid" onSubmit={handleSubmit} noValidate>
+                {field({ id: 'f-name', name: 'name', label: 'Name', placeholder: 'Your full name', autoComplete: 'name' })}
+                {field({ id: 'f-company', name: 'company', label: 'Company', placeholder: 'Company name', autoComplete: 'organization' })}
+                {field({ id: 'f-email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@company.com', autoComplete: 'email', inputMode: 'email' })}
+                {field({ id: 'f-phone', name: 'phone', label: 'Phone', type: 'tel', placeholder: '+91 00000 00000', autoComplete: 'tel', inputMode: 'tel' })}
+                {field({ id: 'f-role', name: 'role', label: 'Role', placeholder: 'e.g. Owner, Plant Head, Operations Manager', autoComplete: 'organization-title', full: true })}
+
+                <div className="field full">
                   <label htmlFor="f-headache">Your biggest operational headache</label>
                   <textarea id="f-headache" name="headache"
                     placeholder="e.g. We never know our real stock until audit day."
                     value={formData.headache} onChange={handleChange} />
                 </div>
+
                 <button className="contact-submit-btn" id="formSubmit" type="submit">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  Book a walkthrough
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                  Book Consultation
                 </button>
-                <p className="form-note">We reply within one business day — a person, not an autoresponder.</p>
+
+                <p className="form-note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  We reply within one business day — a person, not an autoresponder.
+                </p>
               </form>
             ) : (
               <div className="form-success visible" id="formSuccess" role="status" tabIndex="-1">
@@ -117,88 +218,6 @@ export default function Contact() {
                 <p style={{ marginTop: '6px' }}>A person (not an autoresponder) will call or write back within one business day.</p>
               </div>
             )}
-          </div>
-
-          {/* — Right: Call card + Map card — */}
-          <div className="contact-side">
-
-            {/* Call card */}
-            <div className="contact-call-card reveal">
-              <h2>Prefer to just call?</h2>
-              <div className="contact-call-line">
-                <div className="contact-call-ic" aria-hidden="true">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-                    <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2Z"
-                      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <a href="tel:+918338081502" className="contact-call-val">+91 83380 81502</a>
-              </div>
-              <div className="contact-call-line">
-                <div className="contact-call-ic" aria-hidden="true">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-                    <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.8" />
-                    <path d="m3.5 6.5 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <a href="mailto:sales@mesaorigins.com" className="contact-call-val">sales@mesaorigins.com</a>
-              </div>
-              <address className="contact-addr">
-                Chennai, Tamil Nadu<br />
-                India
-              </address>
-            </div>
-
-            {/* Map card */}
-            <div className="contact-map-card reveal">
-              <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg"
-                role="img" aria-label="Map showing route to the MesaOrigins office">
-                {/* base */}
-                <rect width="460" height="300" fill="var(--bg-alt)" />
-                {/* blocks */}
-                <rect x="24" y="24" width="110" height="72" rx="10" fill="var(--surface-2)" />
-                <rect x="24" y="112" width="110" height="60" rx="10" fill="var(--surface-2)" />
-                <rect x="326" y="30" width="110" height="88" rx="10" fill="var(--surface-2)" />
-                <rect x="326" y="190" width="110" height="80" rx="10" fill="var(--surface-2)" />
-                <ellipse cx="90" cy="236" rx="52" ry="30" fill="var(--border)" />
-                {/* roads */}
-                <path d="M0 190 H460" stroke="var(--bg)" strokeWidth="16" />
-                <path d="M160 0 V300" stroke="var(--bg)" strokeWidth="16" />
-                <path d="M300 0 V190" stroke="var(--bg)" strokeWidth="12" />
-                <path d="M160 96 H300" stroke="var(--bg)" strokeWidth="10" />
-                {/* labels */}
-                <text x="36" y="54" fontFamily="Inter,system-ui" fontSize="10" fill="var(--muted)">Tech Innovate</text>
-                <text x="36" y="67" fontFamily="Inter,system-ui" fontSize="10" fill="var(--muted)">Park</text>
-                <text x="352" y="66" fontFamily="Inter,system-ui" fontSize="10" fill="var(--muted)">Campus B</text>
-                <text x="66" y="240" fontFamily="Inter,system-ui" fontSize="10" fill="var(--muted)">Lake</text>
-                {/* route */}
-                <path d="M60 190 H160 V96 H230" fill="none" stroke="var(--accent)" strokeWidth="3.5" strokeDasharray="7 6" strokeLinecap="round" />
-                {/* entrance */}
-                <circle cx="60" cy="190" r="6" fill="var(--bg)" stroke="var(--accent)" strokeWidth="3" />
-                <text x="42" y="212" fontFamily="Inter,system-ui" fontSize="9.5" fontWeight="600" letterSpacing="1" fill="var(--ink-body)">ENTRANCE</text>
-                {/* office building */}
-                <g>
-                  <rect x="212" y="52" width="120" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" />
-                  <rect x="228" y="70" width="26" height="34" rx="5" fill="var(--about-glow-a)" />
-                  <rect x="234" y="76" width="5" height="5" fill="var(--accent)" opacity=".55" />
-                  <rect x="243" y="76" width="5" height="5" fill="var(--accent)" opacity=".55" />
-                  <rect x="234" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
-                  <rect x="243" y="86" width="5" height="5" fill="var(--accent)" opacity=".55" />
-                  <text x="266" y="84" fontFamily="system-ui" fontSize="12" fontWeight="700" fill="var(--ink)">Office</text>
-                  <text x="266" y="99" fontFamily="Inter,system-ui" fontSize="9.5" fill="var(--muted)">Chennai</text>
-                </g>
-                {/* pin */}
-                <g transform="translate(230,30)">
-                  <path d="M0 22 C0 8 6 0 14 0 C22 0 28 8 28 22 C28 32 14 44 14 44 C14 44 0 32 0 22 Z"
-                    transform="translate(-14,-24) scale(.75)" fill="var(--accent)" />
-                  <circle cx="-3.5" cy="-10" r="4" fill="var(--surface)" />
-                </g>
-              </svg>
-              <div className="contact-map-cap">
-                <span className="contact-map-dot"></span>
-                Chennai, Tamil Nadu — India
-              </div>
-            </div>
           </div>
 
         </div>

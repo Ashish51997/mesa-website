@@ -23,7 +23,6 @@ export default function Footer() {
               <h4>Product</h4>
               <ul>
                 <li><a href="#/">Home</a></li>
-                <li><a href="#/work">Our Work</a></li>
                 <li><a href="#/what-we-build">What We Build</a></li>
                 <li><a href="#/how-we-work">How We Work</a></li>
               </ul>
@@ -33,7 +32,7 @@ export default function Footer() {
               <ul>
                 <li><a href="#/about">About Us</a></li>
                 <li><a href="#/contact">Contact</a></li>
-                <li><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://www.linkedin.com/company/mesaorigins/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
               </ul>
             </div>
             <div className="footer-col">
@@ -60,7 +59,7 @@ export default function Footer() {
           <div className="footer-legal">
             <a href="#/privacy">Privacy Policy</a>
             <a href="#/terms">Terms of Use</a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/mesaorigins/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
               </svg>
