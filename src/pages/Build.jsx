@@ -199,7 +199,10 @@ export default function Build() {
       </section>
 
       {/* ============ CTA ============ */}
+      {/* Reads as the closing half of the Beyond band above, so it drops the
+          usual section gap. */}
       <FinalCta
+        className="is-tight"
         heading={<>Not sure which of these is <em className="grad">your problem?</em></>}
         lede="That's what the walkthrough is for. Tell us how your operation runs — we'll tell you where software would help, and where it wouldn't."
       />

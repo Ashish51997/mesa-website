@@ -1787,6 +1787,17 @@ em.grad.problem-wipe {
     position: relative;
 }
 
+/* Closing CTA that belongs to the section above it rather than standing alone. */
+.final-cta.is-tight {
+    padding-top: 64px;
+}
+
+@media (max-width: 860px) {
+    .final-cta.is-tight {
+        padding-top: 40px;
+    }
+}
+
 .final-cta .wrap {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -4034,7 +4045,9 @@ body.no-scroll {
 }
 
 .build-beyond {
-    padding: 88px 0;
+    /* No bottom padding: the closing CTA sits directly beneath and the two
+       read as one band. */
+    padding: 88px 0 0;
 }
 
 

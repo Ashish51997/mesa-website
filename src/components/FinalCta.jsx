@@ -6,10 +6,11 @@ const Prism = lazy(() => import('./ui/Prism'));
 
 /* Shared closing CTA. Every page uses this so the treatment — animated
    backdrop, frosted card, contact column — stays identical; only the heading
-   and lede change per page. */
-export default function FinalCta({ heading, lede }) {
+   and lede change per page. `className` lets a page tighten its spacing when
+   the CTA is meant to read as part of the section above it. */
+export default function FinalCta({ heading, lede, className = '' }) {
   return (
-    <section className="section final-cta">
+    <section className={`section final-cta${className ? ` ${className}` : ''}`}>
       <Suspense fallback={null}>
         <Prism
           animationType="rotate"
