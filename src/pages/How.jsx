@@ -57,6 +57,63 @@ const BP_CHIPS = [
     icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></> },
 ];
 
+/* Engagement commitments. Each card carries a tinted illustration panel above
+   its copy; the drawings are line art in the site's accent, matching the stage
+   icons rather than importing artwork. */
+const COMMITMENTS = [
+  {
+    title: 'Fixed-scope phases',
+    body: (
+      <>
+        Scope, timeline and price are locked in the Blueprint before work starts.{' '}
+        <b>You pay for outcomes, not hours.</b>
+      </>
+    ),
+    art: (
+      <>
+        <rect x="18" y="30" width="44" height="26" rx="8" className="fill" />
+        <path d="M32 43l6 6 10-12" className="knock" />
+        <rect x="70" y="30" width="44" height="26" rx="8" />
+        <rect x="122" y="30" width="44" height="26" rx="8" className="dashed" />
+        <path d="M18 68h148" className="dashed" />
+      </>
+    ),
+  },
+  {
+    title: 'Ongoing support',
+    body: (
+      <>
+        One simple monthly plan covers support, fixes and small refinements.{' '}
+        <b>Bigger extensions get their own fixed-scope phase.</b>
+      </>
+    ),
+    art: (
+      <path d="M92 12l38 15v24c0 21-16 35-38 43-22-8-38-22-38-43V27z" />
+    ),
+  },
+  {
+    title: 'No lock-in',
+    body: (
+      <>
+        Your system, your data. If we ever part ways, <b>you keep everything</b> &mdash; code,
+        database, documentation.
+      </>
+    ),
+    art: (
+      <>
+        <rect x="20" y="42" width="46" height="36" rx="8" />
+        <path d="M30 42V30a13 13 0 0 1 26 0" />
+        <circle cx="43" cy="58" r="5" />
+        <path d="M43 63v6" />
+        <rect x="86" y="28" width="42" height="18" rx="6" />
+        <rect x="112" y="50" width="42" height="18" rx="6" className="fill-soft" />
+        <rect x="86" y="72" width="42" height="18" rx="6" />
+        <path d="M94 37h22M120 59h22M94 81h22" className="hint" />
+      </>
+    ),
+  },
+];
+
 const STAGES = [
   {
     id: 's1',
@@ -404,42 +461,21 @@ export default function How() {
       <section className="engage-section">
         <div className="wrap">
           <div className="section-head reveal in">
-            <h2>Engagement model. <span className="accent">Built so you stay in control.</span></h2>
+            <h2>Built so you <span className="accent">stay in control.</span></h2>
             <p>Three commitments that hold from the first walkthrough to years after go-live.</p>
           </div>
           <div className="tri-grid">
-            <div className="tri-card">
-              <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="16" rx="2"/>
-                  <path d="M3 10h18M8 2v4M16 2v4"/>
-                </svg>
+            {COMMITMENTS.map((c) => (
+              <div className="tri-card" key={c.title}>
+                <div className="tri-art" aria-hidden="true">
+                  <svg viewBox="0 0 184 100">{c.art}</svg>
+                </div>
+                <div className="tri-body">
+                  <h4>{c.title}</h4>
+                  <p>{c.body}</p>
+                </div>
               </div>
-              <h4>Fixed-scope phases</h4>
-              <p>Every phase has a defined scope, timeline, and price agreed in the Blueprint. You pay for outcomes, not hours.</p>
-            </div>
-
-            <div className="tri-card">
-              <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22c5.5 0 9-3.5 9-9V6l-9-4-9 4v7c0 5.5 3.5 9 9 9z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
-              </div>
-              <h4>Ongoing support</h4>
-              <p>After go-live, a simple monthly arrangement covers support, fixes, and small refinements. Larger extensions get their own fixed-scope phase.</p>
-            </div>
-
-            <div className="tri-card">
-              <div className="ic">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="5" y="11" width="14" height="9" rx="2"/>
-                  <path d="M8 11V7a4 4 0 0 1 8 0"/>
-                </svg>
-              </div>
-              <h4>No lock-in</h4>
-              <p>You own your data and your system. If we ever part ways, you keep everything — code, database, documentation.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
