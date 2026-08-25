@@ -5558,72 +5558,6 @@ body.no-scroll {
     color: var(--ink);
 }
 
-/* ── Story ── */
-.ab3-story {
-    background: var(--bg-alt);
-    display: flex;
-    align-items: center;
-    min-height: calc(100vh);
-}
-
-.ab3-story-head {
-    max-width: 640px;
-    margin-bottom: 40px;
-}
-
-.ab3-engagement {
-    background: var(--surface);
-    border: none;
-    border-radius: 18px;
-    padding: 34px 38px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, .04), 0 20px 60px rgba(0, 0, 0, .07);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 24px;
-    align-items: flex-start;
-    max-width: 860px;
-}
-
-.ab3-qmark {
-    width: 44px;
-    height: 44px;
-    flex: none;
-    border-radius: 8px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--accent);
-    padding-top: 8px;
-    flex-shrink: 0;
-}
-
-.ab3-eng-tag {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
-.ab3-engagement p {
-    color: var(--ink-body);
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.ab3-story-close {
-    margin-top: 40px;
-    max-width: 720px;
-    color: var(--ink-body);
-    font-size: 15px;
-    line-height: 1.65;
-}
-
 /* ── Belief pull-quote ── */
 .ab3-belief {
     padding: 96px 0;
@@ -5676,7 +5610,8 @@ body.no-scroll {
 .ab3-team {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    gap: 28px 24px;
+    align-items: start;
 }
 
 .ab3-person {
@@ -5692,19 +5627,31 @@ body.no-scroll {
 }
 
 .ab3-portrait {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 4.6;
     position: relative;
     overflow: hidden;
-    background: var(--surface-2);
-    border-radius: 14px;
+    background: linear-gradient(160deg, var(--surface-2), var(--ph-b));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.ab3-portrait-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.ab3-initials {
+    font-family: var(--font-head);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: var(--muted);
+}
+
+.ab3-team-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-body);
+    max-width: 62ch;
+    margin-bottom: 44px;
 }
 
 .ab3-swap {
@@ -5773,6 +5720,14 @@ body.no-scroll {
     height: 3px;
     border-radius: 2px;
     background: var(--accent);
+}
+
+.ab3-tick {
+    width: 26px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+    margin-bottom: 16px;
 }
 
 .ab3-num {
@@ -5897,14 +5852,46 @@ body.no-scroll {
 .ab3-cta-contact {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
 }
 
-.ab3-cta-contact b {
-    font-size: 17px;
+.ab3-cta-contact a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: -.01em;
     color: var(--ink);
+    text-decoration: none;
+    transition: color .18s ease-out;
+}
+
+.ab3-cta-ic {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--glow-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ab3-cta-ic svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+    .ab3-cta-contact a:hover {
+        color: var(--accent);
+    }
 }
 
 /* ── Responsive ── */
@@ -5926,11 +5913,6 @@ body.no-scroll {
     .ab3-op-grid {
         grid-template-columns: 1fr 1fr;
         gap: 32px 24px;
-    }
-
-    .ab3-engagement {
-        grid-template-columns: 1fr;
-        padding: 28px;
     }
 
     .ab3-cta-card {
@@ -6004,19 +5986,18 @@ body.no-scroll {
         padding: 64px 0;
     }
 
+    /* Relies on min-height:100vh + flex centering with no padding; relax to
+       normal padded flow so it doesn't waste a full screen on a phone. */
+    .ab3-operate {
+        min-height: auto;
+        padding: 64px 0;
+    }
+
     .ab3-where {
         padding: 0 0 56px;
     }
 
     .ab3-cta {
         padding: 0 0 56px;
-    }
-
-    /* These two rely on min-height:100vh + flex centering with no padding;
-       relax to normal padded flow so they don't waste a full screen each */
-    .ab3-story,
-    .ab3-operate {
-        min-height: auto;
-        padding: 64px 0;
     }
 }
