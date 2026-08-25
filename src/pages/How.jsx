@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import FinalCta from '../components/FinalCta';
 import iconGear from '../assets/how-icon-gear.png';
 import iconTools from '../assets/how-icon-tools.png';
@@ -33,40 +33,17 @@ function FaqItem({ question, answer, defaultOpen = false }) {
   );
 }
 
-const EASE_OUT_CUBIC = [0.215, 0.61, 0.355, 1];
-
-/* Hero entrance. Runs once when the page is ready — nothing is scroll-linked,
-   so there is no per-frame work while scrolling. The props start further out
-   and land at staggered delays, which reads as depth without tracking scroll. */
-const HERO_STAGE = {
-  hidden: {},
-  shown: { transition: { delayChildren: 0.05, staggerChildren: 0.08 } },
-};
-
-const TABLET = {
-  hidden: { opacity: 0, y: 90 },
-  shown: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: EASE_OUT_CUBIC },
-  },
-};
-
-const prop = (x, y, rotate, duration) => ({
-  hidden: { opacity: 0, x, y, rotate },
-  shown: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    rotate: 0,
-    transition: { duration, ease: EASE_OUT_CUBIC },
-  },
-});
+/* Hero travel. The tablet starts low in the viewport and rises to centre as the
+   hero scrolls past, settling once it gets there. The props share the motion
+   but each covers a slightly different distance, so they drift rather than
+   moving as one rigid block. `to` is where each element ends (0 = at rest);
+   `from` is its offset in px at the top of the page. */
+const TABLET_FROM = 300;
 
 const HERO_PROPS = [
-  { cls: 'how-prop-gear', src: iconGear, w: 667, h: 667, variants: prop(-40, 70, -18, 0.8) },
-  { cls: 'how-prop-tools', src: iconTools, w: 565, h: 565, variants: prop(46, 84, 16, 0.85) },
-  { cls: 'how-prop-checklist', src: iconChecklist, w: 663, h: 592, variants: prop(34, 96, 10, 0.9) },
+  { cls: 'how-prop-gear', src: iconGear, w: 667, h: 667, from: 400, until: 0.52 },
+  { cls: 'how-prop-tools', src: iconTools, w: 565, h: 565, from: 340, until: 0.46 },
+  { cls: 'how-prop-checklist', src: iconChecklist, w: 663, h: 592, from: 440, until: 0.56 },
 ];
 
 const STAGE_IDS = ['s1', 's2', 's3', 's4', 's5'];
@@ -93,27 +70,41 @@ export default function How() {
   // stage's title and body the way it did before.
   const [animate, setAnimate] = useState(false);
 
-  // Same probe as the stage rail below: never hide the hero unless we can prove
-  // the entrance will actually run.
-  const [heroReady, setHeroReady] = useState(false);
+  // Hero travel is driven by how far the hero itself has scrolled past.
+  const heroRef = useRef(null);
+  const reduced = useReducedMotion();
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Takes the edge off trackpad jitter without lagging behind the scrollbar.
+  const heroTravel = useSpring(heroProgress, {
+    stiffness: 140,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // The hero is much shorter on phones, so a full-size travel would start the
+  // tablet mostly clipped by the hero's own bottom edge.
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let disposed = false;
-    let everHidden = document.visibilityState === 'hidden';
-    const onVisibility = () => {
-      if (document.visibilityState === 'hidden') everHidden = true;
-    };
-    document.addEventListener('visibilitychange', onVisibility);
-    const id = requestAnimationFrame(() => {
-      if (!disposed && !everHidden) setHeroReady(true);
-    });
-    return () => {
-      disposed = true;
-      cancelAnimationFrame(id);
-      document.removeEventListener('visibilitychange', onVisibility);
-    };
+    const mq = window.matchMedia('(max-width: 860px)');
+    const sync = () => setCompact(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
   }, []);
+
+  const travel = compact ? 0.45 : 1;
+
+  const tabletY = useTransform(heroTravel, [0, 0.45], [TABLET_FROM * travel, 0]);
+  const gearY = useTransform(heroTravel, [0, HERO_PROPS[0].until], [HERO_PROPS[0].from * travel, 0]);
+  const toolsY = useTransform(heroTravel, [0, HERO_PROPS[1].until], [HERO_PROPS[1].from * travel, 0]);
+  const checklistY = useTransform(heroTravel, [0, HERO_PROPS[2].until], [HERO_PROPS[2].from * travel, 0]);
+  const propY = [gearY, toolsY, checklistY];
 
   // Arm the reveal animation only when we can prove the browser will actually
   // run it. Two things can stop it:
@@ -198,15 +189,10 @@ export default function How() {
     <div className="how-page" id="page-how">
       {/* HERO — the whole hero renders on a tablet screen, with the tablet and
           the props around it animating in once the section is reached. */}
-      <header className="how-hero">
+      <header className="how-hero" ref={heroRef}>
         <div className="wrap">
-          <motion.div
-            className="how-stage"
-            initial={heroReady ? 'hidden' : false}
-            animate={heroReady ? 'shown' : undefined}
-            variants={HERO_STAGE}
-          >
-            {HERO_PROPS.map((prop) => (
+          <div className="how-stage">
+            {HERO_PROPS.map((prop, i) => (
               <motion.img
                 key={prop.cls}
                 className={`how-prop ${prop.cls}`}
@@ -216,11 +202,11 @@ export default function How() {
                 width={prop.w}
                 height={prop.h}
                 decoding="async"
-                variants={prop.variants}
+                style={reduced ? undefined : { y: propY[i] }}
               />
             ))}
 
-            <motion.div className="how-tablet" variants={TABLET}>
+            <motion.div className="how-tablet" style={reduced ? undefined : { y: tabletY }}>
               <div className="how-tablet-screen">
                 <h1>
                   From factory walkthrough to live system &mdash;{' '}
@@ -249,7 +235,7 @@ export default function How() {
 
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </header>
 
