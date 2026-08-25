@@ -282,7 +282,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="trust-line reveal">Fixed-scope phases. No lock-in — you own your data and your system.</p>
         </div>
       </section>
 

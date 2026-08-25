@@ -1442,6 +1442,43 @@ em.grad.problem-wipe {
     border-top: 1px dashed var(--border-strong);
 }
 
+/* Hover follows the same idiom as the problem and outcome cards: a 4px lift,
+   border to --border-strong, shadow stepping up to --glow. Hovering anywhere in
+   the column drives it, since the caption belongs to the card. The badge picks
+   up a tint and the drawing eases up slightly behind it for a touch of depth. */
+@media (hover: hover) {
+    .step-art,
+    .step-num,
+    .step-art svg {
+        transition: transform .18s ease-out, border-color .18s ease-out,
+            box-shadow .18s ease-out, background .18s ease-out;
+    }
+
+    .step:hover .step-art {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 6px 30px var(--glow);
+    }
+
+    .step:hover .step-art svg {
+        transform: translateY(-2px);
+    }
+
+    /* The connector is a child of the card, so the lift would drag it out of
+       line with its neighbours. Cancel the lift on the rail itself. */
+    .step:not(:last-child) .step-art::after {
+        transition: transform .18s ease-out;
+    }
+
+    .step:hover .step-art::after {
+        transform: translateY(4px);
+    }
+
+    .step:hover .step-num {
+        background: var(--glow-soft);
+    }
+}
+
 .step-num {
     display: inline-flex;
     align-items: center;
@@ -1488,17 +1525,6 @@ em.grad.problem-wipe {
     .timeline {
         grid-template-columns: 1fr
     }
-}
-
-.trust-line {
-    border-top: 1px solid var(--border-strong);
-    margin-top: 56px;
-    padding-top: 32px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink-body);
-    width: 100%;
-    display: block;
 }
 
 .chips {
