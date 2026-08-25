@@ -1,24 +1,34 @@
 import React from 'react';
 import FinalCta from '../components/FinalCta';
+import BuildFlowCard from '../components/BuildFlowCard';
+import useAnimationReady from '../lib/useAnimationReady';
 
 export default function Build() {
+  // Gate the hero's rise on the animation actually being able to run — without
+  // this the copy sits at opacity 0 wherever animations are suspended.
+  const animate = useAnimationReady();
+
   return (
     <div className="page-content" id="page-build">
       {/* ============ HERO ============ */}
       <header className="build-hero">
         <div className="build-hero-glow" aria-hidden="true"></div>
         <div className="wrap">
-          <div className="build-hero-grid">
+          <div className={`build-hero-grid${animate ? ' anim' : ''}`}>
             {/* Left Column: Copy & Actions */}
-            <div className="build-hero-copy reveal">
+            <div className="build-hero-copy">
               <h1>
-                You bring the operational problem.<br />
-                <span className="blue">We build the system that solves it.</span>
+                <span className="l rise d1">You bring the </span>
+                <span className="l rise d1">operational problem. </span>
+                <em className="grad l rise d2">We build the system </em>
+                <em className="grad l rise d2">that solves it.</em>
               </h1>
-              <p className="lede">
-                Not modules off a shelf. Every system below started as a complaint on a factory floor — a register that didn't match reality, a report that arrived too late, a WhatsApp group doing the work of software.
+              <p className="lede rise d3">
+                Not modules off a shelf. Every system below started as a complaint on a factory
+                floor &mdash; a register that didn&rsquo;t match reality, a report that arrived too
+                late, a WhatsApp group doing the work of software.
               </p>
-              <div className="build-hero-ctas">
+              <div className="build-hero-ctas rise d4">
                 <a href="#/contact" className="btn-primary-glow">Book Consultation</a>
                 <button
                   className="btn-secondary-arrow"
@@ -32,56 +42,9 @@ export default function Build() {
               </div>
             </div>
 
-            {/* Right Column: One Connected Flow Card */}
-            <div className="build-hero-card reveal">
-              <div className="card-header">One Connected Flow</div>
-              <div className="timeline-flow">
-                <div className="timeline-line"></div>
-
-                <div className="timeline-step">
-                  <div className="timeline-num">1</div>
-                  <div className="timeline-content">
-                    <h3>Inquiry &amp; order</h3>
-                    <p>Sales enters it once. It never gets re-typed.</p>
-                  </div>
-                </div>
-
-                <div className="timeline-step">
-                  <div className="timeline-num">2</div>
-                  <div className="timeline-content">
-                    <h3>Production plan <span className="live-tag">live</span></h3>
-                    <p>Plan vs actual, visible per machine.</p>
-                  </div>
-                </div>
-
-                <div className="timeline-step">
-                  <div className="timeline-num">3</div>
-                  <div className="timeline-content">
-                    <h3>Quality checks</h3>
-                    <p>QC recorded at the station, with photos.</p>
-                  </div>
-                </div>
-
-                <div className="timeline-step">
-                  <div className="timeline-num">4</div>
-                  <div className="timeline-content">
-                    <h3>Inventory &amp; stores</h3>
-                    <p>Stock moves when material moves. No register.</p>
-                  </div>
-                </div>
-
-                <div className="timeline-step">
-                  <div className="timeline-num">5</div>
-                  <div className="timeline-content">
-                    <h3>Dispatch</h3>
-                    <p>Batch-traceable, weighbridge-linked, invoiced.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Right Column: the flow, stepping through itself */}
+            <BuildFlowCard />
           </div>
-
-
         </div>
       </header>
 
