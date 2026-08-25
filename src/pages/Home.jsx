@@ -159,8 +159,8 @@ export default function Home() {
               <img
                 src={salesConsole}
                 alt="MesaOps Sales and Inquiry Console showing live inquiries, quotations and order status"
-                width="1421"
-                height="1107"
+                width="1434"
+                height="1097"
                 loading="lazy"
                 decoding="async"
               />
