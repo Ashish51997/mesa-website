@@ -339,7 +339,7 @@ export default function How() {
               <div className="how-tablet-screen">
                 <h1>
                   From factory walkthrough to live system &mdash;{' '}
-                  <span className="accent">in stages, not one giant leap.</span>
+                  <em className="grad">in stages, not one giant leap.</em>
                 </h1>
                 <p className="lead">
                   You should never sign for a year of work and hope. Here&rsquo;s exactly what
@@ -372,7 +372,7 @@ export default function How() {
       <section className="stages-section" id="stages">
         <div className="wrap">
           <div className="section-head reveal in">
-            <h2>Five stages. <span className="accent">One honest sequence.</span></h2>
+            <h2>Five stages. <em className="grad">One honest sequence.</em></h2>
             <p>Each stage ends with something concrete you can read, use, or run — and a decision point where you choose whether to continue.</p>
           </div>
 
@@ -461,7 +461,7 @@ export default function How() {
       <section className="engage-section">
         <div className="wrap">
           <div className="section-head reveal in">
-            <h2>Built so you <span className="accent">stay in control.</span></h2>
+            <h2>Built so you <em className="grad">stay in control.</em></h2>
             <p>Three commitments that hold from the first walkthrough to years after go-live.</p>
           </div>
           <div className="tri-grid">
@@ -485,7 +485,7 @@ export default function How() {
         <div className="wrap">
           <div className="faq-split-grid">
             <div className="reveal in">
-              <h2>Questions <span className="accent">owners ask us.</span></h2>
+              <h2>Questions <em className="grad">owners ask us.</em></h2>
               <p className="faq-split-note">
                 Asked something else? Bring it to the walkthrough — or write to{' '}
                 <a href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a>.
