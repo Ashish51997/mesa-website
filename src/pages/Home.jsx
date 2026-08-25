@@ -67,18 +67,13 @@ export default function Home() {
               <img
                 src={salesConsole}
                 alt="MesaOps Sales and Inquiry Console showing live inquiries, quotations and order status"
-                width="1426"
-                height="1103"
+                width="1421"
+                height="1107"
                 loading="lazy"
                 decoding="async"
               />
               <figcaption>MesaOps &mdash; Sales &amp; Inquiry Console</figcaption>
             </figure>
-            <div className="annotations-below">
-              <span className="annot-pill">Live machine status</span>
-              <span className="annot-pill">Batch trace in one click</span>
-              <span className="annot-pill">Plan vs actual, today</span>
-            </div>
           </div>
         </div>
       </section>

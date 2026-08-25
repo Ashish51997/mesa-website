@@ -651,33 +651,6 @@ em.grad {
     line-height: 0
 }
 
-/* Centered annotations container below browser mockup */
-.annotations-below {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px
-}
-
-.annot-pill {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    background: var(--surface);
-    padding: 8px 18px;
-    border-radius: 9999px;
-    box-shadow: 0 2px 10px rgba(0, 80, 251, 0.08);
-    white-space: nowrap;
-}
-
-:root[data-theme="dark"] .annot-pill {
-    background: var(--surface-2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3)
-}
-
 /* Paper→screen device (paper stays paper in both themes) */
 .paper-screen {
     display: grid;
