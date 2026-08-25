@@ -5719,11 +5719,24 @@ body.no-scroll {
 }
 
 .tm-detail-bio {
-    font-size: 15.5px;
+    max-width: 52ch;
+    margin-bottom: 26px;
+}
+
+.tm-detail-bio p {
+    font-size: 15px;
     line-height: 1.7;
     color: var(--ink-body);
-    max-width: 52ch;
-    margin-bottom: 30px;
+}
+
+.tm-detail-bio p + p {
+    margin-top: 14px;
+}
+
+.tm-detail-bio em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
 }
 
 .tm-detail-actions {
@@ -5787,7 +5800,10 @@ body.no-scroll {
 /* ---- Right: selector thumbnails ---- */
 .tm-selector {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* Two columns rather than the reference's three: with five members and a
+       three-paragraph bio the detail side runs tall, and 3-up left a large void
+       beneath the thumbs while shrinking each photo to ~138px. */
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     align-content: start;
 }

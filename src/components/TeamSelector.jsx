@@ -5,25 +5,38 @@ import ashishCard from '../assets/team-ashish-card.png';
 import ashishPhoto from '../assets/team-ashish-photo.jpg';
 import tanmayCard from '../assets/team-tanmay-card.png';
 import tanmayPhoto from '../assets/team-tanmay-photo.jpg';
+import taniaCard from '../assets/team-tania-card.png';
+import taniaPhoto from '../assets/team-tania-photo.jpg';
+import ayushCard from '../assets/team-ayush-card.png';
+import ayushPhoto from '../assets/team-ayush-photo.png';
+
+/* Placeholder biography, supplied as demo copy and applied to every member.
+   TODO(BIO): this is NOT true of everyone — it describes one person's history
+   with Aone Plastic Machinery, and it uses "his" throughout. Shipping it as-is
+   publishes four incorrect biographies of real, named people. Replace with a
+   per-member bio (or drop the field) before this page goes live. */
+const DEMO_BIO = [
+  '{name} brings over 5 years of hands-on experience in running and managing a manufacturing business through his involvement with Aone Plastic Machinery.',
+  'Having worked closely with day-to-day manufacturing operations, customers, processes, and business challenges, he has developed a practical understanding of the gaps and inefficiencies that businesses face in their operations.',
+  'His experience at the intersection of *manufacturing, business management, and technology* drives his approach to building practical digital solutions that solve real business problems.',
+];
 
 /* TEAM DATA
-   card:     large 3:4 artwork for the detail panel (left).
-   thumb:    real photograph for the selector tile (right).
-   focus:    object-position for the thumb crop; full-body shots need a high
-             value so the face survives the square crop.
-   Members without artwork fall back to an initials tile automatically.
+   card:  3:4 artwork for the detail panel (left).
+   thumb: photograph for the selector tile (right).
+   focus: object-position for the thumb crop; full-length shots need a high
+          value so the face survives the square crop.
+   Members with no artwork fall back to an initials tile automatically.
 
-   TODO(CARD-NAME): all three supplied cards are printed "Saikat Maiti / UI UX
-   Designer" — the template was not re-rendered per person, so Ashish's and
-   Tanmay's cards currently carry Saikat's name and job title.
-   TODO(BIO) / TODO(LINKEDIN): still unsupplied; both fields degrade to nothing
-   rather than being invented. */
+   TODO(CARD-NAME): every supplied card is printed "Saikat Maiti / UI UX
+   Designer" — the template was never re-rendered per person, so four members
+   currently display Saikat's name and job title on their card.
+   TODO(LINKEDIN): unsupplied; the button is omitted rather than linking to "#". */
 const TEAM = [
   {
     name: 'Ashish Kumar Roule',
     initials: 'AK',
     tags: ['Technology'],
-    bio: null,
     linkedin: null,
     card: ashishCard,
     thumb: ashishPhoto,
@@ -33,7 +46,6 @@ const TEAM = [
     name: 'Saikat Maiti',
     initials: 'SM',
     tags: ['Product Design'],
-    bio: null,
     linkedin: null,
     card: saikatCard,
     thumb: saikatPhoto,
@@ -43,31 +55,39 @@ const TEAM = [
     name: 'Tanmay Bhaat',
     initials: 'TB',
     tags: ['Sales & Marketing'],
-    bio: null,
     linkedin: null,
     card: tanmayCard,
     thumb: tanmayPhoto,
-    focus: '50% 30%',
+    focus: '50% 22%',
   },
   {
     name: 'Tania',
     initials: 'T',
     tags: ['AI & Technology'],
-    bio: null,
     linkedin: null,
-    card: null,
-    thumb: null,
+    card: taniaCard,
+    thumb: taniaPhoto,
+    focus: '50% 30%',
   },
   {
     name: 'Ayush Singhal',
     initials: 'AS',
     tags: ['Technology'],
-    bio: null,
     linkedin: null,
-    card: null,
-    thumb: null,
+    card: ayushCard,
+    thumb: ayushPhoto,
+    focus: '50% 20%',
   },
 ];
+
+/* Renders *emphasis* spans and substitutes the member's name. */
+function bioParagraph(text, name) {
+  return text.replace('{name}', name).split(/(\*[^*]+\*)/).map((chunk, i) =>
+    chunk.startsWith('*') && chunk.endsWith('*')
+      ? <em key={i}>{chunk.slice(1, -1)}</em>
+      : chunk
+  );
+}
 
 const SWITCH_MS = 220;
 
@@ -134,7 +154,11 @@ export default function TeamSelector() {
               <span key={t}>{t}</span>
             ))}
           </div>
-          {member.bio && <p className="tm-detail-bio tm-fade">{member.bio}</p>}
+          <div className="tm-detail-bio tm-fade">
+            {DEMO_BIO.map((para, i) => (
+              <p key={i}>{bioParagraph(para, member.name)}</p>
+            ))}
+          </div>
           <div className="tm-detail-actions tm-fade">
             {member.linkedin && (
               <a
