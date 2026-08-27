@@ -1800,10 +1800,9 @@ em.grad.problem-wipe {
 
 .final-cta .wrap {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    /* Wide gutter so the phone and email read as their own column rather than
-       running on from the lede. */
-    gap: 96px;
+    /* One copy column; the clip is positioned into the space on the right, so
+       nothing can overlap the text. */
+    grid-template-columns: minmax(0, 54%);
     align-items: center;
     /* frosted glass so the animated hills behind read through the card
        while the copy stays legible */
@@ -1836,10 +1835,64 @@ em.grad.problem-wipe {
     position: relative
 }
 
+.cta-copy {
+    z-index: 1;
+}
+
+/* Phone and email, under the lede. */
+.cta-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 28px;
+    margin-top: 26px;
+}
+
+.final-cta .hero-ctas {
+    margin-top: 28px;
+}
+
+/* The clip fills the right of the card and bleeds to its edges. Absolute, so
+   the copy column can never be pushed into it. */
+.final-cta .wrap>.cta-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* Narrower than the gap left by the copy column, so the two never meet:
+       the column is 54% of the content box, this is 42% of the padding box. */
+    width: 42%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.cta-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* The clip's background is flat white, and multiply drops white out
+       entirely — so the figure sits straight on the card with no panel, no
+       edge and no box. Everything darker than the card still prints. */
+    mix-blend-mode: multiply;
+    /* Belt and braces: fade the leading edge so even a stray light-grey frame
+       can't draw a line down the card. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 14%);
+}
+
+/* On the dark card, white can't blend away — nothing is lighter to blend into.
+   The clip gets a light panel instead, which multiply then keeps it legible
+   against, and which reads as a deliberate media inset. */
+:root[data-theme="dark"] .final-cta .wrap>.cta-media {
+    background: #eceef6;
+    border-radius: 20px 0 0 20px;
+}
+
 .contact-big {
     font-family: var(--font-head);
     font-weight: 700;
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     color: var(--ink);
     margin-bottom: 6px;
     min-height: 48px;
@@ -1850,8 +1903,22 @@ em.grad.problem-wipe {
 @media (max-width:860px) {
     .final-cta .wrap {
         grid-template-columns: 1fr;
-        gap: 36px;
+        gap: 28px;
         padding: 44px 28px
+    }
+
+    /* No room for a side panel — the clip becomes a band under the copy. */
+    .final-cta .wrap>.cta-media {
+        position: relative;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+    }
+
+    .cta-video {
+        -webkit-mask-image: none;
+        mask-image: none;
     }
 }
 
@@ -5752,101 +5819,126 @@ body.no-scroll {
     margin-bottom: 56px;
 }
 
-/* Circle portraits in one row — the whole team at a glance, which is the point
-   of "a small, senior team". Replaces the detail-panel selector. */
-.tm-people {
+/* The group photograph. Transparent around the figures, so it sits on the band
+   in either theme. */
+.tm-group-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Who's who — one card per person under the photograph. */
+.tm-roster {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 28px 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 48px;
 }
 
-.tm-person {
-    text-align: center;
+.tm-card {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 18px;
+    align-items: stretch;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: transform .25s ease-out, box-shadow .25s ease-out, border-color .25s ease-out,
+        opacity .6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tm-person:nth-child(2) {
+.tm-card:nth-child(2) {
     transition-delay: .06s;
 }
 
-.tm-person:nth-child(3) {
+.tm-card:nth-child(3) {
     transition-delay: .12s;
 }
 
-.tm-person:nth-child(4) {
+.tm-card:nth-child(4) {
     transition-delay: .18s;
 }
 
-.tm-person:nth-child(5) {
+.tm-card:nth-child(5) {
     transition-delay: .24s;
 }
 
-.tm-circle {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    overflow: hidden;
-    background: var(--surface-2);
-    margin-bottom: 18px;
-    transition: box-shadow .25s ease-out;
-}
-
-.tm-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 25%;
-    /* Per-person zoom, anchored on the face via transform-origin. */
-    transform: scale(var(--tm-zoom, 1));
-    transition: transform .35s cubic-bezier(.22, .61, .36, 1);
-}
-
-/* Fallback when a photograph is missing. */
-.tm-initials {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-head);
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    color: var(--accent);
-    background: var(--glow-soft);
-}
-
 @media (hover: hover) {
-    .tm-person:hover .tm-circle {
-        box-shadow: 0 0 0 4px var(--glow-soft);
-    }
-
-    .tm-person:hover .tm-circle img {
-        transform: scale(calc(var(--tm-zoom, 1) * 1.05));
+    .tm-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: 0 16px 40px var(--glow-soft);
     }
 }
 
-.tm-person h3 {
+.tm-card-photo {
+    align-self: start;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface-2);
+}
+
+/* Column so the Experience row can be pushed to the bottom. */
+.tm-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.tm-card-body b {
+    display: block;
     font-family: var(--font-head);
     font-size: 16.5px;
     font-weight: 700;
     letter-spacing: -.01em;
     line-height: 1.25;
     color: var(--ink);
-    margin-bottom: 5px;
 }
 
-.tm-person p {
+.tm-card-role {
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 14px;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.45;
     color: var(--muted);
 }
 
+/* Label left, value right — the rows in the reference layout. */
+.tm-card-meta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 12px;
+    align-items: baseline;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.tm-card-meta dt {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.tm-card-meta dd {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -.005em;
+    color: var(--ink);
+    text-align: right;
+}
+
 @media (max-width: 1000px) {
-    /* 3-up splits five members 3+2; 4-up leaves an orphan on row two. */
-    .tm-people {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 36px 28px;
+    .tm-roster {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -5855,17 +5947,9 @@ body.no-scroll {
         margin-bottom: 40px;
     }
 
-    .tm-people {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 32px 20px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .tm-circle,
-    .tm-circle img {
-        transition: none;
+    .tm-roster {
+        grid-template-columns: 1fr;
+        margin-top: 36px;
     }
 }
 

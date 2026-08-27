@@ -1,76 +1,97 @@
 import React from 'react';
+import groupPhoto from '../assets/team-group.png';
+import snbhattPhoto from '../assets/team-snbhatt.jpg';
+import syedPhoto from '../assets/team-syed.jpg';
 import ashishPhoto from '../assets/team-ashish.png';
 import tanishqPhoto from '../assets/team-tanishq.png';
 import tanmayPhoto from '../assets/team-tanmay.png';
 import saikatPhoto from '../assets/team-saikat.png';
 import ayushPhoto from '../assets/team-ayush.png';
 
-/* TEAM DATA
-   Every portrait is supplied pre-cropped to a 200px circle with transparent
-   corners, so no crop anchor or zoom is needed per member.
-   Members with no photograph fall back to an initials circle automatically.
+/* TEAM DATA — the roster below the group photograph.
 
-   TODO(PHOTO-RES): the supplied files are 200x200 and the circle renders at
-   ~199px, so they are exactly 1x — slightly soft on retina screens. 400px
-   versions would render crisply.
-   TODO(ROLE): these roles are the functional areas the previous build showed as
-   tags. If anyone carries a real job title, put it here.
    TODO(LINKEDIN): unsupplied, so no profile links are rendered. */
 const TEAM = [
   {
+    /* Seated centre in the group photograph. */
+    name: 'S N Bhatt',
+    role: 'Principal Advisor, Manufacturing Operations',
+    experience: '50+ years',
+    photo: snbhattPhoto,
+  },
+  {
     name: 'Ashish Kumar Roule',
-    initials: 'AK',
-    role: 'Tech Engineer',
+    role: 'Co-Founder & Head of Engineering',
+    experience: '10 years',
     photo: ashishPhoto,
   },
   {
     name: 'Tanishq',
-    initials: 'T',
-    role: 'AI & Technology',
+    role: 'Co-Founder, AI & Automation',
+    experience: '4 years',
     photo: tanishqPhoto,
   },
   {
-    name: 'Tanmay Bhaat',
-    initials: 'TB',
-    role: 'Sales & Marketing',
+    name: 'Tanmay Bhatt',
+    role: 'Co-Founder & Business Transformation Lead',
+    experience: '5 years',
     photo: tanmayPhoto,
   },
   {
     name: 'Saikat Maiti',
-    initials: 'SM',
-    role: 'Product Design',
+    role: 'Co-Founder & Chief Product Officer',
+    experience: '10 years',
     photo: saikatPhoto,
   },
   {
     name: 'Ayush Singhal',
-    initials: 'AS',
-    role: 'Tech Engineer',
+    role: 'Co-Founder & Founding Engineer',
+    experience: '10 years',
     photo: ayushPhoto,
+  },
+  {
+    name: 'Syed Shabib Ahamed',
+    role: 'AI Engineer',
+    experience: '3 years',
+    photo: syedPhoto,
   },
 ];
 
 export default function TeamSelector() {
   return (
-    <ul className="tm-people">
-      {TEAM.map((m) => (
-        <li className="tm-person reveal" key={m.name}>
-          <div className="tm-circle">
-            {m.photo ? (
-              <img
-                src={m.photo}
-                alt={`Portrait of ${m.name}`}
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <span className="tm-initials" aria-hidden="true">{m.initials}</span>
-            )}
-          </div>
-          <h3>{m.name}</h3>
-          <p>{m.role}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <img
+        className="tm-group-img"
+        src={groupPhoto}
+        alt="The MesaOrigins team"
+        width="1600"
+        height="1066"
+        decoding="async"
+      />
+
+      {/* Who's who, rather than hover targets over the faces. */}
+      <ul className="tm-roster">
+        {TEAM.map((m) => (
+          <li className="tm-card reveal" key={m.name}>
+            <img
+              className="tm-card-photo"
+              src={m.photo}
+              alt={`Portrait of ${m.name}`}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="tm-card-body">
+              <b>{m.name}</b>
+              <span className="tm-card-role">{m.role}</span>
+              <dl className="tm-card-meta">
+                <dt>Experience</dt>
+                <dd>{m.experience || '—'}</dd>
+              </dl>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
