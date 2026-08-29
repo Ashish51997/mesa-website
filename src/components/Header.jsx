@@ -1,17 +1,20 @@
 import React from 'react';
-import { Home, Users, Cpu, Mail, BookOpen, Sun, Moon } from 'lucide-react';
+import { Home, Users, Mail, BriefcaseBusiness, Hammer, Sun, Moon } from 'lucide-react';
 import { NavBar } from './ui/tubelight-navbar';
 import { motion } from 'framer-motion';
 import LogoSvg from '../assets/logo.tsx';
 
-export default function Header({ theme, toggleTheme }) {
+export default function Header({ currentRoute, theme, toggleTheme }) {
   const navItems = [
     { name: 'Home', url: '#/', icon: Home },
-    { name: 'How We Work', url: '#/how-we-work', icon: BookOpen },
-    { name: 'What We Build', url: '#/what-we-build', icon: Cpu },
+    { name: 'How We Work', url: '#/how-we-work', icon: BriefcaseBusiness },
+    { name: 'What We Build', url: '#/what-we-build', icon: Hammer },
     { name: 'About', url: '#/about', icon: Users },
     { name: 'Contact', url: '#/contact', icon: Mail }
   ];
+
+  // Legal pages drop the site nav and carry their own back link instead.
+  const showNav = !['privacy', 'terms'].includes(currentRoute);
 
   return (
     <>
@@ -19,7 +22,7 @@ export default function Header({ theme, toggleTheme }) {
           navbar. Top band covers the header on every screen; bottom band shows
           only on mobile/tablet, where the nav floats at the bottom. */}
       <div className="nav-blur nav-blur--top" aria-hidden="true" />
-      <div className="nav-blur nav-blur--bottom" aria-hidden="true" />
+      {showNav && <div className="nav-blur nav-blur--bottom" aria-hidden="true" />}
 
       <header className="site-header">
       <div className="grid grid-cols-[1fr_auto_1fr] w-full h-full" style={{ paddingTop: "24px" }}>
@@ -43,10 +46,16 @@ export default function Header({ theme, toggleTheme }) {
         </a>
 
         {/* Center on desktop, floating bottom bar on mobile/tablet */}
-        <NavBar
-          items={navItems}
-          className="header-nav"
-        />
+        {/* Legal pages drop the site nav and carry their own back link, so the
+            grid keeps an empty middle column to hold the layout. */}
+        {showNav ? (
+          <NavBar
+            items={navItems}
+            className="header-nav"
+          />
+        ) : (
+          <div />
+        )}
 
         {/* Right: Theme action button */}
         <div className="header-actions" style={{ justifySelf: 'end', flexShrink: 0 }}>

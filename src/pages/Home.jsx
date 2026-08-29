@@ -17,11 +17,17 @@ const HOW_STEPS = [
     body: 'We start in your plant, not a conference room, and map how work actually flows.',
     art: (
       <>
-        <path d="M22 72V46l13-8v8l13-8v8l13-8v34z" className="tint" />
-        <rect x="74" y="30" width="24" height="42" rx="2" className="tint" />
-        <rect x="30" y="56" width="9" height="9" rx="1" />
-        <rect x="44" y="56" width="9" height="9" rx="1" />
-        <rect x="81" y="42" width="10" height="9" rx="1" />
+        {/* Chimney first, so the roof drawn over it hides where it lands. */}
+        <path d="M90 42 92 10h10l2 24" />
+        <path d="M91.5 17h11" />
+        {/* Sawtooth shed roof and walls */}
+        <path d="M34 72V46l24-13v13l24-13v13l24-13v39z" className="tint" />
+        <rect x="41" y="50" width="16" height="8" rx="1" />
+        <rect x="63" y="50" width="16" height="8" rx="1" />
+        <rect x="85" y="50" width="16" height="8" rx="1" />
+        {/* Doorway, two leaves */}
+        <path d="M63 72V61h20v11" />
+        <path d="M73 61v11" />
         <path d="M14 80h112" className="dotted" />
       </>
     ),

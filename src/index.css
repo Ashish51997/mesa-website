@@ -81,13 +81,34 @@
     box-sizing: border-box
 }
 
-html {
-    scroll-behavior: smooth
+/* Deliberately NOT scroll-behavior: smooth. As a global it silently turns every
+   programmatic scroll into a long animation — including the reset to the top on
+   a route change, which meant watching the page you just opened scroll past you
+   before it settled. The two buttons that really do scroll the page ("See the
+   five stages", "See what we build") pass behavior: 'smooth' themselves, so
+   they are unaffected. */
+
+/* Route changes swap the page instantly, so it fades in rather than cutting.
+   Each page's root carries .page-content, and a route change mounts a new node,
+   which re-runs the animation. Opacity only — a transform here would become the
+   containing block for anything fixed inside a page. */
+.page-content {
+    animation: page-in .3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 @media (prefers-reduced-motion:reduce) {
-    html {
-        scroll-behavior: auto
+    .page-content {
+        animation: none
     }
 }
 
@@ -879,9 +900,19 @@ em.grad {
     gap: 20px
 }
 
+/* On phones the hero CTA runs the full column instead of hugging its label —
+   .wrap's 24px padding supplies the side margins. */
+@media (max-width: 760px) {
+    .hero-ctas .btn {
+        width: 100%;
+    }
+}
+
 @media (max-width:960px) {
     .hero {
-        padding: 80px 0;
+        /* 108 = the 80px header row plus the 28px of air the layout was drawn
+           with. Same reason on .build-hero and .contact-section below. */
+        padding: 108px 0 80px;
         min-height: auto;
         display: block
     }
@@ -2466,6 +2497,32 @@ address {
     z-index: 100000;
 }
 
+/* Sits over the lockup baked into the loading plate; positioned from JS. */
+.preloader-plate-loader {
+    position: absolute;
+}
+
+/* The narrow-viewport lockup replaces the baked one — see the media query at
+   the bottom of the preloader block. */
+.preloader-mobile-loader {
+    display: none;
+    position: relative;
+    width: min(82vw, 340px);
+    gap: 6px;
+}
+
+.preloader-mobile-lockup {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* The artwork inside the stacked lockup is inset from the SVG box by its drop
+   shadow, so the bar is narrowed to match the wordmark rather than the box. */
+.preloader-mobile-loader .preloader-bar-container {
+    width: 85.4%;
+}
+
 .preloader-bar-container {
     position: relative;
     width: 100%;
@@ -2567,11 +2624,17 @@ address {
 
 @media (max-width: 1023px) {
 
-    /* header row: logo left, theme right (nav is floating, out of flow) */
+    /* header row: logo left, theme right (nav is floating, out of flow).
+       .site-header is height:0 and this row is h-full, so its content box is
+       zero tall — align-items:center then centred the logo and theme button on
+       the padding edge, hanging half of each above the top of the screen. The
+       explicit height (24px gap + 56px row, border-box) gives the centring a
+       real box, so both sit 24px down. The 108px top blur band still covers it. */
     .site-header>div {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        height: 80px;
     }
 
     /* keep the last footer content clear of the floating nav */
@@ -2876,6 +2939,37 @@ address {
     border-color: var(--accent);
     color: var(--accent);
     text-decoration: none;
+}
+
+/* On phones the how-hero pair runs the full width of the tablet screen so their
+   edges line up with the headline above, and they adopt the site's standard
+   .btn / .btn-outline sizing and fill so every CTA reads the same on mobile.
+   These two classes are only used in this hero, so scoping to .hero-actions is
+   enough to keep the desktop treatment untouched. */
+@media (max-width: 760px) {
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost {
+        width: 100%;
+        justify-content: center;
+        min-height: 52px;
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-family: var(--font-head);
+        font-size: 16px;
+    }
+
+    .hero-actions .btn-primary {
+        background: var(--grad);
+        box-shadow: 0 0 22px var(--glow), inset 0 1px 0 rgba(255, 255, 255, .22);
+        /* .btn-primary ships border:none and .btn-ghost a 1px border, which
+           would leave the stacked pair 2px apart in height. */
+        border: 1px solid transparent;
+    }
+
+    .hero-actions .btn-ghost {
+        box-shadow: none;
+    }
 }
 
 /* Eyebrow animation dot */
@@ -3479,6 +3573,31 @@ body.no-scroll {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* The baked lockup spans the middle 53% of the plate, so how much of it
+   survives depends on the viewport's aspect ratio, not its width: cover crops
+   the plate horizontally once the viewport is taller than 1440x1024. Below
+   ~9:10 the lockup no longer fits, so show only the clean band to its left
+   (332px of the 1440px plate) and draw the lockup as vector on top. */
+@media (max-aspect-ratio: 9 / 10) {
+    .preloader-plate-loader {
+        display: none;
+    }
+
+    .preloader-mobile-loader {
+        display: flex;
+    }
+
+    .preloader-image {
+        inset: auto;
+        top: 50%;
+        left: 0;
+        width: 433.7%;
+        max-width: none;
+        height: auto;
+        transform: translateY(-50%);
+    }
 }
 
 /* ==========================================================================
@@ -4119,7 +4238,7 @@ body.no-scroll {
 
 
     .build-hero {
-        padding: 80px 0 68px;
+        padding: 108px 0 68px;
     }
 
     .build-systems {
@@ -4657,7 +4776,7 @@ body.no-scroll {
 
 @media (max-width: 980px) {
     .contact-section {
-        padding: 104px 0 72px;
+        padding: 132px 0 72px;
     }
 
     .contact-grid {
@@ -6209,4 +6328,288 @@ body.no-scroll {
         padding: 0 0 56px;
     }
 
+}
+/* ==========================================================================
+   LEGAL PAGES (Privacy Policy)
+   ========================================================================== */
+
+/* Legal text wants a shorter measure than the 1140px content grid. This narrows
+   .wrap rather than replacing it, so the page keeps the same side padding as
+   every other page and stays aligned with the header and footer. */
+.legal-wrap {
+    max-width: 880px;
+}
+
+.legal-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 180px 0 56px;
+}
+
+.legal-hero-glow {
+    position: absolute;
+    top: -320px;
+    right: -160px;
+    width: 720px;
+    height: 720px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--build-glow-a) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.legal-hero .wrap {
+    position: relative;
+}
+
+/* Replaces the eyebrow chip on legal pages — the site nav is hidden here, so
+   this is the way back out. */
+.legal-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    padding: 9px 18px 9px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-body);
+    text-decoration: none;
+    transition: color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.legal-back svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    transition: transform .18s ease;
+}
+
+.legal-back:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    text-decoration: none;
+}
+
+.legal-back:hover svg {
+    transform: translateX(-2px);
+}
+
+.legal-meta {
+    margin-top: 26px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.legal-meta strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* A value the business still has to supply — see the TODO block in Privacy.jsx.
+   Styled to read as unfinished so it can't quietly ship. */
+.legal-fill {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: .85em;
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: var(--accent);
+    background: var(--glow-soft);
+    border: 1px dashed var(--accent);
+    border-radius: 6px;
+    padding: 1px 8px;
+}
+
+.legal-section {
+    padding: 0 0 var(--pad-mob);
+}
+
+/* ---- The short version ---- */
+.legal-summary {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    margin-bottom: 24px;
+}
+
+.legal-summary h2 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}
+
+.legal-summary ul {
+    list-style: none;
+}
+
+.legal-summary li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--ink-body);
+}
+
+.legal-summary li:last-child {
+    margin-bottom: 0;
+}
+
+.legal-summary li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: .45em;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+}
+
+/* ---- Numbered sections ---- */
+.legal-block {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.legal-block:last-of-type {
+    border-bottom: none;
+}
+
+.legal-block h2 {
+    display: flex;
+    gap: 14px;
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+}
+
+.legal-num {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+}
+
+.legal-block p {
+    color: var(--ink-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.legal-block p:last-child {
+    margin-bottom: 0;
+}
+
+.legal-block strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* Cross-links between the legal pages (Terms 06 -> Privacy). */
+.legal-block a:not(.btn) {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.legal-block a:not(.btn):hover {
+    text-decoration: none;
+    border-bottom-color: var(--accent);
+}
+
+.legal-list {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.legal-list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 12px;
+    color: var(--ink-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+}
+
+.legal-list li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: .62em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--glow-soft);
+    border: 2px solid var(--accent);
+}
+
+/* ---- Rights cards ---- */
+.legal-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 18px 0 20px;
+}
+
+.legal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+}
+
+.legal-card h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.legal-card p {
+    font-size: 14.5px;
+    margin-bottom: 0;
+}
+
+/* ---- Closing contact card ---- */
+.legal-cta {
+    background: var(--glow-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    margin-top: 44px;
+    text-align: center;
+}
+
+.legal-cta h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.legal-cta p {
+    color: var(--ink-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 760px) {
+    .legal-hero {
+        padding: 132px 0 40px;
+    }
+
+    .legal-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .legal-cta {
+        padding: 32px 22px;
+    }
+
+    /* Matches the hero CTAs elsewhere on mobile — full column, .wrap supplies
+       the side margins. */
+    .legal-cta .btn {
+        width: 100%;
+    }
 }

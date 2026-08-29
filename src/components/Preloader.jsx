@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import loadingImage from '../assets/loading.png';
+import stackedLockup from '../assets/loading-lockup-stacked.svg';
+
+// The lockup is baked into loading.png (1440x1024). These are its bounds inside
+// the plate, as fractions of the rendered image — used to sit the progress bar
+// directly under it on wide viewports.
+const PLATE_ASPECT = 1440 / 1024;
+const LOCKUP_LEFT = 0.2326;
+const LOCKUP_WIDTH = 0.5347;
+const LOCKUP_BOTTOM = 0.601;
 
 // Hook to calculate the rendered dimensions of the background image (object-fit: cover)
 function useImageDimensions() {
@@ -10,21 +19,20 @@ function useImageDimensions() {
     const calculate = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const imageAspect = 4862 / 2721;
       const viewportAspect = vw / vh;
 
       let width, height, left, top;
 
-      if (viewportAspect > imageAspect) {
+      if (viewportAspect > PLATE_ASPECT) {
         // Viewport is wider than image aspect ratio: image fills width, height scales up
         width = vw;
-        height = vw / imageAspect;
+        height = vw / PLATE_ASPECT;
         left = 0;
         top = (vh - height) / 2;
       } else {
         // Viewport is taller than image aspect ratio: image fills height, width scales up
         height = vh;
-        width = vh * imageAspect;
+        width = vh * PLATE_ASPECT;
         left = (vw - width) / 2;
         top = 0;
       }
@@ -40,41 +48,51 @@ function useImageDimensions() {
   return dimensions;
 }
 
+function ProgressBar({ progress }) {
+  return (
+    <>
+      <div className="preloader-bar-container">
+        <div
+          className="preloader-bar-fill"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <span className="preloader-loader-text">Loading {Math.round(progress)}%</span>
+    </>
+  );
+}
+
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const imgDim = useImageDimensions();
 
   useEffect(() => {
-    // Animate progress bar from 0 to 100
-    const duration = 2000; // 2 seconds loading duration
-    const intervalTime = 30;
-    const steps = duration / intervalTime;
-    const increment = 100 / steps;
+    // Animate progress bar from 0 to 100. Driven by elapsed time rather than a
+    // tick count so a busy main thread can't stretch the intro past 2s.
+    const duration = 2000;
+    const start = performance.now();
 
     const timer = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + increment;
-        if (next >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            setIsVisible(false);
-          }, 300);
-          return 100;
-        }
-        return next;
-      });
-    }, intervalTime);
+      const elapsed = performance.now() - start;
+      const next = Math.min(100, (elapsed / duration) * 100);
+      setProgress(next);
+      if (next >= 100) {
+        clearInterval(timer);
+        setTimeout(() => {
+          setIsVisible(false);
+        }, 300);
+      }
+    }, 30);
 
     return () => clearInterval(timer);
   }, []);
 
-  // Compute precise positions matching the logo and text in Loading.png
-  const containerStyle = {
-    position: 'absolute',
-    left: `${imgDim.left + imgDim.width * 0.2678}px`,
-    top: `${imgDim.top + imgDim.height * 0.640}px`,
-    width: `${imgDim.width * 0.433}px`,
+  // Compute precise positions matching the logo and text baked into loading.png
+  const plateStyle = {
+    left: `${imgDim.left + imgDim.width * LOCKUP_LEFT}px`,
+    top: `${imgDim.top + imgDim.height * LOCKUP_BOTTOM}px`,
+    width: `${imgDim.width * LOCKUP_WIDTH}px`,
   };
 
   return (
@@ -91,16 +109,19 @@ export default function Preloader({ onComplete }) {
             alt="Loading"
             className="preloader-image"
           />
-          
-          {/* Progress bar container and status text aligned exactly below the My Desk logo */}
-          <div className="preloader-loader-container" style={containerStyle}>
-            <div className="preloader-bar-container">
-              <div
-                className="preloader-bar-fill"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <span className="preloader-loader-text">Loading {Math.round(progress)}%</span>
+
+          {/* Wide viewports: the lockup comes from the plate, so the bar only
+              has to line up underneath it. */}
+          <div className="preloader-loader-container preloader-plate-loader" style={plateStyle}>
+            <ProgressBar progress={progress} />
+          </div>
+
+          {/* Narrow viewports: the plate is cropped to the clean band left of
+              the baked lockup, and the lockup is drawn as vector instead — it
+              stays sharp and is laid out in flow so it can't run off-screen. */}
+          <div className="preloader-loader-container preloader-mobile-loader">
+            <img src={stackedLockup} alt="MesaOrigins" className="preloader-mobile-lockup" />
+            <ProgressBar progress={progress} />
           </div>
         </motion.div>
       )}

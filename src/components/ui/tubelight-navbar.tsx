@@ -36,9 +36,9 @@ export function NavBar({ items, className }: NavBarProps) {
         const path = item.url.replace(/^#/, '');
         return path === hash || (path === '/' && hash === '') || (path === '' && hash === '') || (path === '/' && hash === '/');
       });
-      if (matchedItem) {
-        setActiveTab(matchedItem.name);
-      }
+      // Routes that aren't in the bar (Privacy, Terms) leave no tab lit, rather
+      // than stranding the lamp on whichever tab was last active.
+      setActiveTab(matchedItem ? matchedItem.name : "");
     };
     syncActiveTab();
     window.addEventListener("hashchange", syncActiveTab);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -7,6 +7,8 @@ import How from './pages/How';
 import Build from './pages/Build';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 import Preloader from './components/Preloader';
 
 
@@ -18,6 +20,8 @@ const routes = {
   '/what-we-build': 'build',
   '/about': 'about',
   '/contact': 'contact',
+  '/privacy': 'privacy',
+  '/terms': 'terms',
 };
 
 function getRouteFromHash() {
@@ -41,10 +45,18 @@ function App() {
   }, [isPreloading]);
 
   // Handle Hash Routing
+  const routeRef = useRef(route);
   useEffect(() => {
     const handleHashChange = () => {
-      setRoute(getRouteFromHash());
-      window.scrollTo(0, 0);
+      const next = getRouteFromHash();
+      // Only reset the scroll position when the page actually changes. Clicking
+      // the tab you are already on, or a link to the same route, shouldn't move
+      // you. The jump is explicitly instant: animating it means watching the
+      // new page scroll past you before it settles.
+      if (routeRef.current === next) return;
+      routeRef.current = next;
+      setRoute(next);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -110,6 +122,10 @@ function App() {
         return <About />;
       case 'contact':
         return <Contact />;
+      case 'privacy':
+        return <Privacy />;
+      case 'terms':
+        return <Terms />;
       default:
         return <Home />;
     }
