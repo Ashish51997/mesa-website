@@ -5,18 +5,17 @@ import { ADDRESS } from '../lib/site';
 /*
   TODO(LEGAL): have counsel review before this page goes live.
 
-  Everything the site itself can verify is filled in below — the legal entity and
-  city come from the footer, the hosting provider from vercel.json, and the
-  "no cookies, no analytics, Google Fonts only" claims in sections 03, 05 and 06
-  were checked against the source (no localStorage, no tracking scripts, no
-  third-party hosts other than fonts.googleapis.com / fonts.gstatic.com).
-  Re-check those three sections if analytics or a cookie banner is ever added.
-
-  Every value is now filled in — nothing renders as a placeholder. The address,
+  Every value is filled in — nothing renders as a placeholder. The address,
   retention period and grievance inbox were supplied by the business and live in
-  the constants below, nowhere else. Section 06 names Cloudflare (confirmed from
-  the domain's MX records) and Google, which hosts the mailbox Cloudflare
-  forwards to.
+  the constants below, nowhere else.
+
+  The rest was checked against the source rather than assumed. The entity comes
+  from the footer and the host from vercel.json; section 06 names Cloudflare
+  (confirmed from the domain's MX records) and Google, which hosts the mailbox
+  Cloudflare forwards to. The "no cookies, no analytics, Google Fonts only"
+  claims in sections 03, 05 and 06 hold because there is no localStorage, no
+  tracking script and no third-party host beyond fonts.googleapis.com /
+  fonts.gstatic.com — re-check all three if analytics or a banner is ever added.
 */
 
 const ENTITY = 'MesaOrigins Private Limited';

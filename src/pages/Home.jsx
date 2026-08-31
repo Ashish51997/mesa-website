@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import salesConsole from '../assets/mesaops-sales-console.png';
+import salesConsole from '../assets/sales-console.png';
 import heroProvided from '../assets/hero_provided.png';
 import ProblemSection from '../components/ProblemSection';
 import CapabilityExplorer from '../components/CapabilityExplorer';
@@ -88,6 +88,45 @@ const HOW_STEPS = [
   },
 ];
 
+/* Two marks, nine bullets: the icon follows from whether the card is ours. */
+const CROSS = 'M6 6l12 12M18 6L6 18';
+const TICK = 'M5 12.5l4.5 4.5L19 7.5';
+
+/* Order is left-to-right; the featured card carries the tick and the link. */
+const CONTRAST_CARDS = [
+  {
+    label: 'Choice 1',
+    title: 'Ready-made ERP',
+    tagline: 'You must change how your plant works to match the software.',
+    points: [
+      '6 months of setup — and your people must change how they work',
+      'Screens and steps your plant never asked for',
+      'Rigid system — operators go back to paper to avoid it',
+    ],
+  },
+  {
+    featured: true,
+    label: 'Our way',
+    title: 'MesaOrigins',
+    tagline: 'Software built for your plant, by people who know manufacturing.',
+    points: [
+      'We already know how plants run — planning, quality, stock, dispatch',
+      'Built for your process, so it works from day one',
+      'No six-month training. Your team starts using it in weeks.',
+    ],
+  },
+  {
+    label: 'Choice 2',
+    title: 'Any software company',
+    tagline: 'They know coding. They don\'t know manufacturing.',
+    points: [
+      'You have to teach them how a plant works',
+      "They don't know what a QC check or a GRN is",
+      'They build what you say — not what an auditor will ask for',
+    ],
+  },
+];
+
 export default function Home() {
   return (
     <div className="page-content" id="page-home">
@@ -106,8 +145,8 @@ export default function Home() {
               <a className="btn" href="#/contact">Book Consultation</a>
             </div>
           </div>
-          <div className="reveal" aria-label="MesaOps operations dashboard preview">
-            <img src={heroProvided} alt="MesaOps Operations Dashboard" className="hero-image" />
+          <div className="reveal" aria-label="MesaOrigins operations dashboard preview">
+            <img src={heroProvided} alt="MesaOrigins operations dashboard" className="hero-image" />
           </div>
         </div>
       </section>
@@ -159,12 +198,9 @@ export default function Home() {
           </div>
           <div className="annotated reveal">
             <figure className="product-shot">
-              {/* TODO(NAMING): capture shows "MesaOrigins" branding; public product name is "MesaOps".
-                  Awaiting either a re-exported capture or a decision to adopt the company name on
-                  product surfaces. Do not crop/edit the image to hide it. */}
               <img
                 src={salesConsole}
-                alt="MesaOps Sales and Inquiry Console showing live inquiries, quotations and order status"
+                alt="MesaOrigins sales and inquiry console showing live inquiries, quotations and order status"
                 width="1434"
                 height="1097"
                 loading="lazy"
@@ -185,87 +221,37 @@ export default function Home() {
             </p>
           </div>
           <div className="contrast">
-            <div className="card contrast-card reveal">
-              <span className="label">Choice 1</span>
-              <h3>Ready-made ERP</h3>
-              <p className="contrast-tagline">You must change how your plant works to match the software.</p>
-              <ul className="contrast-list">
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  6 months of setup — and your people must change how they work
-                </li>
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  Screens and steps your plant never asked for
-                </li>
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  Rigid system — operators go back to paper to avoid it
-                </li>
-              </ul>
-            </div>
-
-            <div className="card contrast-card is-featured reveal">
-              <span className="label">Our way</span>
-              <h3>MesaOrigins</h3>
-              <p className="contrast-tagline">Software built for your plant, by people who know manufacturing.</p>
-              <ul className="contrast-list">
-                <li>
-                  <span className="mark mark-yes" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-                  </span>
-                  We already know how plants run — planning, quality, stock, dispatch
-                </li>
-                <li>
-                  <span className="mark mark-yes" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-                  </span>
-                  Built for your process, so it works from day one
-                </li>
-                <li>
-                  <span className="mark mark-yes" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-                  </span>
-                  No six-month training. Your team starts using it in weeks.
-                </li>
-              </ul>
-              <a className="contrast-link" href="#/how-we-work">
-                See how we work
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </a>
-            </div>
-
-            <div className="card contrast-card reveal">
-              <span className="label">Choice 2</span>
-              <h3>Any software company</h3>
-              <p className="contrast-tagline">They know coding. They don't know manufacturing.</p>
-              <ul className="contrast-list">
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  You have to teach them how a plant works
-                </li>
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  They don't know what a QC check or a GRN is
-                </li>
-                <li>
-                  <span className="mark mark-no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </span>
-                  They build what you say — not what an auditor will ask for
-                </li>
-              </ul>
-            </div>
+            {CONTRAST_CARDS.map((card) => (
+              <div
+                className={`card contrast-card${card.featured ? ' is-featured' : ''} reveal`}
+                key={card.title}
+              >
+                <span className="label">{card.label}</span>
+                <h3>{card.title}</h3>
+                <p className="contrast-tagline">{card.tagline}</p>
+                <ul className="contrast-list">
+                  {card.points.map((point) => (
+                    <li key={point}>
+                      <span
+                        className={`mark mark-${card.featured ? 'yes' : 'no'}`}
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24">
+                          {card.featured ? <path d={TICK} /> : <path d={CROSS} />}
+                        </svg>
+                      </span>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                {card.featured && (
+                  <a className="contrast-link" href="#/how-we-work">
+                    See how we work
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
           <p className="contrast-close">
             That's why we sit in the middle: manufacturing knowledge + custom software.

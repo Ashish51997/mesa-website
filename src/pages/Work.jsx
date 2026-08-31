@@ -61,7 +61,7 @@ export default function Work() {
             <div className="browser">
               <div className="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
               <div className="browser-body">
-                <img src={moduleScreenshots} alt="MesaOps software modules screenshots" className="asset-img" />
+                <img src={moduleScreenshots} alt="MesaOrigins software modules screenshots" className="asset-img" />
               </div>
             </div>
           </div>

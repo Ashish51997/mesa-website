@@ -75,8 +75,12 @@ const CONNECTOR_LENGTH = 1080;
    section would render as four empty cards.
    This probes for a real animation frame before we hide anything; if it never
    arrives, the section renders in its final state instead of blank.
-   NOTE: How.jsx carries the same guard for its stage rail. Worth extracting to
-   a shared hook next time either one is touched. */
+   NOTE: lib/useAnimationReady.js is the shared version of this probe and Build
+   uses it, but it also returns false under prefers-reduced-motion. This section
+   wants the opposite: it keeps the whileInView path and swaps in a plain 0.3s
+   opacity fade (REDUCED_FADE), so reduced-motion readers still get the reveal
+   without any movement. How.jsx carries a third variant because its rail needs
+   a markAllActive() fallback. Don't merge them without settling that. */
 function useAnimationReady() {
   const [ready, setReady] = useState(false);
 

@@ -149,7 +149,7 @@ const STAGES = [
     num: '03',
     kicker: 'Stage three · Working software in weeks',
     title: 'Configure the first module',
-    body: 'We start from the proven MesaOps platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.',
+    body: 'We start from our proven platform and configure your highest-pain module first. Working software in weeks — not a blank canvas.',
     icon: (
       <>
         <path d="M21 8l-9-5-9 5 9 5 9-5z" />
@@ -477,7 +477,7 @@ export default function How() {
             <div className="faq-split-list">
               <FaqItem
                 question="How long until something is live?"
-                answer="Weeks, not months. We start from the proven MesaOps platform and configure your highest-pain module first — so your team is running real work on it early, not waiting for a big-bang launch. The exact timeline is written into your Blueprint before we begin, so you know the date before you commit."
+                answer="Weeks, not months. We start from our proven platform and configure your highest-pain module first — so your team is running real work on it early, not waiting for a big-bang launch. The exact timeline is written into your Blueprint before we begin, so you know the date before you commit."
                 defaultOpen={true}
               />
               <FaqItem
