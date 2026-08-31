@@ -111,7 +111,7 @@ export default function FinalCta({ heading, lede, className = '' }) {
               loop
               muted
               playsInline
-              /* 16MB: don't pull it on page load, only once the panel is
+              /* ~7MB: don't pull it on page load, only once the panel is
                  actually scrolled into view (the observer above plays it,
                  which starts the fetch). */
               preload="metadata"

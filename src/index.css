@@ -1003,6 +1003,23 @@ em.grad {
     flex-direction: column;
 }
 
+/* The lead-in belongs to the card row, so the section head above it tightens
+   from the default 52px and the cue carries the remaining gap down to the
+   cards. */
+.problem-section .section-head {
+    margin-bottom: 42px;
+}
+
+.problem-cue {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    /* Deliberately lopsided: more air above than below, so the line groups with
+       the cards it introduces rather than floating between them and the head. */
+    margin-bottom: 14px;
+}
+
 /* Positioning context for the (flag-gated) connector. */
 .problem-grid-wrap {
     position: relative;
@@ -1394,6 +1411,15 @@ em.grad.problem-wipe {
     .contrast {
         grid-template-columns: 1fr
     }
+}
+
+/* Closing line under the card row. .contrast already carries the 36px gap
+   beneath itself, so this adds no spacing of its own. */
+.contrast-close {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
 }
 
 .resolution {

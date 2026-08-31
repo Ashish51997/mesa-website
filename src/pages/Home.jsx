@@ -179,57 +179,60 @@ export default function Home() {
       <section className="section alt">
         <div className="wrap">
           <div className="section-head reveal">
-            <h2>Software shaped to your process — <em className="grad">not your process contorted to software.</em></h2>
+            <h2>Software that fits your plant — <em className="grad">not a plant that adjusts to software.</em></h2>
+            <p className="lede">
+              When plants decide to go digital, they usually get two choices. Both have a problem.
+            </p>
           </div>
           <div className="contrast">
             <div className="card contrast-card reveal">
-              <span className="label">Option one</span>
-              <h3>Packaged ERP</h3>
-              <p className="contrast-tagline">Your plant adapts to the software.</p>
+              <span className="label">Choice 1</span>
+              <h3>Ready-made ERP</h3>
+              <p className="contrast-tagline">You must change how your plant works to match the software.</p>
               <ul className="contrast-list">
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  Six months of "implementation" = six months of changing how your people work
+                  6 months of setup — and your people must change how they work
                 </li>
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  Consultants configuring screens nobody asked for
+                  Screens and steps your plant never asked for
                 </li>
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  Rigid workflows your operators route around on paper
+                  Rigid system — operators go back to paper to avoid it
                 </li>
               </ul>
             </div>
 
             <div className="card contrast-card is-featured reveal">
-              <span className="label">The middle — deliberately</span>
+              <span className="label">Our way</span>
               <h3>MesaOrigins</h3>
-              <p className="contrast-tagline">The software adapts to your plant.</p>
+              <p className="contrast-tagline">Software built for your plant, by people who know manufacturing.</p>
               <ul className="contrast-list">
                 <li>
                   <span className="mark mark-yes" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                   </span>
-                  We already know how mid-size plants run — planning, quality, traceability, dispatch
+                  We already know how plants run — planning, quality, stock, dispatch
                 </li>
                 <li>
                   <span className="mark mark-yes" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                   </span>
-                  Built custom, so it fits your workflow on day one
+                  Built for your process, so it works from day one
                 </li>
                 <li>
                   <span className="mark mark-yes" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                   </span>
-                  No retraining ritual, no domain tuition on your invoice
+                  No six-month training. Your team starts using it in weeks.
                 </li>
               </ul>
               <a className="contrast-link" href="#/how-we-work">
@@ -239,31 +242,34 @@ export default function Home() {
             </div>
 
             <div className="card contrast-card reveal">
-              <span className="label">Option two</span>
-              <h3>Generic dev shop</h3>
-              <p className="contrast-tagline">Learning manufacturing on your invoice.</p>
+              <span className="label">Choice 2</span>
+              <h3>Any software company</h3>
+              <p className="contrast-tagline">They know coding. They don't know manufacturing.</p>
               <ul className="contrast-list">
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  Builds whatever you specify — you become the domain expert
+                  You have to teach them how a plant works
                 </li>
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  Doesn't know what a CAPA is or why a GRN matters
+                  They don't know what a QC check or a GRN is
                 </li>
                 <li>
                   <span className="mark mark-no" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
                   </span>
-                  No idea what an auditor will ask for
+                  They build what you say — not what an auditor will ask for
                 </li>
               </ul>
             </div>
           </div>
+          <p className="contrast-close">
+            That's why we sit in the middle: manufacturing knowledge + custom software.
+          </p>
         </div>
       </section>
 

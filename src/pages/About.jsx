@@ -125,7 +125,7 @@ export default function About() {
               Engineers who <span className="ab3-blue">like factories.</span>
             </h1>
             <p className="ab3-lede">
-              MesaOrigins didn&rsquo;t start with a pitch deck. It started in 2024 on the floor of an
+              MesaOrigins didn&rsquo;t start with a pitch deck. It started on the floor of an
               extrusion plant, tracing how work actually moved &mdash; register to register, shift to
               shift. Everywhere we looked, the story was the same:{' '}
               <em>good plants running on paper and WhatsApp</em>, because their software was built
@@ -166,9 +166,8 @@ export default function About() {
               The people who&rsquo;ll <em className="grad">walk your floor</em>
             </h2>
             <p className="ab3-team-intro">
-              A small, senior team &mdash; no hand-offs to juniors you&rsquo;ve never met. The people
-              who map your workflows are the same people who build your system and pick up the
-              phone when something breaks.
+              The people who map your workflows are the same people who build your system and pick
+              up the phone when something breaks.
             </p>
           </div>
           <div className="reveal">

@@ -21,7 +21,7 @@ const REDUCED_FADE = 0.3;
 const PROBLEM_CARDS = [
   {
     quote: '"What\'s our actual stock?"',
-    body: "A register, a spreadsheet, and the storekeeper's memory — three answers that never match until audit day.",
+    body: "The register shows one number. Excel shows another. The storekeeper remembers a third. The real number comes out only on audit day.",
     icon: (
       <>
         <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z" />
@@ -31,7 +31,7 @@ const PROBLEM_CARDS = [
   },
   {
     quote: '"Check the WhatsApp group."',
-    body: 'Production status travels as photos and voice notes — two days old before anyone can act on it.',
+    body: 'Production updates come as photos and voice notes. By the time someone reads them, they are already two days old.',
     icon: (
       <>
         <path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z" />
@@ -41,7 +41,7 @@ const PROBLEM_CARDS = [
   },
   {
     quote: '"The QC file is with Ramesh."',
-    body: 'Quality lives on paper. Tracing one complaint back to its batch, machine and shift takes days.',
+    body: 'Quality records are on paper, in one file. Tracing one complaint back to its batch and machine takes days.',
     icon: (
       <>
         <path d="M9 4h6v3H9zM7 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1" />
@@ -51,7 +51,7 @@ const PROBLEM_CARDS = [
   },
   {
     quote: '"We\'ll confirm delivery by tomorrow."',
-    body: "Sales can't see production. Production can't see material. So nobody can actually promise a date.",
+    body: "Sales cannot see production. Production cannot see stock. So nobody can give the customer a firm date.",
     icon: (
       <>
         <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -171,13 +171,16 @@ export default function ProblemSection() {
           <h2>
             The business grew.{' '}
             <motion.em className="grad problem-wipe" variants={wipeVariants}>
-              The spreadsheets didn't.
+              The Excel sheets didn't.
             </motion.em>
           </h2>
           <p className="lede">
-            The orders are there. The machines are running. But the truth about your plant lives in a dozen disconnected places.
+            Orders are coming. Machines are running. But the plant's information is spread across registers, Excel and WhatsApp.
           </p>
         </div>
+
+        {/* Lead-in to the card row — sits with the cards, not the section head. */}
+        <p className="problem-cue">You hear these every day when there is no system:</p>
 
         <div className="problem-grid-wrap">
           {SHOW_BROKEN_CONNECTOR && (
