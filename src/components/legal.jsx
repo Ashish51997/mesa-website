@@ -6,10 +6,6 @@ import React from 'react';
   into each one and drifting apart.
 */
 
-/* A value only the business can supply. Deliberately loud, so an unanswered
-   question can't quietly ship — see the TODO block in each legal page. */
-export const Fill = ({ children }) => <span className="legal-fill">{children}</span>;
-
 /* Return the reader wherever they came from. The href is the fallback for a
    direct visit or a shared link, where there is nothing to go back to. */
 function goBack(e) {

@@ -60,13 +60,16 @@ const TEAM = [
 export default function TeamSelector() {
   return (
     <>
+      {/* Intrinsic size matches the asset so the browser reserves the right box
+          before it loads. It sits well below the fold, hence lazy. */}
       <img
         className="tm-group-img"
         src={groupPhoto}
         alt="The MesaOrigins team"
-        width="1600"
-        height="1066"
+        width="2400"
+        height="1588"
         decoding="async"
+        loading="lazy"
       />
 
       {/* Who's who, rather than hover targets over the faces. */}

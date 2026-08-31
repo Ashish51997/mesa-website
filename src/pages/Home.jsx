@@ -100,8 +100,8 @@ export default function Home() {
         </div>
         <div className="wrap">
           <div className="hero-copy reveal">
-            <h1>Your factory runs. <em className="grad">Your&nbsp;systems don't.</em></h1>
-            <p className="sub">Production updates on WhatsApp. Quality records in registers. Inventory that's only accurate on audit day. We build software around how your plant actually works — one connected system from inquiry to dispatch.</p>
+            <h1>Good plants run. <em className="grad">Great&nbsp;plants improve every day.</em></h1>
+            <p className="sub">We connect your production, quality, inventory and dispatch records into one system — so you cut wastage, fix internal issues faster, and keep every delivery on your customer's calendar.</p>
             <div className="hero-ctas">
               <a className="btn" href="#/contact">Book Consultation</a>
             </div>

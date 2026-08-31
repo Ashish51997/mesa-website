@@ -1,4 +1,5 @@
 import React from 'react';
+import { ADDRESS } from '../lib/site';
 import brandDisplayRowFooter from '../assets/brand-display-row-footer.svg';
 import logoRowFooter from '../assets/logo-row-footer.svg';
 
@@ -40,8 +41,10 @@ export default function Footer() {
               <ul>
                 <li><a href="tel:+918338081502">+91 83380 81502</a></li>
                 <li><a href="mailto:sales@mesaorigins.com">sales@mesaorigins.com</a></li>
+                {/* Flowing rather than line-broken: this column is ~160px wide, so
+                    forced breaks would just re-wrap at an arbitrary point. */}
                 <li style={{ color: 'var(--muted)', fontSize: '13px', lineHeight: '1.5' }}>
-                  Chennai, Tamil Nadu,<br />India
+                  {ADDRESS}, India
                 </li>
               </ul>
             </div>

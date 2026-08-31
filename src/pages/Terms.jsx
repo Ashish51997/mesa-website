@@ -1,24 +1,26 @@
 import React from 'react';
-import { Fill, BackLink, LegalSections } from '../components/legal';
+import { BackLink, LegalSections } from '../components/legal';
+import { ADDRESS } from '../lib/site';
 
 /*
   TODO(LEGAL): have counsel review before this page goes live.
 
-  Everything the site itself can verify is filled in below — the legal entity
-  and city come from the footer, and the marks named in section 05 are the two
-  actually used in this codebase (MesaOrigins and MesaOps). The source content
-  for this page said "MesaDesk", which appears nowhere in the site; confirm the
-  trademark list before publishing.
+  Every value is now filled in — nothing renders as a placeholder chip. The
+  entity, address, jurisdiction and grievance inbox were all supplied by the
+  business; they live in the constants below and nowhere else.
 
-  What remains is what only the business can confirm. Each one renders as a
-  marked chip via <Fill>, so an unanswered question is impossible to miss on
-  the page — they are all in this file, nowhere else.
+  Section 05 claims the MesaOrigins name only. The source content for this page
+  also claimed "MesaDesk", and an earlier draft added "MesaOps"; the business
+  confirmed neither is held, so neither is claimed here.
 */
 
 const ENTITY = 'MesaOrigins Private Limited';
 const DOMAIN = 'mesaorigins.com';
 /* TODO(LEGAL): bump whenever these terms change — section 10 promises it. */
 const UPDATED = '30 Aug 2026';
+/* The published grievance contact (section 12 and the closing card). Must stay a
+   real, monitored inbox — the IT Act rules require one. */
+const LEGAL_EMAIL = 'legal@mesaorigins.com';
 
 const SHORT_VERSION = [
   'Browse freely. The content here is for information — it isn’t a contract or a quote.',
@@ -36,7 +38,7 @@ const SECTIONS = [
         <p>
           This website is operated by <strong>{ENTITY}</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;),
           a company registered in India with its office at{' '}
-          <Fill>add registered address</Fill>, Chennai, Tamil Nadu.
+          {ADDRESS}.
         </p>
         <p>
           By browsing this site or sending us a message through it, you accept these terms. If you
@@ -116,10 +118,7 @@ const SECTIONS = [
       <>
         <p>
           The text, design, graphics, illustrations, code, and layout of this site, along with the{' '}
-          {/* TODO(NAMING): these are the two marks the codebase actually uses. Confirm
-              the full trademark list with counsel before publishing. */}
-          <strong>MesaOrigins</strong> and <strong>MesaOps</strong> names and marks, belong to us or
-          our licensors.
+          <strong>MesaOrigins</strong> name and marks, belong to us or our licensors.
         </p>
         <p>
           You may view the site and share links to it. You may not reproduce, modify, or
@@ -212,7 +211,7 @@ const SECTIONS = [
         <p>
           These terms are governed by the laws of <strong>India</strong>. Any dispute arising from
           this website is subject to the exclusive jurisdiction of the courts at{' '}
-          <Fill>Chennai, Tamil Nadu — confirm</Fill>.
+          <strong>Chennai, Tamil Nadu</strong>.
         </p>
         <p>If any part of these terms turns out to be unenforceable, the rest still stands.</p>
       </>
@@ -227,8 +226,9 @@ const SECTIONS = [
             grievance-officer requirements will need a named officer here. */}
         If you have a complaint about this website or its content &mdash; including anything you
         believe is unlawful or infringes your rights &mdash; write to{' '}
-        <strong><Fill>add legal inbox</Fill></strong>. We acknowledge and act on grievances within
-        the timelines applicable under Indian law, including the Information Technology Act, 2000
+        <strong><a href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</a></strong>. We acknowledge and
+        act on grievances within the timelines applicable under Indian law, including the
+        Information Technology Act, 2000
         and rules under it.
       </p>
     ),
@@ -277,8 +277,9 @@ export default function Terms() {
           <div className="legal-cta reveal">
             <h2>Questions about these terms?</h2>
             <p>
-              Write to us at <strong><Fill>add legal inbox</Fill></strong>, or use the contact page.
-              Plain questions get plain answers.
+              Write to us at{' '}
+              <strong><a href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</a></strong>, or use the
+              contact page. Plain questions get plain answers.
             </p>
             <a className="btn" href="#/contact">Contact us</a>
           </div>

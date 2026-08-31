@@ -1,5 +1,6 @@
 import React from 'react';
-import { Fill, BackLink, LegalSections } from '../components/legal';
+import { BackLink, LegalSections } from '../components/legal';
+import { ADDRESS } from '../lib/site';
 
 /*
   TODO(LEGAL): have counsel review before this page goes live.
@@ -11,15 +12,22 @@ import { Fill, BackLink, LegalSections } from '../components/legal';
   third-party hosts other than fonts.googleapis.com / fonts.gstatic.com).
   Re-check those three sections if analytics or a cookie banner is ever added.
 
-  What remains is what only the business can confirm. Each one renders as a
-  marked chip via <Fill>, so an unanswered question is impossible to miss on the
-  page — they are all in this file, nowhere else.
+  Every value is now filled in — nothing renders as a placeholder. The address,
+  retention period and grievance inbox were supplied by the business and live in
+  the constants below, nowhere else. Section 06 names Cloudflare (confirmed from
+  the domain's MX records) and Google, which hosts the mailbox Cloudflare
+  forwards to.
 */
 
 const ENTITY = 'MesaOrigins Private Limited';
 const DOMAIN = 'mesaorigins.com';
 /* TODO(LEGAL): bump whenever this policy changes — section 12 promises it. */
 const UPDATED = '30 Aug 2026';
+/* Section 07. Applies to enquiry data and to server logs. */
+const RETENTION = '6 months';
+/* The published grievance contact. Must stay a real, monitored inbox — the DPDP
+   Act requires one. */
+const PRIVACY_EMAIL = 'legal@mesaorigins.com';
 
 const SHORT_VERSION = [
   'We only collect what you give us — mostly through the contact form and email.',
@@ -58,8 +66,8 @@ const SECTIONS = [
         <p>
           This website is operated by <strong>{ENTITY}</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;),
           a company registered in India with its office at{' '}
-          <Fill>add registered address</Fill>, Chennai, Tamil Nadu. We build operational software
-          for manufacturers and other growing businesses.
+          {ADDRESS}. We build operational software for manufacturers and other growing
+          businesses.
         </p>
         <p>
           Under India&rsquo;s Digital Personal Data Protection Act, 2023 (the{' '}
@@ -169,8 +177,11 @@ const SECTIONS = [
             <strong>Hosting</strong> &mdash; Vercel Inc., which serves this website.
           </li>
           <li>
-            <strong>Email</strong> &mdash; <Fill>confirm email provider</Fill>, which handles our
-            business email.
+            {/* Cloudflare confirmed from the domain's MX records, which point at
+                route1/2/3.mx.cloudflare.net — an email-routing service, so the
+                mailbox it forwards to is a second processor and needs naming. */}
+            <strong>Email</strong> &mdash; Cloudflare, which routes mail sent to our domain, and
+            Google, which hosts the Gmail mailbox those messages are delivered to.
           </li>
           <li>
             <strong>Fonts</strong> &mdash; Google Fonts, which serves the typefaces this site uses.
@@ -191,10 +202,10 @@ const SECTIONS = [
     body: (
       <p>
         We keep contact-form submissions and related email threads for as long as the conversation
-        is live, and for up to <Fill>confirm retention period</Fill> after our last exchange &mdash;
-        in case you come back to us &mdash; after which we delete them. Server logs are kept for{' '}
-        <Fill>confirm log retention</Fill>. If you ask us to delete your information sooner, we
-        will (see your rights below).
+        is live, and for up to <strong>{RETENTION}</strong> after our last exchange &mdash; in case
+        you come back to us &mdash; after which we delete them. Server logs are kept for no longer
+        than <strong>{RETENTION}</strong>. If you ask us to delete your information sooner, we will
+        (see your rights below).
       </p>
     ),
   },
@@ -310,10 +321,9 @@ export default function Privacy() {
           <div className="legal-cta reveal">
             <h2>Questions about your data?</h2>
             <p>
-              {/* The DPDP Act requires a published grievance contact — this must be
-                  a real, monitored inbox before the page goes live. */}
-              Write to our grievance contact at <strong><Fill>add privacy inbox</Fill></strong>, or
-              use the contact page. We reply to every message.
+              Write to our grievance contact at{' '}
+              <strong><a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a></strong>, or use the
+              contact page. We reply to every message.
             </p>
             <a className="btn" href="#/contact">Contact us</a>
           </div>

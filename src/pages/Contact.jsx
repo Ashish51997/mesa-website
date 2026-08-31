@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ADDRESS_LINES } from '../lib/site';
 
 /* What the walkthrough actually is — icon rows in place of a paragraph. */
 const EXPECT = [
@@ -171,12 +172,19 @@ export default function Contact() {
                 </svg>
                 sales@mesaorigins.com
               </a>
-              <span className="b-chip">
+              <span className="b-chip is-address">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z" />
                   <circle cx="12" cy="10" r="2.6" />
                 </svg>
-                Chennai, Tamil Nadu — India
+                <span>
+                  {ADDRESS_LINES.map((line, i) => (
+                    <React.Fragment key={line}>
+                      {i > 0 && <br />}
+                      {line}
+                    </React.Fragment>
+                  ))}
+                </span>
               </span>
             </div>
           </div>

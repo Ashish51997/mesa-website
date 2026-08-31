@@ -4188,6 +4188,23 @@ body.no-scroll {
     }
 }
 
+/* The address runs to three lines, so it drops the pill radius and top-aligns
+   its pin instead of centring it against a tall block. */
+.b-chip.is-address {
+    /* .contact-direct is a wrapping flex row; without this the address is
+       squeezed in beside the phone and email chips and its lines re-wrap. */
+    flex: 1 1 100%;
+    align-items: flex-start;
+    border-radius: var(--radius);
+    padding: 12px 20px 12px 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.b-chip.is-address svg {
+    margin-top: 2px;
+}
+
 .b-chip.is-you {
     background: var(--accent);
     border-color: var(--accent);
@@ -6408,21 +6425,6 @@ body.no-scroll {
     font-weight: 600;
 }
 
-/* A value the business still has to supply — see the TODO block in Privacy.jsx.
-   Styled to read as unfinished so it can't quietly ship. */
-.legal-fill {
-    display: inline-block;
-    font-family: var(--font-head);
-    font-size: .85em;
-    font-weight: 600;
-    letter-spacing: .02em;
-    color: var(--accent);
-    background: var(--glow-soft);
-    border: 1px dashed var(--accent);
-    border-radius: 6px;
-    padding: 1px 8px;
-}
-
 .legal-section {
     padding: 0 0 var(--pad-mob);
 }
@@ -6508,15 +6510,18 @@ body.no-scroll {
     font-weight: 600;
 }
 
-/* Cross-links between the legal pages (Terms 06 -> Privacy). */
-.legal-block a:not(.btn) {
+/* Inline links in the legal pages — cross-links (Terms 06 -> Privacy) and the
+   grievance mailto in Terms 12 and its closing card. */
+.legal-block a:not(.btn),
+.legal-cta a:not(.btn) {
     color: var(--accent);
     font-weight: 600;
     text-decoration: none;
     border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
-.legal-block a:not(.btn):hover {
+.legal-block a:not(.btn):hover,
+.legal-cta a:not(.btn):hover {
     text-decoration: none;
     border-bottom-color: var(--accent);
 }
