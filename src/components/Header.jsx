@@ -57,8 +57,14 @@ export default function Header({ currentRoute, theme, toggleTheme }) {
           <div />
         )}
 
-        {/* Right: Theme action button */}
+        {/* Right: Login + theme */}
         <div className="header-actions" style={{ justifySelf: 'end', flexShrink: 0 }}>
+          <a
+            className="btn nav-cta"
+            href={import.meta.env.VITE_LOGIN_URL ?? '/login'}
+          >
+            Login
+          </a>
           <motion.button
             className="theme-btn"
             id="themeBtn"
