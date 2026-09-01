@@ -10,7 +10,7 @@ import { ADDRESS } from '../lib/site';
   the constants below, nowhere else.
 
   The rest was checked against the source rather than assumed. The entity comes
-  from the footer and the host from vercel.json; section 06 names Cloudflare
+  from the footer; section 06 names Cloudflare
   (confirmed from the domain's MX records) and Google, which hosts the mailbox
   Cloudflare forwards to. The "no cookies, no analytics, Google Fonts only"
   claims in sections 03, 05 and 06 hold because there is no localStorage, no
@@ -173,7 +173,7 @@ const SECTIONS = [
         </p>
         <ul className="legal-list">
           <li>
-            <strong>Hosting</strong> &mdash; Vercel Inc., which serves this website.
+            <strong>Hosting</strong> &mdash; Cloudflare, which serves this website.
           </li>
           <li>
             {/* Cloudflare confirmed from the domain's MX records, which point at
