@@ -1,0 +1,41 @@
+<!-- viewBox minX is negative on purpose: Figma padded the export canvas to the
+     right to hold the drop shadow (dx=12), which left the artwork sitting off
+     centre. Shifting the origin re-centres the ink so the file centres cleanly
+     as an <img>. Do not reset it to 0. -->
+<svg width="226" height="226" viewBox="-12 0 226 226" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_591_124)">
+<rect x="20" y="8" width="162" height="162" rx="12" fill="white"/>
+<g clip-path="url(#clip0_591_124)">
+<path d="M125.279 44.8183C132.805 48.7139 156.499 80.4372 156.499 80.4372H45C45 80.4372 68.6935 48.4357 76.2197 44.8183C83.7458 41.201 117.753 40.9227 125.279 44.8183Z" fill="url(#paint0_linear_591_124)"/>
+<path d="M156.499 80.4375V120.439C156.499 129.033 149.509 136 140.886 136C132.263 136 125.273 129.033 125.273 120.439V89.3276C125.273 89.3276 125.384 83.4934 124.715 82.66C123.6 81.2709 121.369 80.4375 121.369 80.4375H156.499Z" fill="url(#paint1_linear_591_124)"/>
+<path d="M45 80.4375L45 120.439C45 129.033 51.9903 136 60.6132 136C69.2362 136 76.2265 129.033 76.2265 120.439V89.3276C76.2265 89.3276 76.1151 83.4934 76.7841 82.66C77.8994 81.2709 80.1297 80.4375 80.1297 80.4375H45Z" fill="url(#paint2_linear_591_124)"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_591_124" x="0" y="0" width="226" height="226" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="12" dy="24"/>
+<feGaussianBlur stdDeviation="16"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_591_124"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_591_124" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_591_124" x1="156.499" y1="61.2186" x2="45" y2="61.2186" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1F74FF"/>
+<stop offset="1" stop-color="#0044FF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_591_124" x1="140.886" y1="136" x2="140.886" y2="80.4375" gradientUnits="userSpaceOnUse">
+<stop stop-color="#287CFF"/>
+<stop offset="1" stop-color="#0538BD"/>
+</linearGradient>
+<linearGradient id="paint2_linear_591_124" x1="60.6132" y1="136" x2="60.6132" y2="80.4375" gradientUnits="userSpaceOnUse">
+<stop stop-color="#287CFF"/>
+<stop offset="1" stop-color="#0538BD"/>
+</linearGradient>
+<clipPath id="clip0_591_124">
+<rect width="112" height="94" fill="white" transform="translate(45 42)"/>
+</clipPath>
+</defs>
+</svg>
