@@ -87,6 +87,15 @@ export default function Login() {
         return;
       }
 
+      /* A 200 alone is not proof of a sign-in. The SPA host rewrites unknown
+         paths to index.html, so if the auth endpoint is missing or misrouted
+         this returns 200 text/html — and treating that as success would wave
+         the user through without ever authenticating. Require JSON. */
+      if (!(res.headers.get('content-type') ?? '').includes('application/json')) {
+        setError(ERRORS.network);
+        return;
+      }
+
       // Success: token storage and post-login routing belong to the auth
       // service, not this screen.
       window.location.assign(import.meta.env.VITE_APP_URL ?? '/');
