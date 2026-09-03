@@ -2380,58 +2380,42 @@ address {
 }
 
 .preloader-loader-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    width: min(772px, 88vw);
     z-index: 100000;
 }
 
-/* Sits over the lockup baked into the loading plate; positioned from JS. */
-.preloader-plate-loader {
-    position: absolute;
-}
-
-/* The narrow-viewport lockup replaces the baked one — see the media query at
-   the bottom of the preloader block. */
-.preloader-mobile-loader {
-    display: none;
-    position: relative;
-    width: min(82vw, 340px);
-    gap: 6px;
-}
-
-.preloader-mobile-lockup {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-/* The artwork inside the stacked lockup is inset from the SVG box by its drop
-   shadow, so the bar is narrowed to match the wordmark rather than the box. */
-.preloader-mobile-loader .preloader-bar-container {
-    width: 85.4%;
-}
-
+/* White track, blue fill — the fill is inset by the track's own padding so the
+   blue keeps a white ring around it at both ends. */
 .preloader-bar-container {
     position: relative;
     width: 100%;
-    height: 14px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 255, 255, 0.9);
-    border-radius: 999px;
-    padding: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    height: 16px;
+    background: #FDF6F6;
+    border-radius: 30px;
+    padding: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
 }
 
 .preloader-bar-fill {
     height: 100%;
-    background: #6288FA;
-    border-radius: 999px;
+    min-width: 10px;
+    background: #3E7BFF;
+    border-radius: 30px;
     transition: width 0.08s linear;
 }
 
+/* Out of flow, so the readout hangs under the bar without shifting the frame
+   off centre — the design centres logo + bar on the viewport. */
 .preloader-loader-text {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
     font-family: 'Manrope', sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -2439,7 +2423,6 @@ address {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    margin-top: 4px;
 }
 
 .tubelight-nav-link {
@@ -3442,47 +3425,87 @@ body.no-scroll {
     height: 100vh !important;
 }
 
+/* Same plate as the sign-in screen, so the intro and the first screen a user
+   signs in on are one surface. The colour matches the plate's mid blue, so a
+   slow image never flashes white behind white type. */
 .preloader-overlay {
     position: fixed;
     inset: 0;
-    background: var(--bg);
     z-index: 99999;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* Wrapper frame: 64px between the logo block and the bar (298 + 64 + 16 =
+       the frame's 378px), easing down a little on small screens. */
+    gap: clamp(56px, 4.44vw, 64px);
+    padding: 32px 24px;
+    background-color: #0A4BE0;
+    background-image: url("./assets/login-bg.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
-.preloader-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* Stacked lockup — mark, name, tagline — laid out to the Figma frame: a 112px
+   mark, 24px above the 589px wordmark, 589x298 in total. Both SVGs carry the
+   drop shadow inside the canvas as padding, so every number below is expressed
+   against the wordmark canvas (624px, holding 589px of ink) and scaled from one
+   knob so the whole lockup shrinks as a unit. */
+.preloader-brand {
+    --lockup: min(624px, 88vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--lockup);
+    /* 24px between the mark and the text block. */
+    gap: calc(var(--lockup) * 0.038462);
+    min-width: 0;
 }
 
-/* The baked lockup spans the middle 53% of the plate, so how much of it
-   survives depends on the viewport's aspect ratio, not its width: cover crops
-   the plate horizontally once the viewport is taller than 1440x1024. Below
-   ~9:10 the lockup no longer fits, so show only the clean band to its left
-   (332px of the 1440px plate) and draw the lockup as vector on top. */
-@media (max-aspect-ratio: 9 / 10) {
-    .preloader-plate-loader {
-        display: none;
+/* <picture> is the flex child, not the <img> inside it — display:contents drops
+   the wrapper from layout so the img itself is the flex item. That also exposes
+   the <source>, which the reset gives display:block: left alone it counts as a
+   flex item of its own and buys an extra row gap, so hide it explicitly. */
+.preloader-brand picture {
+    display: contents;
+}
+
+.preloader-brand source {
+    display: none;
+}
+
+.preloader-brand-mark,
+.preloader-brand-wordmark {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* A 156px canvas draws a 112px mark — the export is 71.7% ink, 24.8% shadow
+   padding below. That padding is pulled back out so the gap under the mark
+   measures from the ink, not the canvas. */
+.preloader-brand-mark {
+    flex: none;
+    width: calc(var(--lockup) * 0.250401);
+    margin-bottom: calc(var(--lockup) * -0.062047);
+}
+
+.preloader-brand-wordmark {
+    width: var(--lockup);
+}
+
+/* The mobile exports are drawn at their own proportions — a 64px mark on a
+   128px canvas, 4px above a 342px wordmark on a 374px canvas. */
+@media (max-width: 767px) {
+    .preloader-brand {
+        --lockup: min(374px, 94vw);
+        gap: calc(var(--lockup) * 0.010695);
     }
 
-    .preloader-mobile-loader {
-        display: flex;
-    }
-
-    .preloader-image {
-        inset: auto;
-        top: 50%;
-        left: 0;
-        width: 433.7%;
-        max-width: none;
-        height: auto;
-        transform: translateY(-50%);
+    .preloader-brand-mark {
+        width: calc(var(--lockup) * 0.342246);
+        margin-bottom: calc(var(--lockup) * -0.149733);
     }
 }
 
@@ -3902,11 +3925,12 @@ body.no-scroll {
 }
 
 /* ---- Problem → system cards ---- */
+/* No margin-top: the heading's own margin-bottom sets the gap, so this section
+   spaces its grid exactly like every other section spaces its first block. */
 .build-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
-    margin-top: 44px;
 }
 
 .build-card {
@@ -3927,19 +3951,25 @@ body.no-scroll {
     }
 }
 
-/* The complaint, in the owner's words — recedes as the answer takes over. */
+/* Labels both halves of the card, so the quote and the answer read on a phone
+   without any hover. */
+.build-card-overline {
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+/* The complaint, in the owner's words — the pain is the loudest thing on the
+   card, so it is set at the same size as the answer's title, not below it. */
 .build-card-prob {
-    font-size: 14.5px;
+    font-size: 16.5px;
     line-height: 1.5;
     color: var(--ink-body);
     min-height: 44px;
-    transition: opacity .25s ease-out;
-}
-
-@media (hover: hover) {
-    .build-card:hover .build-card-prob {
-        opacity: .55;
-    }
 }
 
 /* Divider that resolves to accent on hover. */
@@ -4024,12 +4054,36 @@ body.no-scroll {
 }
 
 /* ---- Beyond manufacturing chips ---- */
+/* A plain list of industries — the chips are labels, not controls, so the only
+   focusable thing in the row is the CTA at the end of it. */
 .beyond-chips {
     display: flex;
     flex-wrap: wrap;
     /* Left-aligned like every other section; the reference centred this. */
     justify-content: flex-start;
     gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.beyond-chips .beyond-cta {
+    display: inline-flex;
+}
+
+/* Without an icon to sit against, the chip's asymmetric padding reads as a
+   text nudged left. */
+.beyond-chips .b-chip.is-plain {
+    padding-left: 22px;
+}
+
+/* On the narrowest screens the CTA is lost mid-row, so it takes a line of its
+   own under the chips. */
+@media (max-width: 479px) {
+    .beyond-chips .beyond-cta {
+        flex: 1 0 100%;
+        justify-content: center;
+    }
 }
 
 .b-chip {
@@ -4606,23 +4660,11 @@ body.no-scroll {
     box-shadow: 0 0 0 3px rgba(192, 57, 43, .14) !important;
 }
 
+/* The site's primary button (.btn), stretched to the width of the form — fill,
+   radius, type and hover all come from there, so this CTA now matches every
+   other one on the site. Only the full width and the arrow are local. */
 .contact-submit-btn {
     width: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 14.5px;
-    border-radius: 999px;
-    cursor: pointer;
-    padding: 15px 26px;
-    border: none;
-    font-family: var(--font-body);
-    color: #fff;
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    box-shadow: 0 10px 26px var(--glow-soft);
-    transition: transform .15s ease-out, box-shadow .15s ease-out;
 }
 
 .contact-submit-btn svg {
@@ -4637,11 +4679,6 @@ body.no-scroll {
 }
 
 @media (hover: hover) {
-    .contact-submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 32px var(--glow);
-    }
-
     .contact-submit-btn:hover svg {
         transform: translateX(3px);
     }
@@ -5684,11 +5721,11 @@ body.no-scroll {
     box-shadow: 0 22px 60px var(--glow-soft);
 }
 
+/* Sentence case, not tracked caps — buyers read this as a label either way and
+   the lower case is easier on the eye at 11px. */
 .ab3-origin-label {
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 18px;
 }
@@ -5724,13 +5761,17 @@ body.no-scroll {
     opacity: .4;
 }
 
-/* Staggered so the three beats arrive in order once the card scrolls in. */
+/* Staggered so the four beats arrive in order once the card scrolls in. */
 .ab3-o-step:nth-child(2) {
     transition-delay: .1s;
 }
 
 .ab3-o-step:nth-child(3) {
     transition-delay: .2s;
+}
+
+.ab3-o-step:nth-child(4) {
+    transition-delay: .3s;
 }
 
 /* Same icon tile as the problem-to-system cards, sized for this narrower card. */

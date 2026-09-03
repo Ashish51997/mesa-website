@@ -206,7 +206,7 @@ export default function Contact() {
                     value={formData.headache} onChange={handleChange} />
                 </div>
 
-                <button className="contact-submit-btn" id="formSubmit" type="submit">
+                <button className="btn contact-submit-btn" id="formSubmit" type="submit">
                   Book a walkthrough
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" />

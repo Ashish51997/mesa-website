@@ -1,71 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import loadingImage from '../assets/loading.png';
-import stackedLockup from '../assets/loading-lockup-stacked.svg';
+import logoMark from '../assets/login-logo-mark.svg';
+import logoMarkMobile from '../assets/login-logo-mark-mobile.svg';
+import wordmark from '../assets/login-wordmark.svg';
+import wordmarkMobile from '../assets/login-wordmark-mobile.svg';
 
-// The lockup is baked into loading.png (1440x1024). These are its bounds inside
-// the plate, as fractions of the rendered image — used to sit the progress bar
-// directly under it on wide viewports.
-const PLATE_ASPECT = 1440 / 1024;
-const LOCKUP_LEFT = 0.2326;
-const LOCKUP_WIDTH = 0.5347;
-const LOCKUP_BOTTOM = 0.601;
-
-// Hook to calculate the rendered dimensions of the background image (object-fit: cover)
-function useImageDimensions() {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0, left: 0, top: 0 });
-
-  useEffect(() => {
-    const calculate = () => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const viewportAspect = vw / vh;
-
-      let width, height, left, top;
-
-      if (viewportAspect > PLATE_ASPECT) {
-        // Viewport is wider than image aspect ratio: image fills width, height scales up
-        width = vw;
-        height = vw / PLATE_ASPECT;
-        left = 0;
-        top = (vh - height) / 2;
-      } else {
-        // Viewport is taller than image aspect ratio: image fills height, width scales up
-        height = vh;
-        width = vh * PLATE_ASPECT;
-        left = (vw - width) / 2;
-        top = 0;
-      }
-
-      setDimensions({ width, height, left, top });
-    };
-
-    calculate();
-    window.addEventListener('resize', calculate);
-    return () => window.removeEventListener('resize', calculate);
-  }, []);
-
-  return dimensions;
-}
+/* The intro reuses the sign-in screen's plate and vector lockup. The lockup was
+   previously baked into a 1440x1024 PNG, which went soft as soon as the plate
+   was scaled to cover the viewport — SVG stays sharp at every size and drops
+   the JS that had to measure the image to place the bar under it. */
 
 function ProgressBar({ progress }) {
   return (
-    <>
-      <div className="preloader-bar-container">
-        <div
-          className="preloader-bar-fill"
-          style={{ width: `${progress}%` }}
-        />
+    <div className="preloader-loader-container">
+      <div
+        className="preloader-bar-container"
+        role="progressbar"
+        aria-label="Loading"
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <div className="preloader-bar-fill" style={{ width: `${progress}%` }} />
       </div>
       <span className="preloader-loader-text">Loading {Math.round(progress)}%</span>
-    </>
+    </div>
   );
 }
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const imgDim = useImageDimensions();
 
   useEffect(() => {
     // Animate progress bar from 0 to 100. Driven by elapsed time rather than a
@@ -88,13 +53,6 @@ export default function Preloader({ onComplete }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Compute precise positions matching the logo and text baked into loading.png
-  const plateStyle = {
-    left: `${imgDim.left + imgDim.width * LOCKUP_LEFT}px`,
-    top: `${imgDim.top + imgDim.height * LOCKUP_BOTTOM}px`,
-    width: `${imgDim.width * LOCKUP_WIDTH}px`,
-  };
-
   return (
     <AnimatePresence onExitComplete={onComplete}>
       {isVisible && (
@@ -104,25 +62,24 @@ export default function Preloader({ onComplete }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
         >
-          <img
-            src={loadingImage}
-            alt="Loading"
-            className="preloader-image"
-          />
-
-          {/* Wide viewports: the lockup comes from the plate, so the bar only
-              has to line up underneath it. */}
-          <div className="preloader-loader-container preloader-plate-loader" style={plateStyle}>
-            <ProgressBar progress={progress} />
+          {/* Same lockup as the sign-in screen: each breakpoint loads the
+              artwork drawn at its own proportions, not a scaled copy. */}
+          <div className="preloader-brand">
+            <picture>
+              <source srcSet={logoMarkMobile} media="(max-width: 767px)" />
+              <img src={logoMark} alt="" className="preloader-brand-mark" />
+            </picture>
+            <picture>
+              <source srcSet={wordmarkMobile} media="(max-width: 767px)" />
+              <img
+                src={wordmark}
+                alt="MesaOrigins — One Platform. Every Operation."
+                className="preloader-brand-wordmark"
+              />
+            </picture>
           </div>
 
-          {/* Narrow viewports: the plate is cropped to the clean band left of
-              the baked lockup, and the lockup is drawn as vector instead — it
-              stays sharp and is laid out in flow so it can't run off-screen. */}
-          <div className="preloader-loader-container preloader-mobile-loader">
-            <img src={stackedLockup} alt="MesaOrigins" className="preloader-mobile-lockup" />
-            <ProgressBar progress={progress} />
-          </div>
+          <ProgressBar progress={progress} />
         </motion.div>
       )}
     </AnimatePresence>
