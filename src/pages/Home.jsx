@@ -96,7 +96,7 @@ const TICK = 'M5 12.5l4.5 4.5L19 7.5';
 const CONTRAST_CARDS = [
   {
     label: 'Choice 1',
-    title: 'Ready-made ERP',
+    title: 'Ready-made solution',
     tagline: 'You must change how your plant works to match the software.',
     points: [
       '6 months of setup — and your people must change how they work',

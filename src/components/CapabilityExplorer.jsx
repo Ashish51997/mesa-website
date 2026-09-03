@@ -5,9 +5,9 @@ import React, { useRef, useState } from 'react';
    .knock) rather than literal hex, so every drawing themes with the site. */
 const CAPABILITIES = [
   {
-    id: 'erp',
-    label: 'Custom ERP',
-    title: 'Custom ERP',
+    id: 'solution',
+    label: 'Custom Solution',
+    title: 'Custom Solution',
     desc: 'One platform for the whole operation — commercial to dispatch — shaped around how your plant already runs, with every role seeing only what it needs.',
     examples: ['Six-stage production flow', 'Role-based access', 'Lot traceability'],
     art: (

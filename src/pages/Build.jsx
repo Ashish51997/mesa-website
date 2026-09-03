@@ -49,7 +49,7 @@ const BUILD_CARDS = [
   },
   {
     problem: "Sales and plant don't talk.",
-    title: 'Inquiry-to-dispatch ERP',
+    title: 'Inquiry-to-dispatch solution',
     note: 'One flow from inquiry to dispatch — sales promises dates production can keep.',
     icon: (
       <>
