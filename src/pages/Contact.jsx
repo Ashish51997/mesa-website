@@ -34,6 +34,18 @@ const EXPECT = [
       </>
     ),
   },
+  {
+    lead: 'Sign when ready',
+    rest: ' — when both sides are clear on the plan, we make the contract and start.',
+    /* A page being signed. */
+    icon: (
+      <>
+        <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3" />
+        <path d="M8 8h4M8 12h3" />
+        <path d="M20.3 7.7a1.7 1.7 0 0 0-2.4-2.4l-5.3 5.3-.6 3 3-.6z" />
+      </>
+    ),
+  },
 ];
 
 /* Icons sit inside the inputs, so they live next to the field definitions. */

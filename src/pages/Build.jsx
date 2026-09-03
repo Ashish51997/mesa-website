@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlaskConical, Package, Store, Wheat } from 'lucide-react';
+import { Factory, FlaskConical, Package, Wheat } from 'lucide-react';
 import FinalCta from '../components/FinalCta';
 import BuildFlowCard from '../components/BuildFlowCard';
 import useAnimationReady from '../lib/useAnimationReady';
@@ -82,6 +82,7 @@ const BUILD_CARDS = [
    - Reorder the chips by which industries actually convert from demo calls,
      once there is enough data to tell. */
 const BEYOND_CHIPS = [
+  { label: 'Factories', Icon: Factory },
   {
     label: 'Logistics',
     icon: (
@@ -109,7 +110,6 @@ const BEYOND_CHIPS = [
     label: 'Cold storage',
     icon: <path d="M12 2v20M4 6l16 12M20 6L4 18M12 5l-2-2M12 5l2-2M12 19l-2 2M12 19l2 2" />,
   },
-  { label: 'Trading', Icon: Store },
   { label: 'Packaging', Icon: Package },
   { label: 'Food processing', Icon: Wheat },
   { label: 'Chemicals & pharma', Icon: FlaskConical },
@@ -197,8 +197,7 @@ export default function Build() {
               scale matches instead of falling back to the base h2. */}
           <div className="section-head reveal">
             <h2>
-              Not only for factories &mdash;{' '}
-              <em className="grad">for any business that runs on operations.</em>
+              For any business that runs on <em className="grad">operations.</em>
             </h2>
             <p className="lede">
               If your business receives, stores, moves and dispatches goods, MesaOrigins
