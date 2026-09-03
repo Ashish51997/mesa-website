@@ -1,43 +1,42 @@
 import React from 'react';
+import { Factory, Footprints, Phone, SlidersHorizontal } from 'lucide-react';
 import TeamSelector from '../components/TeamSelector';
 import FinalCta from '../components/FinalCta';
 
-/* The three beats that got us here — each one an icon, not a bullet. */
+/* The four steps of working with us, written to the buyer — each one an icon,
+   not a bullet.
+   Experimental — not implemented, parked for later:
+   - Retitle the card "How we work with you", which matches this second-person
+     copy better than "Where this started"; test at the next usability round.
+   - Make step 1 a link to the contact / demo CTA once the About page has one. */
 const ORIGIN_STEPS = [
   {
-    title: 'A factory floor mapping project',
-    year: '2024',
-    note: 'Our founders meet — on the floor, not in a pitch meeting.',
-    /* Footprints: walking the floor. */
-    icon: (
-      <>
-        <circle cx="6" cy="19" r="2.5" />
-        <circle cx="18" cy="5" r="2.5" />
-        <path d="M8.5 19h6a4 4 0 0 0 0-8h-5a4 4 0 0 1 0-8h6" />
-      </>
-    ),
+    title: 'Tell us your problem',
+    note:
+      'Start with a call. Tell us what is not working in your plant — the registers, the ' +
+      'Excel sheets, the WhatsApp groups.',
+    Icon: Phone,
   },
   {
-    title: 'Plants vs generic tools',
-    note: 'Good plants, forced into software that didn’t fit.',
-    /* A puzzle piece that doesn't fit. */
-    icon: (
-      <>
-        <path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 0 0 4v4h-4a2 2 0 1 1-4 0H4v-4" />
-        <path d="M2 13l4 4M6 13l-4 4" />
-      </>
-    ),
+    title: 'We understand the problem',
+    note:
+      'We walk your plant floor and follow the work from register to register, shift to ' +
+      'shift, and write down how your plant really runs.',
+    Icon: Footprints,
+  },
+  {
+    title: 'We build the software around the plant',
+    note:
+      'The software fits the way your plant works. Your plant does not have to change for ' +
+      'the software.',
+    Icon: Factory,
   },
   {
     title: 'MesaOrigins',
-    note: 'Built to do this work the way it should be done.',
-    /* A flag planted. */
-    icon: (
-      <>
-        <path d="M5 21V4" />
-        <path d="M5 4h12l-2.5 4L17 12H5" />
-      </>
-    ),
+    note:
+      'We build the solution that suits you and your plant, and change it as your plant ' +
+      'changes.',
+    Icon: SlidersHorizontal,
   },
 ];
 
@@ -126,7 +125,7 @@ export default function About() {
             </h1>
             <p className="ab3-lede">
               MesaOrigins didn&rsquo;t start with a pitch deck. It started on the floor of an
-              extrusion plant, tracing how work actually moved &mdash; register to register, shift to
+              extrusion plant, following how work actually moved &mdash; register to register, shift to
               shift. Everywhere we looked, the story was the same:{' '}
               <em>good plants running on paper and WhatsApp</em>, because their software was built
               for someone else&rsquo;s factory.
@@ -141,7 +140,7 @@ export default function About() {
               {ORIGIN_STEPS.map((step) => (
                 <li className="ab3-o-step reveal" key={step.title}>
                   <div className="ab3-o-ic" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">{step.icon}</svg>
+                    <step.Icon aria-hidden="true" />
                   </div>
                   <div>
                     <b>

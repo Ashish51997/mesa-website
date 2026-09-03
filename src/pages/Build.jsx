@@ -1,9 +1,17 @@
 import React from 'react';
+import { FlaskConical, Package, Store, Wheat } from 'lucide-react';
 import FinalCta from '../components/FinalCta';
 import BuildFlowCard from '../components/BuildFlowCard';
 import useAnimationReady from '../lib/useAnimationReady';
 
 /* Each card pairs the complaint we heard with the system that answers it. */
+/* Experimental — not implemented, parked for after the next usability round:
+   - Reorder the six cards by where the plant head feels pain first (production,
+     stores, QC) instead of the current order, and A/B the two orders.
+   - Swap the quote text for buyers' own words from the usability sessions once
+     consent to quote them is confirmed.
+   - Add a seventh "…and more" card, or a "See everything MesaOrigins covers" link
+     under the grid — the heading now implies there are more fixes than six. */
 const BUILD_CARDS = [
   {
     problem: "We can't see production in real time.",
@@ -60,12 +68,19 @@ const BUILD_CARDS = [
   },
   {
     problem: 'People re-type data between systems.',
-    title: 'Integration & workflow automation',
+    title: 'Connects Tally, machines and Excel',
     note: 'Entered once, flows everywhere — Tally, weighbridges, machines, Excel.',
     icon: <path d="M9 17H7a5 5 0 0 1 0-10h2M15 7h2a5 5 0 0 1 0 10h-2M8 12h8" />,
   },
 ];
 
+/* The first four chips are hand-drawn paths, drawn inside a shared <svg>; the
+   ones added later come straight from lucide-react as `Icon`. Both render at the
+   same size — .b-chip svg sizes and strokes whatever it is given.
+   Experimental — not implemented, parked for later:
+   - Make each chip a link to an industry page or anchor once those exist.
+   - Reorder the chips by which industries actually convert from demo calls,
+     once there is enough data to tell. */
 const BEYOND_CHIPS = [
   {
     label: 'Logistics',
@@ -94,6 +109,12 @@ const BEYOND_CHIPS = [
     label: 'Cold storage',
     icon: <path d="M12 2v20M4 6l16 12M20 6L4 18M12 5l-2-2M12 5l2-2M12 19l-2 2M12 19l2 2" />,
   },
+  { label: 'Trading', Icon: Store },
+  { label: 'Packaging', Icon: Package },
+  { label: 'Food processing', Icon: Wheat },
+  { label: 'Chemicals & pharma', Icon: FlaskConical },
+  // The list is open-ended, so it ends by saying so rather than stopping dead.
+  { label: '\u2026and more' },
 ];
 
 export default function Build() {
@@ -145,18 +166,16 @@ export default function Build() {
       <section className="build-systems">
         <div className="wrap">
           <div className="section-head reveal">
-            <h2>Six complaints. <em className="grad">Six systems.</em></h2>
-            <p className="lede">
-              Every system below started as a sentence we heard on a factory floor. Hover any card
-              to see what answers it.
-            </p>
+            <h2>Problems every plant knows. <em className="grad">Here are some of the fixes.</em></h2>
           </div>
 
           <div className="build-grid">
             {BUILD_CARDS.map((card) => (
               <article className="build-card reveal" key={card.title}>
+                <p className="build-card-overline">What we heard</p>
                 <p className="build-card-prob">&ldquo;{card.problem}&rdquo;</p>
                 <div className="flip-line" aria-hidden="true"></div>
+                <p className="build-card-overline">What MesaOrigins does</p>
                 <div className="build-card-sol">
                   <div className="sol-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24">{card.icon}</svg>
@@ -177,24 +196,31 @@ export default function Build() {
           {/* Same .section-head/.lede pair as every other section, so the type
               scale matches instead of falling back to the base h2. */}
           <div className="section-head reveal">
-            <h2>Beyond manufacturing &mdash; <em className="grad">the same operational DNA.</em></h2>
+            <h2>
+              Not only for factories &mdash;{' '}
+              <em className="grad">for any business that runs on operations.</em>
+            </h2>
             <p className="lede">
-              Inventory, dispatch, traceability, workflow &mdash; if your business runs on
-              operations, the same systems apply.
+              If your business receives, stores, moves and dispatches goods, MesaOrigins
+              fits. Factories, logistics, warehousing, distribution, cold storage, trading,
+              packaging, food processing and many more.
             </p>
           </div>
-          <div className="beyond-chips reveal">
-            {BEYOND_CHIPS.map((chip) => (
-              <span className="b-chip" key={chip.label}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">{chip.icon}</svg>
-                {chip.label}
-              </span>
+          <ul className="beyond-chips reveal">
+            {BEYOND_CHIPS.map(({ label, icon, Icon }) => (
+              <li className={`b-chip${icon || Icon ? '' : ' is-plain'}`} key={label}>
+                {Icon && <Icon aria-hidden="true" />}
+                {icon && <svg viewBox="0 0 24 24" aria-hidden="true">{icon}</svg>}
+                {label}
+              </li>
             ))}
-            <a className="b-chip is-you" href="#/contact">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-              That&rsquo;s you? Talk to us
-            </a>
-          </div>
+            <li className="beyond-cta">
+              <a className="b-chip is-you" href="#/contact">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                That&rsquo;s you? Talk to us
+              </a>
+            </li>
+          </ul>
         </div>
       </section>
 

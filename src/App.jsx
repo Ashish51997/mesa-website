@@ -2,26 +2,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Work from './pages/Work';
 import How from './pages/How';
 import Build from './pages/Build';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import Login from './pages/Login';
 import Preloader from './components/Preloader';
 
 
 const routes = {
   '': 'home',
   '/': 'home',
-  '/work': 'work',
   '/how-we-work': 'how',
   '/what-we-build': 'build',
   '/about': 'about',
   '/contact': 'contact',
   '/privacy': 'privacy',
   '/terms': 'terms',
+  '/login': 'login',
 };
 
 function getRouteFromHash() {
@@ -31,7 +31,6 @@ function getRouteFromHash() {
 
 function App() {
   const [route, setRoute] = useState(getRouteFromHash());
-  const [theme, setTheme] = useState('light');
   const [isPreloading, setIsPreloading] = useState(true);
 
   // Prevent scroll during preload
@@ -68,15 +67,6 @@ function App() {
     };
   }, []);
 
-  // Handle Theme Side Effect
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
   // IntersectionObserver Reveal Animation
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -112,8 +102,6 @@ function App() {
     switch (route) {
       case 'home':
         return <Home />;
-      case 'work':
-        return <Work />;
       case 'how':
         return <How />;
       case 'build':
@@ -160,11 +148,21 @@ function App() {
           Skip to content
         </a>
 
-        <Header currentRoute={route} theme={theme} toggleTheme={toggleTheme} />
-        <main id="main">
-          {renderPage()}
-        </main>
-        <Footer />
+        {/* Login is a standalone full-bleed screen: it carries its own brand
+            panel, so the site header and footer would only get in its way. */}
+        {route === 'login' ? (
+          <main id="main" style={{ flex: 1, display: 'flex' }}>
+            <Login />
+          </main>
+        ) : (
+          <>
+            <Header currentRoute={route} />
+            <main id="main">
+              {renderPage()}
+            </main>
+            <Footer />
+          </>
+        )}
       </div>
     </>
   );

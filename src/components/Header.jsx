@@ -1,10 +1,9 @@
 import React from 'react';
-import { Home, Users, Mail, BriefcaseBusiness, Hammer, Sun, Moon } from 'lucide-react';
+import { Home, Users, Mail, BriefcaseBusiness, Hammer } from 'lucide-react';
 import { NavBar } from './ui/tubelight-navbar';
-import { motion } from 'framer-motion';
 import LogoSvg from '../assets/logo.tsx';
 
-export default function Header({ currentRoute, theme, toggleTheme }) {
+export default function Header({ currentRoute }) {
   const navItems = [
     { name: 'Home', url: '#/', icon: Home },
     { name: 'How We Work', url: '#/how-we-work', icon: BriefcaseBusiness },
@@ -57,36 +56,15 @@ export default function Header({ currentRoute, theme, toggleTheme }) {
           <div />
         )}
 
-        {/* Right: Login + theme */}
-        <div className="header-actions" style={{ justifySelf: 'end', flexShrink: 0 }}>
+        {/* Right: Login. Sits in its own flex row so the button keeps its own
+            height and stays centred on the same axis as the logo and nav. */}
+        <div className="header-actions">
           <a
             className="btn nav-cta"
-            href={import.meta.env.VITE_LOGIN_URL ?? '/login'}
+            href={import.meta.env.VITE_LOGIN_URL ?? '#/login'}
           >
             Login
           </a>
-          <motion.button
-            className="theme-btn"
-            id="themeBtn"
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div
-              key={theme}
-              initial={{ rotate: -180, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              {theme === 'dark' ? (
-                <Sun size={20} />
-              ) : (
-                <Moon size={20} />
-              )}
-            </motion.div>
-          </motion.button>
         </div>
       </div>
       {/* Left: Brand Logo */}
